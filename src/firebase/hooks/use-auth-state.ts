@@ -1,26 +1,10 @@
-import { onAuthStateChanged, User } from "firebase/auth";
-import { useContext, useEffect, useState } from "react";
-import { useLoadingValue } from "hooks/use-loading-value";
+import { useContext } from "react";
+import { useAuthState as useAuthStateHook } from "react-firebase-hooks/auth";
 
 import { FirebaseContext } from "../context";
 
-type UseAuthState = [boolean, User | null | undefined];
-
-export const useAuthState = (): UseAuthState => {
+export const useAuthState = () => {
   const { auth } = useContext(FirebaseContext);
-  const { value, setValue } = useLoadingValue<User | null | undefined>();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setValue(user);
-      setIsLoggedIn(!!user);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [auth, setValue]);
-
-  return [isLoggedIn, value];
+  return useAuthStateHook(auth);
 };

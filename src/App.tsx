@@ -1,16 +1,8 @@
 import { FC } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { useAuthState, useDocument } from "./firebase";
-import { useMemo } from "react";
 
 export const App: FC = () => {
-  const pathSegments = useMemo(() => ["S7fdT07MVkyBKOO2JvY2"], []);
-  const { value, isLoading, error } = useDocument("test-collection", [
-    "S7fdT07MVkyBKOO2JvY2",
-  ]);
-  // const test = useAuthState();
-  // console.log(value?.data());
   return (
     <div className="App">
       <header className="App-header">
