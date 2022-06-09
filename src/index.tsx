@@ -4,12 +4,16 @@ import reportWebVitals from "./reportWebVitals";
 import { App } from "./App";
 import "./index.css";
 
+import { FirebaseProvider, firebaseInstances } from "./firebase";
+
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement!);
 
 root.render(
   <StrictMode>
-    <App />
+    <FirebaseProvider firebaseInstances={firebaseInstances}>
+      <App />
+    </FirebaseProvider>
   </StrictMode>
 );
 
