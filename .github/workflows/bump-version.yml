@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.GH_SECRET_TOKEN }}
-        run: |
+      - run: |
           git config --global user.name 'Pavel Sokolov'
           git config --global user.email 'pavlik.sokolov.2000@gmail.com'
           npm version patch -m "[RELEASE] %s"
