@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Header as AntHeader } from "antd/lib/layout/layout";
 import { Container } from "components/container";
 import { Navbar } from "./navbar";
+import { StyledAntHeader } from "./header-style";
 
 export const Header: FC = () => (
-  <AntHeader>
+  <StyledAntHeader>
     <Container>
       <Navbar />
     </Container>
-  </AntHeader>
+  </StyledAntHeader>
 );

@@ -4,7 +4,7 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 export const createMainTheme = (): DefaultTheme => ({
   colors: {
     black: "#000",
-    red: "#ff0000",
+    orange: "#feaa58",
   },
 });
 
