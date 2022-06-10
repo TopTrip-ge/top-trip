@@ -5,15 +5,10 @@ on: [pull_request, push]
 jobs:
   bump:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Print branch name
-        if: github.event_name == 'push'
-        shell: bash
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
-      - name: Get branch name
-        shell: bash
-        run: echo 'The branch name is' $BRANCH_NAME
+      steps:
+        - name: Git checkout
+          uses: actions/checkout@v1
+        - name: Branch name
+          run: echo running on branch ${GITHUB_REF##*/}
+        - name: Build
+          run: docker build -t tedmiston/tag-example:${GITHUB_REF##*/}
