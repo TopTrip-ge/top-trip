@@ -6,6 +6,7 @@ export const StyledMenu = styled(Menu)`
   display: flex;
   list-style-type: none;
   grid-gap: 32px;
+  padding: 20px 0;
 `;
 
 export const StyledNavLink = styled(NavLink)`
@@ -16,10 +17,10 @@ export const StyledNavLink = styled(NavLink)`
   transition: all 0.2s;
 
   &:hover {
-    color: ${({ theme: { colors } }) => colors.red};
+    color: #feaa58;
   }
 
   &.active {
-    color: ${({ theme: { colors } }) => colors.red};
+    color: #feaa58;
   }
 `;

@@ -7,11 +7,7 @@ const MENU_ITEMS = [
     key: "tour_selection",
   },
   {
-    label: (
-      <StyledNavLink to={PATHS.POPULAR_DESTINATIONS}>
-        Популярные направления
-      </StyledNavLink>
-    ),
+    label: <StyledNavLink to={PATHS.POPULAR_DESTINATIONS}>Популярные направления</StyledNavLink>,
     key: "popular_destinations",
   },
 ];
