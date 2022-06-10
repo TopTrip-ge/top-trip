@@ -52,10 +52,11 @@ jobs:
           startsWith(steps.branch-name.outputs.current_branch, 'refactor')
         run: |
           npm version patch -m "[RELEASE] Bump patch version %s"
+          echo ${{ steps.tag.outputs.result }}
 
-      - name: Push release
-        run: |
-          git push
+      # - name: Push release
+      #   run: |
+      #     git push
 
       # - name:
       # if: "startsWith(steps.branch-name.outputs.current_branch, 'feature')"
