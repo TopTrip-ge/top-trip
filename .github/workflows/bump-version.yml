@@ -39,19 +39,19 @@ jobs:
       - name: Major changes
         if: startsWith(steps.branch-name.outputs.current_branch, 'release')
         run: |
-          npm version major -m "[RELEASE] %s"
+          npm version major -m "[RELEASE] %s" --tag-version-prefix="release-"
 
       - name: Minor changes
         if: startsWith(steps.branch-name.outputs.current_branch, 'featureeeee')
         run: |
-          npm version minor -m "[RELEASE] Bump minor version %s"
+          npm version minor -m "[RELEASE] Bump minor version %s" --tag-version-prefix="dev-"
 
       - name: Patch changes
         if: startsWith(steps.branch-name.outputs.current_branch, 'chore') ||
           startsWith(steps.branch-name.outputs.current_branch, 'feature') ||
           startsWith(steps.branch-name.outputs.current_branch, 'refactor')
         run: |
-          npm version patch -m "[RELEASE] Bump patch version %s"
+          npm version patch -m "[RELEASE] Bump patch version %s" --tag-version-prefix="dev-"
 
       - name: Push release
         run: |
