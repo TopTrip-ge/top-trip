@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - feature/ci-cd
-  pull_request:
-    branches:
-      - develop
-    types:
-      - closed
+  # pull_request:
+  #   branches:
+  #     - develop
+  #   types:
+  #     - closed
 
 jobs:
   bump:
