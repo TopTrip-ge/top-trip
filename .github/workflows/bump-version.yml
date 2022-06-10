@@ -1,0 +1,74 @@
+name: Bump version
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+      - test-bump
+    types:
+      - closed
+
+jobs:
+  bump:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get branch names
+        id: branch-name
+        uses: tj-actions/branch-names@v5.2
+
+      - name: Set GitHub credentials
+        run: |
+          git config --global user.name 'GitHub Actions Release'
+          git config --global user.email 'action@github.com'
+
+      - name: Release major changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'release-major')
+        uses: phish108/autotag-action@1.1.37
+        with:
+          github-token: ${{ secrets.GH_SECRET_TOKEN }}
+          bump: major
+          branch: main
+
+      - name: Release minor changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'release-minor')
+        uses: phish108/autotag-action@1.1.37
+        with:
+          github-token: ${{ secrets.GH_SECRET_TOKEN }}
+          bump: minor
+          branch: main
+
+      - name: Release hotfix changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'hotfix')
+        uses: phish108/autotag-action@1.1.37
+        with:
+          github-token: ${{ secrets.GH_SECRET_TOKEN }}
+          bump: patch
+          branch: main
+
+      - name: Major dev changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'feature-major')
+        uses: phish108/autotag-action@1.1.37
+        with:
+          github-token: ${{ secrets.GH_SECRET_TOKEN }}
+          bump: major
+          branch: develop
+
+      - name: Minor dev changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'feature')
+        uses: phish108/autotag-action@1.1.37
+        with:
+          github-token: ${{ secrets.GH_SECRET_TOKEN }}
+          bump: minor
+          branch: test-bump
+
+      - name: Patch dev changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'chore') ||
+          startsWith(steps.branch-name.outputs.current_branch, 'fix') ||
+          startsWith(steps.branch-name.outputs.current_branch, 'refactor')
+        uses: phish108/autotag-action@1.1.37
+        with:
+          github-token: ${{ secrets.GH_SECRET_TOKEN }}
+          bump: patch
+          branch: develop
