@@ -24,7 +24,7 @@ jobs:
           echo "${{ steps.branch-name.outputs.current_branch }}"
 
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
         run: |
           git config --global user.name 'Pavel Sokolov'
           git config --global user.email 'pavlik.sokolov.2000@gmail.com'
