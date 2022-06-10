@@ -5,8 +5,8 @@ on: [pull_request, push]
 jobs:
   bump:
     runs-on: ubuntu-latest
-    - uses: actions/checkout@v2
-    - uses: nelonoel/branch-name@v1
-    # Use branch name for whatever purpose
-    - run: echo ${BRANCH_NAME}
-    
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nelonoel/branch-name@v1
+      # Use branch name for whatever purpose
+      - run: echo ${BRANCH_NAME}
