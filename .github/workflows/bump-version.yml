@@ -12,7 +12,8 @@ on:
 
 jobs:
   bump:
-    # if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged
+    if: startsWith(github.event.head_commit.message, '[RELEASE]')
     runs-on: ubuntu-latest
     steps:
       - name: Get branch names
@@ -30,15 +31,29 @@ jobs:
           fetch-depth: 0
           ref: develop
 
-      - name: Bump version
-        if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+      - name: Set GitHub credentials
         run: |
-          git config --global user.name 'Pavel Sokolov'
+          git config --global user.name 'GitHub Actions Release'
           git config --global user.email 'pavlik.sokolov.2000@gmail.com'
-          echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
-          echo "commit message ${{ github.event.head_commit.message }}"
-          npm version minor
-          git push
+
+      - name: Major changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'release')
+        run: |
+          npm version major -m "[RELEASE] %s"
+
+      - name: Minor changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'featureeeee')
+        run: |
+          npm version minor -m "[RELEASE] Bump minor version %s"
+
+      - name: Patch changes
+        if: startsWith(steps.branch-name.outputs.current_branch, 'chore') || \
+          startsWith(steps.branch-name.outputs.current_branch, 'feature') || \
+          startsWith(steps.branch-name.outputs.current_branch, 'refactor')
+        run: |
+          npm version patch -m "[RELEASE] Bump patch version %s"
+
+      - name:
         # if: "startsWith(steps.branch-name.outputs.current_branch, 'feature')"
         # run: |
         #   npm version minor
