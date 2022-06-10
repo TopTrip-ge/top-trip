@@ -31,11 +31,14 @@ jobs:
           ref: develop
 
       - name: Bump version
+        if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
         run: |
           git config --global user.name 'Pavel Sokolov'
           git config --global user.email 'pavlik.sokolov.2000@gmail.com'
           echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
           echo "commit message ${{ github.event.head_commit.message }}"
+          npm version minor
+          git push
         # if: "startsWith(steps.branch-name.outputs.current_branch, 'feature')"
         # run: |
         #   npm version minor
