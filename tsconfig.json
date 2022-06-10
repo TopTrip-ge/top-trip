@@ -20,7 +20,8 @@
       "hooks/*": ["hooks/*"],
       "components/*": ["components/*"],
       "pages/*": ["pages/*"],
-      "enums/*": ["enums/*"]
+      "enums/*": ["enums/*"],
+      "theme/*": ["theme/*"]
     }
   },
   "include": ["src"]

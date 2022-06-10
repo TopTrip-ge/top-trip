@@ -12,14 +12,14 @@ export const StyledNavLink = styled(NavLink)`
   font-size: 24px;
   text-transform: uppercase;
   text-decoration: none;
-  color: #000000;
+  color: ${({ theme: { colors } }) => colors.black};
   transition: all 0.2s;
 
   &:hover {
-    color: #ff0000;
+    color: ${({ theme: { colors } }) => colors.red};
   }
 
   &.active {
-    color: #ff0000;
+    color: ${({ theme: { colors } }) => colors.red};
   }
 `;
