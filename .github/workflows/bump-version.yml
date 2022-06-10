@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - main
+      - test-bump
     types:
       - closed
 
@@ -60,7 +61,7 @@ jobs:
         with:
           github-token: ${{ secrets.GH_SECRET_TOKEN }}
           bump: minor
-          branch: develop
+          branch: test-bump
 
       - name: Patch dev changes
         if: startsWith(steps.branch-name.outputs.current_branch, 'chore') ||
