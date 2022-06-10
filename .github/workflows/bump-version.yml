@@ -34,11 +34,13 @@ jobs:
         run: |
           git config --global user.name 'Pavel Sokolov'
           git config --global user.email 'pavlik.sokolov.2000@gmail.com'
-        if: "startsWith(steps.branch-name.outputs.current_branch, 'feature')"
-        run: |
-          npm version minor
-          git push
-        if: "!startsWith(steps.branch-name.outputs.current_branch, 'feature')"
-        run: |
           echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
           echo "commit message ${{ github.event.head_commit.message }}"
+        # if: "startsWith(steps.branch-name.outputs.current_branch, 'feature')"
+        # run: |
+        #   npm version minor
+        #   git push
+        # if: "!startsWith(steps.branch-name.outputs.current_branch, 'feature')"
+        # run: |
+        #   echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
+        #   echo "commit message ${{ github.event.head_commit.message }}"
