@@ -53,6 +53,10 @@ jobs:
         run: |
           npm version patch -m "[RELEASE] Bump patch version %s"
 
+      - name: Push release
+        run: |
+          git push
+
       # - name:
       # if: "startsWith(steps.branch-name.outputs.current_branch, 'feature')"
       # run: |
