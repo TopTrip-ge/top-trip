@@ -47,8 +47,8 @@ jobs:
           npm version minor -m "[RELEASE] Bump minor version %s"
 
       - name: Patch changes
-        if: startsWith(steps.branch-name.outputs.current_branch, 'chore') || \
-          startsWith(steps.branch-name.outputs.current_branch, 'feature') || \
+        if: startsWith(steps.branch-name.outputs.current_branch, 'chore') ||
+          startsWith(steps.branch-name.outputs.current_branch, 'feature') ||
           startsWith(steps.branch-name.outputs.current_branch, 'refactor')
         run: |
           npm version patch -m "[RELEASE] Bump patch version %s"
