@@ -1,19 +1,19 @@
 name: Bump version
 
 on:
-  push:
-    branches:
-      - feature/ci-cd
-  # pull_request:
+  # push:
   #   branches:
-  #     - develop
-  #   types:
-  #     - closed
+  #     - feature/ci-cd
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
 
 jobs:
   bump:
-    # if: github.event.pull_request.merged
-    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+    if: github.event.pull_request.merged
+    # if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
     runs-on: ubuntu-latest
     steps:
       - name: Get branch names
