@@ -1,13 +1,16 @@
+import { PATHS } from "enums/paths";
 import { StyledMenu, StyledNavLink } from "./navbar-style";
 
 const MENU_ITEMS = [
   {
-    label: <StyledNavLink to="/">Подбор тура</StyledNavLink>,
+    label: <StyledNavLink to={PATHS.HOME}>Подбор тура</StyledNavLink>,
     key: "tour_selection",
   },
   {
     label: (
-      <StyledNavLink to="/ready-trips">Популярные направления</StyledNavLink>
+      <StyledNavLink to={PATHS.POPULAR_DESTINATIONS}>
+        Популярные направления
+      </StyledNavLink>
     ),
     key: "popular_destinations",
   },
@@ -15,6 +18,6 @@ const MENU_ITEMS = [
 
 export const Navbar = () => (
   <nav>
-    <StyledMenu className="ant-menu-horizontal" items={MENU_ITEMS} />
+    <StyledMenu items={MENU_ITEMS} />
   </nav>
 );
