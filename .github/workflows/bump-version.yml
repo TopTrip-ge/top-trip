@@ -28,7 +28,7 @@ jobs:
         with:
           token: ${{ secrets.GH_SECRET_TOKEN }}
           fetch-depth: 0
-          ref: origin/develop
+          ref: develop
 
       - name: Bump version
         run: |
