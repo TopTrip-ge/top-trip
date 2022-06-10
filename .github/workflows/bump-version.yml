@@ -39,5 +39,4 @@ jobs:
           git push
         if: "!startsWith(steps.branch-name.outputs.current_branch, 'feature')"
         run: |
-          npm version patch
-          git push
+          echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
