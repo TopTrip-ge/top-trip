@@ -1,0 +1,46 @@
+# TODO(Pavel Sokolov): Create a separate package to bump
+name: Bump version
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  bump:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_SECRET_TOKEN }}
+          fetch-depth: 10
+          ref: develop
+
+      - name: Set GitHub credentials
+        run: |
+          git config --global user.name 'GitHub Actions Release'
+          git config --global user.email 'action@github.com'
+
+      - name: Major changes
+        if: contains(github.event.head_commit.message, 'major')
+        run: |
+          npm version major -m "[RELEASE] Bump major version %s" --tag-version-prefix="v"
+
+      - name: Minor changes
+        if: contains(github.event.head_commit.message, 'minor')
+        run: |
+          npm version minor -m "[RELEASE] Bump minor version %s" --tag-version-prefix="v"
+
+      - name: Patch changes
+        if: "!contains(github.event.head_commit.message, 'major') && !contains(github.event.head_commit.message, 'minor')"
+        run: |
+          npm version patch -m "[RELEASE] Bump patch version %s" --tag-version-prefix="v"
+
+      - name: Push version
+        run: |
+          git push --follow-tags
