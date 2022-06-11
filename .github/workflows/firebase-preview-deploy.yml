@@ -50,4 +50,4 @@ jobs:
 
       - name: Get a preview link
         run: |
-          echo "${{ steps.preview.outputs.details_url }}"
+          echo "${{ join(steps.preview.outputs.*, '\n') }}"
