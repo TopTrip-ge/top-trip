@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - main
+      - test-deploy
 
 jobs:
   prepare:
@@ -51,19 +52,9 @@ jobs:
           FIREBASE_HOSTING_TARGET: toptrip-prod
         run: echo "Prod ENV-variables have been added"
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "npm"
-
       - name: Install dependencies
         run: |
-          if [ -e package-lock.json ]; then
-          npm ci
-          else
           npm i
-          fi
 
       - name: Build
         run: |
@@ -75,5 +66,5 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           channelId: live
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          projectId: "${{ secrets.FIREBASE_PROJECT_ID }}"
           target: "$FIREBASE_HOSTING_TARGET"
