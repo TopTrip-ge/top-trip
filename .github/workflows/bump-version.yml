@@ -4,11 +4,10 @@ name: Bump version
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   bump:
-    # if: github.event.pull_request.merged
     if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
     runs-on: ubuntu-latest
 
@@ -18,7 +17,7 @@ jobs:
         with:
           token: ${{ secrets.GH_SECRET_TOKEN }}
           fetch-depth: 10
-          ref: develop
+          ref: main
 
       - name: Set GitHub credentials
         run: |
