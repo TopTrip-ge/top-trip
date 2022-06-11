@@ -29,6 +29,7 @@ jobs:
           REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
           REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          run: echo common ENV-variables have been added
 
       - name: Set Dev ENVs
         if: steps.branch-name.outputs.current_branch == 'develop'
@@ -36,6 +37,7 @@ jobs:
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
           FIREBASE_HOSTING_TARGET: toptrip-dev
+          run: echo "Dev ENV-variables have been added"
 
       - name: Set Prod ENVs
         if: steps.branch-name.outputs.current_branch == 'main'
@@ -43,6 +45,7 @@ jobs:
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_PROD_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }}
           FIREBASE_HOSTING_TARGET: toptrip-prod
+          run: echo "Prod ENV-variables have been added"
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -50,9 +53,17 @@ jobs:
           node-version: 16
           cache: "npm"
 
-      - name: Install deps and build
+      - name: Install dependencies
         run: |
-          npm ci && npm run build
+          if [ -e package-lock.json ]; then
+          npm i
+          else
+          npm i
+          fi
+
+      - name: Build
+        run: |
+          npm run build
 
       - name: Deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
