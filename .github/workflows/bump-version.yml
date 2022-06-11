@@ -1,17 +1,16 @@
+# TODO(Pavel Sokolov): Create a separate package to bump
 name: Bump version
 
 on:
-  [push]
-  # pull_request:
-  #   branches:
-  #     - develop
-  #   types:
-  #     - closed
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
 
 jobs:
   bump:
-    # if: github.event.pull_request.merged
-    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +19,7 @@ jobs:
         with:
           token: ${{ secrets.GH_SECRET_TOKEN }}
           fetch-depth: 10
-          ref: feature/auto-tags
+          ref: develop
 
       - name: Set GitHub credentials
         run: |
