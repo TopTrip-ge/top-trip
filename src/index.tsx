@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { App } from "./app";
-import "./index.css";
+import "./app-style.ts";
 import { BrowserRouter } from "react-router-dom";
 
 const rootElement = document.getElementById("root");

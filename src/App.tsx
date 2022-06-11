@@ -1,12 +1,13 @@
+import { GlobalStyle } from "app-style";
 import { FC } from "react";
 import { Routes } from "routes";
 import { MainThemeProvider } from "theme";
-import "./app.css";
 
 export const App: FC = () => (
-  <div className="App">
-    <MainThemeProvider>
+  <MainThemeProvider>
+    <GlobalStyle />
+    <div className="App">
       <Routes />
-    </MainThemeProvider>
-  </div>
+    </div>
+  </MainThemeProvider>
 );
