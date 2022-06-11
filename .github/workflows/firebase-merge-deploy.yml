@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  prepare:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,20 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v5.2
 
-      - if: "steps.branch-name.outputs.current_branch == 'develop' || startsWith(github.event.head_commit.message, '[RELEASE]')"
+  build_and_deploy:
+    needs: [prepare]
+    if: "steps.branch-name.outputs.current_branch == 'develop' || startsWith(github.event.head_commit.message, '[RELEASE]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      # - name: Checkout
+      #   uses: actions/checkout@v3
+      #   with:
+      #     fetch-depth: 5
+
+      # - name: Get branch name
+      #   id: branch-name
+      #   uses: tj-actions/branch-names@v5.2
 
       - name: Set common ENVs
         env:
@@ -56,7 +69,7 @@ jobs:
       - name: Install dependencies
         run: |
           if [ -e package-lock.json ]; then
-          npm i
+          npm ci
           else
           npm i
           fi
