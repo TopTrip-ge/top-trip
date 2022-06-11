@@ -34,11 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [ -e package-lock.json ]; then
-          npm ci
-          else
           npm i
-          fi
 
       - name: Build
         run: |
