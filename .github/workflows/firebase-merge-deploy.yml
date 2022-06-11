@@ -44,7 +44,8 @@ jobs:
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }}
           FIREBASE_HOSTING_TARGET: toptrip-prod
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: "npm"
