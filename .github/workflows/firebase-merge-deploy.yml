@@ -23,7 +23,7 @@ jobs:
 
   build_and_deploy:
     needs: [prepare]
-    if: "steps.branch-name.outputs.current_branch == 'develop' || startsWith(github.event.head_commit.message, '[RELEASE]')"
+    if: "steps.branch-name.outputs.current_branch == 'develop' || steps.branch-name.outputs.current_branch == 'test-deploy' || startsWith(github.event.head_commit.message, '[RELEASE]')"
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: echo common ENV-variables have been added
 
       - name: Set Dev ENVs
-        if: steps.branch-name.outputs.current_branch == 'develop'
+        if: steps.branch-name.outputs.current_branch == 'develop' || steps.branch-name.outputs.current_branch == 'test-deploy'
         env:
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
