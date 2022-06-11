@@ -6,8 +6,6 @@ import { MainThemeProvider } from "theme";
 export const App: FC = () => (
   <MainThemeProvider>
     <GlobalStyle />
-    <div className="App">
-      <Routes />
-    </div>
+    <Routes />
   </MainThemeProvider>
 );

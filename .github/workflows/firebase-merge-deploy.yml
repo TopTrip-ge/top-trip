@@ -79,7 +79,7 @@ jobs:
           npm run build
 
       - name: Deploy
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GH_SECRET_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TOP_TRIP_1E5D1 }}"
