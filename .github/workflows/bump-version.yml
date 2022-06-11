@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GH_SECRET_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 10
           ref: main
 

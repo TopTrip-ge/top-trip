@@ -26,15 +26,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      #   with:
-      #     fetch-depth: 5
-
-      # - name: Get branch name
-      #   id: branch-name
-      #   uses: tj-actions/branch-names@v5.2
-
       - name: Set common ENVs
         env:
           REACT_APP_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
@@ -81,7 +72,7 @@ jobs:
       - name: Deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: "${{ secrets.GH_SECRET_TOKEN }}"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           channelId: live
           projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
