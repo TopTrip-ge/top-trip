@@ -58,6 +58,11 @@ jobs:
           FIREBASE_HOSTING_TARGET: toptrip-prod
         run: echo "Prod ENV-variables have been added"
 
+      - name: Install NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
       - name: Install dependencies
         run: |
           npm i
