@@ -2,15 +2,17 @@
 name: Bump version
 
 on:
-  pull_request:
-    branches:
-      - develop
-    types:
-      - closed
+  [push]
+  # pull_request:
+  #   branches:
+  #     - develop
+  #   types:
+  #     - closed
 
 jobs:
   bump:
-    if: github.event.pull_request.merged
+    # if: github.event.pull_request.merged
+    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GH_SECRET_TOKEN }}
           fetch-depth: 10
-          ref: develop
+          ref: feature/auto-tags
 
       - name: Set GitHub credentials
         run: |
