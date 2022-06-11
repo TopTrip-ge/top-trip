@@ -1,15 +1,17 @@
 name: Bump version
 
 on:
-  pull_request:
-    branches:
-      - develop
-    types:
-      - closed
+  [push]
+  # pull_request:
+  #   branches:
+  #     - develop
+  #   types:
+  #     - closed
 
 jobs:
   bump:
-    if: github.event.pull_request.merged
+    # if: github.event.pull_request.merged
+    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +20,7 @@ jobs:
         with:
           token: ${{ secrets.GH_SECRET_TOKEN }}
           fetch-depth: 10
-          ref: develop
+          ref: feature/auto-tags
 
       - name: Set GitHub credentials
         run: |
@@ -26,17 +28,17 @@ jobs:
           git config --global user.email 'action@github.com'
 
       - name: Major changes
-        if: startsWith(github.event.head_commit.message, 'major')
+        if: contains(github.event.head_commit.message, 'major')
         run: |
           npm version major -m "[RELEASE] Bump major version %s" --tag-version-prefix="v"
 
       - name: Minor changes
-        if: startsWith(github.event.head_commit.message, 'minor')
+        if: contains(github.event.head_commit.message, 'minor')
         run: |
           npm version minor -m "[RELEASE] Bump minor version %s" --tag-version-prefix="v"
 
       - name: Patch changes
-        if: startsWith(github.event.head_commit.message, 'patch')
+        if: "!contains(github.event.head_commit.message, 'major') && !contains(github.event.head_commit.message, 'minor')"
         run: |
           npm version patch -m "[RELEASE] Bump patch version %s" --tag-version-prefix="v"
 
