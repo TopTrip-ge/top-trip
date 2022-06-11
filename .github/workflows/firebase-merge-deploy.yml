@@ -82,7 +82,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GH_SECRET_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TOP_TRIP_1E5D1 }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           channelId: live
           projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
           target: "$FIREBASE_HOSTING_TARGET"
