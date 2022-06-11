@@ -26,13 +26,17 @@ jobs:
           FIREBASE_HOSTING_TARGET: toptrip-dev
         run: echo "ENV-variables have been added"
 
+      - name: Install NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          cache: npm
+
       - name: Install dependencies
-        run: |
-          npm i
+        run: npm i
 
       - name: Build
-        run: |
-          npm run build
+        run: npm run build
 
       - name: Preview
         uses: FirebaseExtended/action-hosting-deploy@v0
