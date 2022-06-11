@@ -6,6 +6,11 @@ jobs:
   build_and_preview:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -21,11 +26,11 @@ jobs:
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
         run: echo "ENV-variables have been added"
 
-      - name: Setup Node
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          # cache: "npm"
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
       - name: Install dependencies
         run: |
