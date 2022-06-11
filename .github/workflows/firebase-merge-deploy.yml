@@ -33,6 +33,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 5
+          persist-credentials: false
+
       - name: Set common ENVs
         env:
           REACT_APP_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
