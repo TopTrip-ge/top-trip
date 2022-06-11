@@ -42,7 +42,12 @@ jobs:
 
       - name: Preview
         uses: FirebaseExtended/action-hosting-deploy@v0
+        id: preview
         with:
           repoToken: "${{ secrets.GH_SECRET_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+
+      - name: Get a preview link
+        run: |
+          echo "${{ steps.preview.outputs.details_url }}"
