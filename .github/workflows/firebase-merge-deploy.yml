@@ -1,3 +1,4 @@
+# TODO(Pavel Sokolov): Investigate npm i
 name: Deploy to Firebase Hosting on merge
 
 on:
@@ -21,9 +22,13 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v5.2
 
+    outputs:
+      current_branch: ${{ steps.branch-name.outputs.current_branch }}
+
   build_and_deploy:
     needs: [prepare]
-    if: "steps.branch-name.outputs.current_branch == 'develop' || steps.branch-name.outputs.current_branch == 'test-deploy' || startsWith(github.event.head_commit.message, '[RELEASE]')"
+
+    if: needs.prepare.outputs.current_branch == 'develop' || needs.prepare.outputs.current_branch == 'test-deploy' || startsWith(github.event.head_commit.message, '[RELEASE]')
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +42,7 @@ jobs:
         run: echo common ENV-variables have been added
 
       - name: Set Dev ENVs
-        if: steps.branch-name.outputs.current_branch == 'develop' || steps.branch-name.outputs.current_branch == 'test-deploy'
+        if: needs.prepare.outputs.current_branch == 'develop' || needs.prepare.outputs.current_branch == 'test-deploy'
         env:
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
@@ -45,7 +50,7 @@ jobs:
         run: echo "Dev ENV-variables have been added"
 
       - name: Set Prod ENVs
-        if: steps.branch-name.outputs.current_branch == 'main'
+        if: needs.prepare.outputs.current_branch == 'main'
         env:
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_PROD_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }}
