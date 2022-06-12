@@ -2,7 +2,7 @@
   "hosting": [
     {
       "public": "build",
-      "target": "dev",
+      "target": "top-trip-dev",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
@@ -13,7 +13,7 @@
     },
     {
       "public": "build",
-      "target": "prod",
+      "target": "top-trip-prod",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {

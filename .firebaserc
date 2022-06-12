@@ -6,15 +6,15 @@
   "targets": {
     "top-trip-1e5d1": {
       "hosting": {
-        "dev": [
-          "toptrip-dev"
+        "top-trip-dev": [
+          "top-trip-dev"
         ]
       }
     },
     "top-trip-prod": {
       "hosting": {
-        "prod": [
-          "toptrip-prod"
+        "top-trip-prod": [
+          "top-trip-prod"
         ]
       }
     }
