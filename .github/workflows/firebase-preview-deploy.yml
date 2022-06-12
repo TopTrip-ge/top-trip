@@ -8,22 +8,23 @@ jobs:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
 
-    env:
-      REACT_APP_API_KEY: ${{ secrets.FIREBASE_DEV_API_KEY }}
-      REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_DEV_AUTH_DOMAIN }}
-      REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_DEV_PROJECT_ID }}
-      REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_DEV_STORAGE_BUCKET }}
-      REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }}
-      REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
-      REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
-      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
-      FIREBASE_HOSTING_TARGET: "top-trip-dev"
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+
+      - name: Create .env.production for the preview
+        run: |
+          touch .env.production
+          echo REACT_APP_API_KEY=${{ secrets.FIREBASE_DEV_API_KEY }} >> .env.production
+          echo REACT_APP_AUTH_DOMAIN=${{ secrets.FIREBASE_DEV_AUTH_DOMAIN }} >> .env.production
+          echo REACT_APP_PROJECT_ID=${{ secrets.FIREBASE_DEV_PROJECT_ID }} >> .env.production
+          echo REACT_APP_STORAGE_BUCKET=${{ secrets.FIREBASE_DEV_STORAGE_BUCKET }} >> .env.production
+          echo REACT_APP_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }} >> .env.production
+          echo REACT_APP_APP_ID=${{ secrets.FIREBASE_DEV_APP_ID }} >> .env.production
+          echo REACT_APP_MEASUREMENT_ID=${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }} >> .env.production
+          cat .env.production
 
       - name: Install NodeJS
         uses: actions/setup-node@v2
@@ -37,11 +38,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Preview
+      - name: Deploy preview
         uses: FirebaseExtended/action-hosting-deploy@v0
         id: preview
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ env.REACT_APP_PROJECT_ID }}
-          target: ${{ env.FIREBASE_HOSTING_TARGET }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
+          projectId: ${{ secrets.FIREBASE_DEV_PROJECT_ID }}
+          target: "top-trip-dev"

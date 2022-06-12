@@ -6,7 +6,6 @@ on:
     branches:
       - develop
       - main
-      - feature/auto-deploy
 
 jobs:
   prepare:
@@ -29,7 +28,7 @@ jobs:
   build_and_deploy:
     needs: [prepare]
 
-    if: needs.prepare.outputs.current_branch == 'develop' || needs.prepare.outputs.current_branch == 'feature/auto-deploy' || startsWith(github.event.head_commit.message, '[RELEASE]')
+    if: needs.prepare.outputs.current_branch == 'develop' || startsWith(github.event.head_commit.message, '[RELEASE]')
     runs-on: ubuntu-latest
 
     steps:
@@ -39,16 +38,8 @@ jobs:
           fetch-depth: 5
           persist-credentials: false
 
-      - name: Create .env.production for the dev stand
-        if: needs.prepare.outputs.current_branch == 'develop' || needs.prepare.outputs.current_branch == 'feature/auto-deploy'
-        env:
-          REACT_APP_API_KEY: ${{ secrets.FIREBASE_DEV_API_KEY }}
-          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_DEV_AUTH_DOMAIN }}
-          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_DEV_PROJECT_ID }}
-          REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_DEV_STORAGE_BUCKET }}
-          REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }}
-          REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
-          REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
+      - name: Create .env.production for the dev
+        if: needs.prepare.outputs.current_branch == 'develop'
         run: |
           touch .env.production
           echo REACT_APP_API_KEY=${{ secrets.FIREBASE_DEV_API_KEY }} >> .env.production
@@ -60,17 +51,18 @@ jobs:
           echo REACT_APP_MEASUREMENT_ID=${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }} >> .env.production
           cat .env.production
 
-      - name: Set Prod ENVs
+      - name: Create .env.production for the prod
         if: needs.prepare.outputs.current_branch == 'main'
-        env:
-          REACT_APP_API_KEY: ${{ secrets.FIREBASE_PROD_API_KEY }}
-          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_PROD_AUTH_DOMAIN }}
-          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_PROD_PROJECT_ID }}
-          REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_PROD_STORAGE_BUCKET }}
-          REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_PROD_MESSAGING_SENDER_ID }}
-          REACT_APP_APP_ID: ${{ secrets.FIREBASE_PROD_APP_ID }}
-          REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }}
-        run: echo "Prod ENV-variables have been added"
+        run: |
+          touch .env.production
+          echo REACT_APP_API_KEY=${{ secrets.FIREBASE_PROD_API_KEY }} >> .env.production
+          echo REACT_APP_AUTH_DOMAIN=${{ secrets.FIREBASE_PROD_AUTH_DOMAIN }} >> .env.production
+          echo REACT_APP_PROJECT_ID=${{ secrets.FIREBASE_PROD_PROJECT_ID }} >> .env.production
+          echo REACT_APP_STORAGE_BUCKET=${{ secrets.FIREBASE_PROD_STORAGE_BUCKET }} >> .env.production
+          echo REACT_APP_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_PROD_MESSAGING_SENDER_ID }} >> .env.production
+          echo REACT_APP_APP_ID=${{ secrets.FIREBASE_PROD_APP_ID }} >> .env.production
+          echo REACT_APP_MEASUREMENT_ID=${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }} >> .env.production
+          cat .env.production
 
       - name: Install NodeJS
         uses: actions/setup-node@v2
