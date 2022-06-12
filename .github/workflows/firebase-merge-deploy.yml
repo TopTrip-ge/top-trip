@@ -49,13 +49,7 @@ jobs:
           REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }}
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
-          FIREBASE_HOSTING_TARGET: "top-trip-dev"
-        run: |
-          echo "FIREBASE_SERVICE_ACCOUNT=$FIREBASE_SERVICE_ACCOUNT" >> $GITHUB_ENV
-          echo "PROJECT_ID=$REACT_APP_PROJECT_ID" >> $GITHUB_ENV
-          echo "FIREBASE_HOSTING_TARGET=$FIREBASE_HOSTING_TARGET" >> $GITHUB_ENV
-          echo "Dev ENV-variables have been added"
+        run: echo "Dev ENV-variables have been added"
 
       - name: Set Prod ENVs
         if: needs.prepare.outputs.current_branch == 'main'
@@ -67,13 +61,7 @@ jobs:
           REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_PROD_MESSAGING_SENDER_ID }}
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_PROD_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }}
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_PROD_SERVICE_ACCOUNT }}
-          FIREBASE_HOSTING_TARGET: "top-trip-prod"
-        run: |
-          echo ::set-output name=FIREBASE_SERVICE_ACCOUNT::${{ env.FIREBASE_SERVICE_ACCOUNT }}
-          echo ::set-output name=PROJECT_ID::${{ env.REACT_APP_PROJECT_ID }}
-          echo ::set-output name=FIREBASE_HOSTING_TARGET::${{ env.FIREBASE_HOSTING_TARGET }}
-          echo "Prod ENV-variables have been added"
+        run: echo "Prod ENV-variables have been added"
 
       - name: Install NodeJS
         uses: actions/setup-node@v2
@@ -87,11 +75,22 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy
+      - name: Deploy Dev
+        if: needs.prepare.outputs.current_branch == 'develop' || needs.prepare.outputs.current_branch == 'feature/auto-deploy'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
           channelId: live
-          projectId: ${{ env.PROJECT_ID }}
-          target: ${{ env.FIREBASE_HOSTING_TARGET }}
+          projectId: ${{ secrets.FIREBASE_DEV_PROJECT_ID }}
+          target: "top-trip-dev"
+
+      - name: Deploy Prod
+        if: needs.prepare.outputs.current_branch == 'main'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_PROD_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: ${{ secrets.FIREBASE_PROD_PROJECT_ID }}
+          target: "top-trip-prod"
