@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 5
           persist-credentials: false
 
-      - name: Set Dev ENVs
+      - name: Create .env.production for the dev stand
         if: needs.prepare.outputs.current_branch == 'develop' || needs.prepare.outputs.current_branch == 'feature/auto-deploy'
         env:
           REACT_APP_API_KEY: ${{ secrets.FIREBASE_DEV_API_KEY }}
@@ -49,7 +49,16 @@ jobs:
           REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }}
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
-        run: echo "Dev ENV-variables have been added"
+        run: |
+          touch .env.production
+          echo REACT_APP_API_KEY=${{ secrets.FIREBASE_DEV_API_KEY }} >> .env.production
+          echo REACT_APP_AUTH_DOMAIN=${{ secrets.FIREBASE_DEV_AUTH_DOMAIN }} >> .env.production
+          echo REACT_APP_PROJECT_ID=${{ secrets.FIREBASE_DEV_PROJECT_ID }} >> .env.production
+          echo REACT_APP_STORAGE_BUCKET=${{ secrets.FIREBASE_DEV_STORAGE_BUCKET }} >> .env.production
+          echo REACT_APP_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }} >> .env.production
+          echo REACT_APP_APP_ID=${{ secrets.FIREBASE_DEV_APP_ID }} >> .env.production
+          echo REACT_APP_MEASUREMENT_ID=${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }} >> .env.production
+          cat .env.production
 
       - name: Set Prod ENVs
         if: needs.prepare.outputs.current_branch == 'main'
