@@ -4,13 +4,17 @@
     "prod": "top-trip-prod"
   },
   "targets": {
-    "top-trip-prod": {
+    "top-trip-1e5d1": {
       "hosting": {
         "dev": [
           "toptrip-dev"
-        ],
+        ]
+      }
+    },
+    "top-trip-prod": {
+      "hosting": {
         "prod": [
-          "top-trip-prod"
+          "toptrip-prod"
         ]
       }
     }
