@@ -24,11 +24,12 @@ jobs:
 
     outputs:
       current_branch: ${{ steps.branch-name.outputs.current_branch }}
+      current_commit: ${{ github.event.head_commit.message }}
 
   build_and_deploy:
     needs: [prepare]
 
-    if: needs.prepare.outputs.current_branch == 'develop' || startsWith(github.event.head_commit.message, '[RELEASE]')
+    if: needs.prepare.outputs.current_branch == 'develop' || startsWith(needs.prepare.outputs.current_commit, '[RELEASE]')
     runs-on: ubuntu-latest
 
     steps:

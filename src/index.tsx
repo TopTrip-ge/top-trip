@@ -8,7 +8,7 @@ import { FirebaseProvider, firebaseInstances } from "./firebase";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement!);
-
+console.log("fdf");
 root.render(
   <StrictMode>
     <BrowserRouter basename={PATHS.HOME}>
