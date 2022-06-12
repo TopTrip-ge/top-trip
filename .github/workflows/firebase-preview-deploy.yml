@@ -26,9 +26,7 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
           FIREBASE_HOSTING_TARGET: "toptrip-dev"
           FIREBASE_CONFIG_PATH: "firebase.dev.json"
-        run: |
-          echo "ENV-variables have been added"
-          echo ${{ env.FIREBASE_SERVICE_ACCOUNT }}
+        run: echo "ENV-variables have been added"
 
       - name: Install NodeJS
         uses: actions/setup-node@v2
