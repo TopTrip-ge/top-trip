@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "dev": "top-trip-1e5d1",
+    "prod": "top-trip-prod"
+  },
+  "targets": {
+    "top-trip-1e5d1": {
+      "hosting": {
+        "top-trip-dev": [
+          "top-trip-dev"
+        ]
+      }
+    },
+    "top-trip-prod": {
+      "hosting": {
+        "top-trip-prod": [
+          "top-trip-prod"
+        ]
+      }
+    }
+  }
+}
