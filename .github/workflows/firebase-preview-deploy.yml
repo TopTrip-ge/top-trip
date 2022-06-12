@@ -16,14 +16,16 @@ jobs:
 
       - name: Set ENVs
         env:
-          REACT_APP_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
-          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-          REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
-          REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          REACT_APP_API_KEY: ${{ secrets.FIREBASE_DEV_API_KEY }}
+          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_DEV_AUTH_DOMAIN }}
+          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_DEV_PROJECT_ID }}
+          REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_DEV_STORAGE_BUCKET }}
+          REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }}
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
           FIREBASE_HOSTING_TARGET: "toptrip-dev"
+          FIREBASE_CONFIG_PATH: "firebase.dev.json"
         run: echo "ENV-variables have been added"
 
       - name: Install NodeJS
@@ -43,6 +45,7 @@ jobs:
         id: preview
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ env.REACT_APP_PROJECT_ID }}
           target: ${{ env.FIREBASE_HOSTING_TARGET }}
+          entryPoint: ${{ env.FIREBASE_CONFIG_PATH }}

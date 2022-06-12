@@ -38,29 +38,34 @@ jobs:
           fetch-depth: 5
           persist-credentials: false
 
-      - name: Set common ENVs
-        env:
-          REACT_APP_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
-          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-          REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
-          REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
-        run: echo common ENV-variables have been added
-
       - name: Set Dev ENVs
         if: needs.prepare.outputs.current_branch == 'develop'
         env:
+          REACT_APP_API_KEY: ${{ secrets.FIREBASE_DEV_API_KEY }}
+          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_DEV_AUTH_DOMAIN }}
+          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_DEV_PROJECT_ID }}
+          REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_DEV_STORAGE_BUCKET }}
+          REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_DEV_MESSAGING_SENDER_ID }}
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
           FIREBASE_HOSTING_TARGET: "toptrip-dev"
+          FIREBASE_CONFIG_PATH: "firebase.dev.json"
         run: echo "Dev ENV-variables have been added"
 
       - name: Set Prod ENVs
         if: needs.prepare.outputs.current_branch == 'main'
         env:
+          REACT_APP_API_KEY: ${{ secrets.FIREBASE_PROD_API_KEY }}
+          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_PROD_AUTH_DOMAIN }}
+          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_PROD_PROJECT_ID }}
+          REACT_APP_STORAGE_BUCKET: ${{ secrets.FIREBASE_PROD_STORAGE_BUCKET }}
+          REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_PROD_MESSAGING_SENDER_ID }}
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_PROD_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_PROD_SERVICE_ACCOUNT }}
           FIREBASE_HOSTING_TARGET: "toptrip-prod"
+          FIREBASE_CONFIG_PATH: "firebase.prod.json"
         run: echo "Prod ENV-variables have been added"
 
       - name: Install NodeJS
@@ -79,7 +84,8 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
           channelId: live
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          projectId: ${{ env.REACT_APP_PROJECT_ID }}
           target: ${{ env.FIREBASE_HOSTING_TARGET }}
+          entryPoint: ${{ env.FIREBASE_CONFIG_PATH }}
