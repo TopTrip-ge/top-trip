@@ -53,8 +53,7 @@ jobs:
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
           FIREBASE_HOSTING_TARGET: "toptrip-dev"
-        run: |
-          echo "Dev ENV-variables have been added"
+        run: echo "Dev ENV-variables have been added"
 
       - name: Set Prod ENVs
         if: needs.prepare.outputs.current_branch == 'main'
