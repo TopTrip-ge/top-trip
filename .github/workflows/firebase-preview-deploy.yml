@@ -24,8 +24,7 @@ jobs:
           REACT_APP_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_DEV_MEASUREMENT_ID }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
-          FIREBASE_HOSTING_TARGET: "toptrip-dev"
-          FIREBASE_CONFIG_PATH: "firebase.dev.json"
+          FIREBASE_HOSTING_TARGET: "dev"
         run: echo "ENV-variables have been added"
 
       - name: Install NodeJS
@@ -45,7 +44,6 @@ jobs:
         id: preview
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ env.FIREBASE_SERVICE_ACCOUNT }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT  }}
           projectId: ${{ env.REACT_APP_PROJECT_ID }}
           target: ${{ env.FIREBASE_HOSTING_TARGET }}
-          entryPoint: ${{ env.FIREBASE_CONFIG_PATH }}

@@ -65,7 +65,6 @@ jobs:
           REACT_APP_MEASUREMENT_ID: ${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_PROD_SERVICE_ACCOUNT }}
           FIREBASE_HOSTING_TARGET: "toptrip-prod"
-          FIREBASE_CONFIG_PATH: "firebase.prod.json"
         run: echo "Prod ENV-variables have been added"
 
       - name: Install NodeJS
@@ -88,4 +87,3 @@ jobs:
           channelId: live
           projectId: ${{ env.REACT_APP_PROJECT_ID }}
           target: ${{ env.FIREBASE_HOSTING_TARGET }}
-          entryPoint: ${{ env.FIREBASE_CONFIG_PATH }}
