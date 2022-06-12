@@ -77,7 +77,7 @@ jobs:
         run: npm run build
 
       - name: Deploy Dev
-        if: needs.prepare.outputs.current_branch == 'develop' || needs.prepare.outputs.current_branch == 'feature/auto-deploy'
+        if: needs.prepare.outputs.current_branch == 'develop'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
