@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 
+// TODO(Pavel Sokolov): Add MUI theme here too
 export const createMainTheme = (): DefaultTheme => ({
   colors: {
     black: "#000",
