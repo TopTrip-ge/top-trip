@@ -1,9 +1,9 @@
-import { Container } from "components/container";
 import { FC } from "react";
+import { Box } from "components/container";
 import { Navbar } from "./navbar";
 
 export const Header: FC = () => (
-  <Container elementType="header">
+  <Box elementType="header">
     <Navbar />
-  </Container>
+  </Box>
 );

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const StyledNavLink = styled(NavLink)`
   font-size: 24px;
+  padding: 5px;
   text-transform: uppercase;
   text-decoration: none;
   color: ${({ theme: { colors } }) => colors.black};
@@ -15,10 +16,4 @@ export const StyledNavLink = styled(NavLink)`
   &.active {
     color: ${({ theme: { colors } }) => colors.primary};
   }
-`;
-
-export const StyledNavBar = styled.nav`
-  display: flex;
-  padding: 12px 0;
-  gap: 20px;
 `;
