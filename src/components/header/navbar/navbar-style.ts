@@ -19,5 +19,6 @@ export const StyledNavLink = styled(NavLink)`
 
 export const StyledNavBar = styled.nav`
   display: flex;
+  padding: 12px 0;
   gap: 20px;
 `;
