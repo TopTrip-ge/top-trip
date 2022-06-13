@@ -17,7 +17,7 @@ export const StyledNavLink = styled(NavLink)`
   }
 `;
 
-export const StyledNav = styled.nav`
+export const StyledNavBar = styled.nav`
   display: flex;
   gap: 20px;
 `;

@@ -1,9 +1,9 @@
 import { FC } from "react";
+import Box from "@mui/material/Box";
 import { Navbar } from "./navbar";
-import { StyledHeader } from "./header-style";
 
 export const Header: FC = () => (
-  <StyledHeader>
+  <Box component="header" sx={{ padding: "12px" }}>
     <Navbar />
-  </StyledHeader>
+  </Box>
 );
