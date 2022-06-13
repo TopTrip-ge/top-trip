@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const StyledNavLink = styled(NavLink)`
   font-size: 24px;
-  padding: 5px;
   text-transform: uppercase;
   text-decoration: none;
   color: ${({ theme: { colors } }) => colors.black};
