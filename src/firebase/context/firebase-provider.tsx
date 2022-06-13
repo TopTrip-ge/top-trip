@@ -10,11 +10,6 @@ interface Props {
 
 export const FirebaseContext = createContext<Context>({} as Context);
 
-export const FirebaseProvider: FC<Props> = ({
-  children,
-  firebaseInstances,
-}) => (
-  <FirebaseContext.Provider value={firebaseInstances}>
-    {children}
-  </FirebaseContext.Provider>
+export const FirebaseProvider: FC<Props> = ({ children, firebaseInstances }) => (
+  <FirebaseContext.Provider value={firebaseInstances}>{children}</FirebaseContext.Provider>
 );

@@ -14,7 +14,7 @@ const createFirebase = (config: Record<string, string | undefined>) => {
   return {
     analytics,
     firestore,
-    auth,
+    auth
   };
 };
 

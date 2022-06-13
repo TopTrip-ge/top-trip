@@ -1,0 +1,6 @@
+{
+  "*.[t|j]s[x?]": [
+    "npm run lint:fix",
+    "npm run prettier"
+  ]
+}
