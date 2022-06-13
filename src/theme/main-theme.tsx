@@ -3,7 +3,12 @@ import { createTheme as createMUITheme, ThemeProvider as MUIThemeProvider } from
 import { ThemeProvider } from "styled-components";
 import { orange } from "@mui/material/colors";
 
-// TODO(Pavel Sokolov): Add MUI theme here too
+/**
+ * For future updates:
+ * 1) Add a new property to the theme
+ * 2) Add this property to the MUI-theme to use it in MUI-components
+ *  (https://mui.com/material-ui/customization/theming/)
+ */
 export const createMainTheme = () => ({
   colors: {
     white: "#fff",
@@ -36,6 +41,7 @@ const muiTheme = createMUITheme({
           ":hover": {
             backgroundColor: theme.colors.primaryLight,
           },
+          color: theme.colors.white,
         },
       },
     },
