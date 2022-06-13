@@ -12,10 +12,6 @@ const Link = styled(StyledLink)`
   &:hover {
     color: ${({ theme: { colors } }) => colors.white};
   }
-
-  &.active {
-    color: ${({ theme: { colors } }) => colors.white};
-  }
 `;
 
 export const NotFound: FC = () => (
