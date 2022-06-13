@@ -1,12 +1,12 @@
 import { FC } from "react";
+import { Box } from "@mui/material";
 import { Container } from "components/container";
 import { Navbar } from "./navbar";
-import { StyledAntHeader } from "./header-style";
 
 export const Header: FC = () => (
-  <StyledAntHeader>
+  <Box component="header">
     <Container>
       <Navbar />
     </Container>
-  </StyledAntHeader>
+  </Box>
 );
