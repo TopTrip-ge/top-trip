@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { Box } from "@mui/material";
-import { Container } from "components/container";
+import { Box, Container } from "@mui/material";
 import { Navbar } from "./navbar";
 
 export const Header: FC = () => (

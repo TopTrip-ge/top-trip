@@ -21,7 +21,8 @@
       "components/*": ["components/*"],
       "pages/*": ["pages/*"],
       "enums/*": ["enums/*"],
-      "theme/*": ["theme/*"]
+      "theme/*": ["theme/*"],
+      "firebase-common/*": ["firebase-common/*"]
     }
   },
   "include": ["src"]

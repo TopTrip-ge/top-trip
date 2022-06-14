@@ -22,6 +22,7 @@ export const createMainTheme = () => ({
   fontWeights: {
     light: 300,
     normal: 400,
+    medium: 500,
     bold: 700,
   },
 });
@@ -34,14 +35,18 @@ const muiTheme = createMUITheme({
       light: theme.colors.primaryLight,
     },
   },
+  typography: {
+    fontFamily: theme.fontFamilies.OpenSans,
+  },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
+          backgroundColor: theme.colors.primary,
+          color: theme.colors.white,
           ":hover": {
             backgroundColor: theme.colors.primaryLight,
           },
-          color: theme.colors.white,
         },
       },
     },
