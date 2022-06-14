@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 import { PATHS } from "enums/paths";
-import { StyledNavLink } from "./navbar-style";
+import { StyledLink } from "components/styled-link";
 
 const NAVBAR_ITEMS = [
-  <StyledNavLink to={PATHS.HOME}>Подбор тура</StyledNavLink>,
-  <StyledNavLink to={PATHS.POPULAR_DESTINATIONS}>Популярные направления</StyledNavLink>,
+  <StyledLink to={PATHS.HOME}>Подбор тура</StyledLink>,
+  <StyledLink to={PATHS.POPULAR_DESTINATIONS}>Популярные направления</StyledLink>,
 ];
 
 export const Navbar: FC = () => (
