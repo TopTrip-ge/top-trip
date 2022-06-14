@@ -4,8 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import { PATHS } from "enums/paths";
 import { ErrorBoundary } from "components/error-boundary";
 import { FirebaseProvider, firebaseInstances } from "firebase-common";
+import { MainThemeProvider } from "theme";
+import { App } from "components/app";
 import reportWebVitals from "./reportWebVitals";
-import { App } from "./components/app";
 
 const rootElement = document.getElementById("root");
 
@@ -15,9 +16,11 @@ root.render(
   <StrictMode>
     <BrowserRouter basename={PATHS.HOME}>
       <FirebaseProvider firebaseInstances={firebaseInstances}>
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
+        <MainThemeProvider>
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
+        </MainThemeProvider>
       </FirebaseProvider>
     </BrowserRouter>
   </StrictMode>

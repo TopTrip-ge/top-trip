@@ -38,10 +38,12 @@ const muiTheme = createMUITheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          fontFamily: theme.fontFamilies.OpenSans,
+          backgroundColor: theme.colors.primary,
+          color: theme.colors.white,
           ":hover": {
             backgroundColor: theme.colors.primaryLight,
           },
-          color: theme.colors.white,
         },
       },
     },
