@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
-import { Container } from "components/container";
 import { PATHS } from "enums/paths";
 import { StyledLink } from "components/styled-link";
 
