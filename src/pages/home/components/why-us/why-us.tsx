@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Box, Card, CardContent, Container, Typography } from "@mui/material";
 import { Icon } from "components/icon";
 import { Section } from "components/section";
-import { Card as CardInfo } from "./interfaces";
+import { Card as CardInfo } from "./why-us-interfaces";
 
 const CARDS: CardInfo[] = [
   {
