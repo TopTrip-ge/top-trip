@@ -22,7 +22,9 @@
       "pages/*": ["pages/*"],
       "enums/*": ["enums/*"],
       "theme/*": ["theme/*"],
-      "firebase-common/*": ["firebase-common/*"]
+      "firebase-common/*": ["firebase-common/*"],
+      "constants/*": ["constants/*"],
+      "utils/*": ["utils/*"]
     }
   },
   "include": ["src"]
