@@ -25,7 +25,10 @@ const CARDS: CardInfo[] = [
 export const WhyUs: FC = () => (
   <Section>
     <Container>
-      <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}>
+      <Typography variant="h3" align="center">
+        Почему именно мы?
+      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, mt: 4 }}>
         {CARDS.map(({ description, icon, title }) => (
           <Card sx={{ maxWidth: "350px", boxShadow: "none" }}>
             <CardContent sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 0 }}>
