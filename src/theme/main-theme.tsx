@@ -41,9 +41,6 @@ const muiTheme = createMUITheme({
   typography: {
     fontFamily: theme.fontFamilies.OpenSans,
   },
-  typography: {
-    fontFamily: theme.fontFamilies.OpenSans,
-  },
   components: {
     MuiButton: {
       styleOverrides: {
