@@ -1,4 +1,4 @@
-export enum destinations {
+export enum DESTINATIONS {
   SELECT_WHERE = "SELECT_WHERE",
   SELECT_FROM = "SELECT_FROM",
 }

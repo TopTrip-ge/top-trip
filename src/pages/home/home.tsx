@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import {
   Button,
   FormControl,
@@ -10,26 +10,17 @@ import {
   TextField,
   Container,
 } from "@mui/material";
+import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { SelectChangeEvent } from "@mui/material/Select";
 import { MainLayout } from "layouts/main";
-import { destinations } from "./enums/destination";
+import { DESTINATIONS } from "./enums/destination";
+import { useHome } from "./hooks";
 import { StyledSection } from "./home-style";
 
 export const Home: FC = () => {
-  const [from, setFrom] = useState("");
-  const [where, setWhere] = useState("");
-  const [value, setValue] = useState<Date | null>(null);
-
-  const setFromTown = (event: SelectChangeEvent) => {
-    setFrom(event.target.value as string);
-  };
-
-  const setWhereTown = (event: SelectChangeEvent) => {
-    setWhere(event.target.value as string);
-  };
+  const { from, where, date, setDatePickerValue, setFromTown, setWhereTown } = useHome();
 
   return (
     <MainLayout>
@@ -53,8 +44,8 @@ export const Home: FC = () => {
           >
             <Grid item xs={5}>
               <FormControl fullWidth>
-                <InputLabel id={destinations.SELECT_FROM}>Откуда</InputLabel>
-                <Select id={destinations.SELECT_FROM} value={from} label="Откуда" onChange={setFromTown}>
+                <InputLabel id={DESTINATIONS.SELECT_FROM}>Откуда</InputLabel>
+                <Select id={DESTINATIONS.SELECT_FROM} value={from} label="Откуда" onChange={setFromTown}>
                   <MenuItem value={10}>Абастумани</MenuItem>
                   <MenuItem value={20}>Агара</MenuItem>
                   <MenuItem value={30}>Адигени</MenuItem>
@@ -63,8 +54,8 @@ export const Home: FC = () => {
             </Grid>
             <Grid item xs={5}>
               <FormControl fullWidth>
-                <InputLabel id={destinations.SELECT_WHERE}>Куда</InputLabel>
-                <Select id={destinations.SELECT_WHERE} value={where} label="Куда" onChange={setWhereTown}>
+                <InputLabel id={DESTINATIONS.SELECT_WHERE}>Куда</InputLabel>
+                <Select id={DESTINATIONS.SELECT_WHERE} value={where} label="Куда" onChange={setWhereTown}>
                   <MenuItem value="Абастумани">Абастумани</MenuItem>
                   <MenuItem value="Агара">Агара</MenuItem>
                   <MenuItem value="Адигени">Адигени</MenuItem>
@@ -72,14 +63,13 @@ export const Home: FC = () => {
               </FormControl>
             </Grid>
             <Grid item xs={5}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
                 <FormControl fullWidth>
                   <DatePicker
                     label="Выберите дату"
-                    value={value}
-                    onChange={(newValue) => {
-                      setValue(newValue);
-                    }}
+                    value={date}
+                    inputFormat="dd/MM/yyyy"
+                    onChange={setDatePickerValue}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </FormControl>
