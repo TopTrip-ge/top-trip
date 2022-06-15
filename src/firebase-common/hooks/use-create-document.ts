@@ -4,8 +4,9 @@ import { FirebaseContext } from "../context";
 
 export const useCreateDocument = <T extends object>(collectionName: string, data: T, additionalPath: string[] = []) => {
   const { firestore } = useContext(FirebaseContext);
+  const collectionRef = collection(firestore, collectionName, ...additionalPath);
 
   return async () => {
-    await addDoc(collection(firestore, collectionName, ...additionalPath), data);
+    await addDoc(collectionRef, data);
   };
 };
