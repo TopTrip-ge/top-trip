@@ -19,17 +19,22 @@ import { SearchProps } from "../../interfaces";
 import { DESTINATIONS } from "../../enums";
 import { StyledSection } from "./search-style";
 
+const SelectDestination = (id: string, direction: string, setDirection: any, values: any, label: string) => {
+  return (
+    <Select MenuProps={{ style: { height: "60vh" } }} id={id} value={direction} label={label} onChange={setDirection}>
+      {values}
+    </Select>
+  );
+};
+
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFromTown, setWhereTown, where }) => {
   const { destinations } = useCollection();
 
-  const destinationsArray = destinations?.docs.map((doc) => {
-    const destination = doc.data().name;
-    return (
-      <MenuItem key={doc.id} value={destination}>
-        {destination}
-      </MenuItem>
-    );
-  });
+  const destinationsArray = destinations.map(({ destinationId, destinationName }) => (
+    <MenuItem key={destinationId} value={destinationName}>
+      {destinationName}
+    </MenuItem>
+  ));
   return (
     <StyledSection>
       <Container>
@@ -52,29 +57,13 @@ export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFro
           <Grid item xs={5}>
             <FormControl fullWidth>
               <InputLabel id={DESTINATIONS.SELECT_FROM}>Откуда</InputLabel>
-              <Select
-                MenuProps={{ style: { height: "60vh" } }}
-                id={DESTINATIONS.SELECT_FROM}
-                value={from}
-                label="Откуда"
-                onChange={setFromTown}
-              >
-                {destinationsArray}
-              </Select>
+              {SelectDestination(DESTINATIONS.SELECT_FROM, from, setFromTown, destinationsArray, "Откуда")}
             </FormControl>
           </Grid>
           <Grid item xs={5}>
             <FormControl fullWidth>
               <InputLabel id={DESTINATIONS.SELECT_WHERE}>Куда</InputLabel>
-              <Select
-                MenuProps={{ style: { height: "60vh" } }}
-                id={DESTINATIONS.SELECT_WHERE}
-                value={where}
-                label="Куда"
-                onChange={setWhereTown}
-              >
-                {destinationsArray}
-              </Select>
+              {SelectDestination(DESTINATIONS.SELECT_WHERE, where, setWhereTown, destinationsArray, "Куда")}
             </FormControl>
           </Grid>
           <Grid item xs={5}>
