@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import {
   Button,
   FormControl,
@@ -19,15 +19,29 @@ import { SearchProps } from "../../interfaces";
 import { DESTINATIONS } from "../../enums";
 import { StyledSection } from "./search-style";
 
-const SelectDestination = (id: string, direction: string, setDirection: any, values: any, label: string) => {
+interface SelectDestinationTypes {
+  id: string;
+  direction: string;
+  setDirection: (value: string) => void;
+  values: ReactNode;
+  label: string;
+}
+
+const SelectDestination: FC<SelectDestinationTypes> = ({ id, direction, setDirection, values, label }) => {
   return (
-    <Select MenuProps={{ style: { height: "60vh" } }} id={id} value={direction} label={label} onChange={setDirection}>
+    <Select
+      MenuProps={{ style: { height: "60vh" } }}
+      id={id}
+      value={direction}
+      label={label}
+      onChange={(event) => setDirection(event.target?.value)}
+    >
       {values}
     </Select>
   );
 };
 
-export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFromTown, setWhereTown, where }) => {
+export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
   const { destinations } = useCollection();
 
   const destinationsArray = destinations.map(({ destinationId, destinationName }) => (
@@ -57,13 +71,25 @@ export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFro
           <Grid item xs={5}>
             <FormControl fullWidth>
               <InputLabel id={DESTINATIONS.SELECT_FROM}>Откуда</InputLabel>
-              {SelectDestination(DESTINATIONS.SELECT_FROM, from, setFromTown, destinationsArray, "Откуда")}
+              <SelectDestination
+                id={DESTINATIONS.SELECT_FROM}
+                direction={from}
+                setDirection={setFrom}
+                values={destinationsArray}
+                label="Откуда"
+              />
             </FormControl>
           </Grid>
           <Grid item xs={5}>
             <FormControl fullWidth>
               <InputLabel id={DESTINATIONS.SELECT_WHERE}>Куда</InputLabel>
-              {SelectDestination(DESTINATIONS.SELECT_WHERE, where, setWhereTown, destinationsArray, "Куда")}
+              <SelectDestination
+                id={DESTINATIONS.SELECT_WHERE}
+                direction={where}
+                setDirection={setWhere}
+                values={destinationsArray}
+                label="Куда"
+              />
             </FormControl>
           </Grid>
           <Grid item xs={5}>

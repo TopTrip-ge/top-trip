@@ -38,7 +38,6 @@ const muiTheme = createMUITheme({
       white: theme.colors.white,
     },
   },
-
   typography: {
     fontFamily: theme.fontFamilies.OpenSans,
   },
