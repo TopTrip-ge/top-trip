@@ -1,20 +1,12 @@
-import { useState } from "react";
-import { SelectChangeEvent } from "@mui/material/Select";
+import { SearchProps } from "../interfaces";
+import { useSearchProps } from "./use-search-props";
 
-export const useHome = () => {
-  const [from, setFrom] = useState("");
-  const [where, setWhere] = useState("");
-  const [date, setDate] = useState<Date | null>(null);
+interface UseHome {
+  searchProps: SearchProps;
+}
 
-  const setDatePickerValue = (newValue: Date | null) => setDate(newValue);
+export const useHome = (): UseHome => {
+  const searchProps = useSearchProps();
 
-  const setFromTown = (event: SelectChangeEvent) => {
-    setFrom(event.target.value as string);
-  };
-
-  const setWhereTown = (event: SelectChangeEvent) => {
-    setWhere(event.target.value as string);
-  };
-
-  return { from, where, date, setDatePickerValue, setFromTown, setWhereTown };
+  return { searchProps };
 };
