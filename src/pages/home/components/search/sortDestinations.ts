@@ -1,23 +1,17 @@
 import { useCollection } from "firebase-common/hooks/use-collection";
-
-export interface Destinations {
-  destinationName: string;
-  destinationId: string;
-}
+import { Destination } from "interfaces/destination";
 
 export const sortDestinations = () => {
-  const unsortedDestinations: Destinations[] = [];
-  const [database] = useCollection("destinations");
+  const [database] = useCollection<Destination>("destinations");
 
-  database?.docs.map((document: any) => {
-    const destinationId = document.id;
-    const destinationName = document.data().name;
-    return unsortedDestinations.push({ destinationId, destinationName });
-  });
+  const unsortedDestinations = database?.docs.map((document) => ({
+    destinationId: document.id,
+    destinationName: document.data().name,
+  }));
 
-  const destinations = unsortedDestinations.sort((prev, next) =>
+  const destinations = unsortedDestinations?.sort((prev, next) =>
     prev.destinationName > next.destinationName ? 1 : -1
   );
 
-  return { destinations };
+  return destinations;
 };

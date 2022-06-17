@@ -17,7 +17,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { SearchProps } from "./search-interfaces";
 import { DESTINATIONS } from "../../enums";
 import { StyledSection } from "./search-style";
-import { Destinations, sortDestinations } from "./sortDestinations";
+import { sortDestinations } from "./sortDestinations";
 
 interface SelectDestinationTypes {
   id: string;
@@ -42,9 +42,9 @@ const SelectDestination: FC<SelectDestinationTypes> = ({ id, direction, setDirec
 };
 
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
-  const { destinations } = sortDestinations();
+  const destinations = sortDestinations();
 
-  const destinationsArray = destinations.map(({ destinationId, destinationName }: Destinations) => (
+  const destinationsArray = destinations?.map(({ destinationId, destinationName }) => (
     <MenuItem key={destinationId} value={destinationName}>
       {destinationName}
     </MenuItem>
