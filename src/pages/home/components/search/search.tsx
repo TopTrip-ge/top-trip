@@ -14,10 +14,12 @@ import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useCollection } from "firebase-common/hooks/use-collection";
 import { SearchProps } from "./search-interfaces";
 import { DESTINATIONS } from "../../enums";
 import { StyledSection } from "./search-style";
-import { sortDestinations } from "./sortDestinations";
+import { Destination } from "../../../../interfaces/destination";
+import { sortArray } from "../../../../utils/sort-array";
 
 interface SelectDestinationTypes {
   id: string;
@@ -42,11 +44,11 @@ const SelectDestination: FC<SelectDestinationTypes> = ({ id, direction, setDirec
 };
 
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
-  const destinations = sortDestinations();
+  const [database] = useCollection<Destination>("destinations");
 
-  const destinationsArray = destinations?.map(({ destinationId, destinationName }) => (
-    <MenuItem key={destinationId} value={destinationName}>
-      {destinationName}
+  const destinationsArray = sortArray(database)?.map(({ arrayElementId, arrayElementName }) => (
+    <MenuItem key={arrayElementId} value={arrayElementName}>
+      {arrayElementName}
     </MenuItem>
   ));
 
