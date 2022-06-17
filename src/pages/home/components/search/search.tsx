@@ -14,10 +14,10 @@ import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useCollection } from "firebase-common/hooks/use-collection";
 import { SearchProps } from "./search-interfaces";
 import { DESTINATIONS } from "../../enums";
 import { StyledSection } from "./search-style";
+import { Destinations, sortDestinations } from "./sortDestinations";
 
 interface SelectDestinationTypes {
   id: string;
@@ -42,9 +42,9 @@ const SelectDestination: FC<SelectDestinationTypes> = ({ id, direction, setDirec
 };
 
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
-  const { destinations } = useCollection();
+  const { destinations } = sortDestinations();
 
-  const destinationsArray = destinations.map(({ destinationId, destinationName }) => (
+  const destinationsArray = destinations.map(({ destinationId, destinationName }: Destinations) => (
     <MenuItem key={destinationId} value={destinationName}>
       {destinationName}
     </MenuItem>
@@ -107,7 +107,7 @@ export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFro
             </LocalizationProvider>
           </Grid>
           <Grid item xs={5}>
-            <Button variant="contained" size="large" sx={{ width: "100%", height: "100%" }}>
+            <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
               Поиск
             </Button>
           </Grid>
