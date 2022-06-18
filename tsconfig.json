@@ -24,7 +24,8 @@
       "theme/*": ["theme/*"],
       "firebase-common/*": ["firebase-common/*"],
       "constants/*": ["constants/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "interfaces/*": ["interfaces/*"]
     }
   },
   "include": ["src"]

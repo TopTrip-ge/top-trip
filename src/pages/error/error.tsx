@@ -1,5 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import { LOG_EVENTS } from "enums/log-events";
+import { LOG_EVENTS } from "enums";
 import { useAnalyticsLog } from "firebase-common";
 import { useEffect, FC, ErrorInfo } from "react";
 

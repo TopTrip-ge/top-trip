@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Section } from "components/section";
-import { makeFirebaseStoragePath } from "utils/make-firebase-storage-path";
+import { makeFirebaseStoragePath } from "utils";
 
 export const StyledSection = styled(Section)`
   display: flex;

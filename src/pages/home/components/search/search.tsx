@@ -1,47 +1,15 @@
-import { FC, ReactNode } from "react";
-import {
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-  TextField,
-  Container,
-} from "@mui/material";
+import { FC } from "react";
+import { Button, FormControl, Grid, InputLabel, MenuItem, Typography, TextField, Container } from "@mui/material";
 import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useCollection } from "firebase-common/hooks/use-collection";
-import { SearchProps } from "./search-interfaces";
-import { DESTINATIONS } from "../../enums";
+import { Destination, SearchProps } from "interfaces";
+import { sortArray } from "utils";
+import { DESTINATIONS } from "enums";
+import { SelectDestination } from "./components/select-destination";
 import { StyledSection } from "./search-style";
-import { Destination } from "../../../../interfaces/destination";
-import { sortArray } from "../../../../utils/sort-array";
-
-interface SelectDestinationTypes {
-  id: string;
-  direction: string;
-  setDirection: (value: string) => void;
-  values: ReactNode;
-  label: string;
-}
-
-const SelectDestination: FC<SelectDestinationTypes> = ({ id, direction, setDirection, values, label }) => {
-  return (
-    <Select
-      MenuProps={{ style: { height: "60vh" } }}
-      id={id}
-      value={direction}
-      label={label}
-      onChange={(event) => setDirection(event.target?.value)}
-    >
-      {values}
-    </Select>
-  );
-};
 
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
   const [database] = useCollection<Destination>("destinations");

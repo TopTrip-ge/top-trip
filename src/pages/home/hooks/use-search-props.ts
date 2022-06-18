@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SearchProps } from "../components/search/search-interfaces";
+import { SearchProps } from "interfaces";
 
 export const useSearchProps = (): SearchProps => {
   const [from, setFrom] = useState("");

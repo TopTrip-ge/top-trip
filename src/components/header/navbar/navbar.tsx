@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
-import { PATHS } from "enums/paths";
+import { PATHS } from "enums";
 import { StyledLink } from "components/styled-link";
 
 const NAVBAR_ITEMS = [
