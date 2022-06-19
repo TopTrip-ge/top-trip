@@ -5,16 +5,16 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useCollection } from "firebase-common/hooks/use-collection";
-import { Destination, SearchProps } from "interfaces";
-import { sortArray } from "utils";
+import { SearchProps } from "interfaces";
+import { sortCollection } from "utils";
 import { DESTINATIONS } from "enums";
 import { SelectDestination } from "./components/select-destination";
 import { StyledSection } from "./search-style";
 
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
-  const [database] = useCollection<Destination>("destinations");
+  const [collection] = useCollection("destinations");
 
-  const destinationsArray = sortArray(database)?.map(({ arrayElementId, arrayElementName }) => (
+  const destinations = sortCollection(collection)?.map(({ arrayElementId, arrayElementName }) => (
     <MenuItem key={arrayElementId} value={arrayElementName}>
       {arrayElementName}
     </MenuItem>
@@ -46,7 +46,7 @@ export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFro
                 id={DESTINATIONS.SELECT_FROM}
                 direction={from}
                 setDirection={setFrom}
-                values={destinationsArray}
+                values={destinations}
                 label="Откуда"
               />
             </FormControl>
@@ -58,7 +58,7 @@ export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFro
                 id={DESTINATIONS.SELECT_WHERE}
                 direction={where}
                 setDirection={setWhere}
-                values={destinationsArray}
+                values={destinations}
                 label="Куда"
               />
             </FormControl>

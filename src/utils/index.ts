@@ -1,2 +1,2 @@
 export * from "./make-firebase-storage-path";
-export * from "./sort-array";
+export * from "./sort-collection";
