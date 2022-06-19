@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
-import { PATHS } from "enums/paths";
+import { PATHS } from "enums";
 import { StyledLink } from "components/styled-link";
 
 const NAVBAR_ITEMS = [
@@ -8,6 +8,7 @@ const NAVBAR_ITEMS = [
   <StyledLink to={PATHS.POPULAR_DESTINATIONS}>Популярные направления</StyledLink>,
 ];
 
+// TODO(Pavel Sokolov): Fix console bug with 'value'
 export const Navbar: FC = () => (
   <Box sx={{ padding: "12px 0" }}>
     <Tabs component="nav" aria-label="nav tabs" sx={{ "[role='tablist']": { gap: 5 } }}>

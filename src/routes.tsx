@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Route, Routes as ReactRoutes } from "react-router";
-import { PATHS } from "enums/paths";
+import { PATHS } from "enums";
 import { Home } from "pages/home";
 import { NotFound } from "pages/not-found";
 import { PopularDestinations } from "pages/popular-destinations";

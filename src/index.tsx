@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { PATHS } from "enums/paths";
+import { PATHS } from "enums";
 import { ErrorBoundary } from "components/error-boundary";
 import { FirebaseProvider, firebaseInstances } from "firebase-common";
 import { MainThemeProvider } from "theme";
