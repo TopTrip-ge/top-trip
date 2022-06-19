@@ -4,12 +4,11 @@ import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useCollection } from "firebase-common/hooks/use-collection";
+import { useCollection } from "firebase-common";
 import { Destination, SearchProps } from "interfaces";
-import { sortCollection } from "utils";
+import { sortCollection, collectDataFromCollection } from "utils";
 import { DESTINATIONS } from "enums";
-import { collectDataFromCollection } from "utils/collect-data-from-collection";
-import { SelectDestination } from "./components/select-destination";
+import { SelectDestination } from "./components";
 import { StyledSection } from "./search-style";
 
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
