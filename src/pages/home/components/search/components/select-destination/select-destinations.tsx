@@ -1,8 +1,17 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { Select } from "@mui/material";
-import { SelectDestinationTypes } from "interfaces";
 
-export const SelectDestination: FC<SelectDestinationTypes> = ({ id, direction, setDirection, values, label }) => (
+interface Props {
+  id: string;
+  direction: string;
+  setDirection: (value: string) => void;
+  values: ReactNode;
+  label: string;
+}
+
+// TODO(Pavel Sokolov): Add [virtualization](https://mui.com/material-ui/react-list/#virtualized-list)
+// to optimize the select field here to delete flashing
+export const SelectDestination: FC<Props> = ({ id, direction, setDirection, values, label }) => (
   <Select
     MenuProps={{ style: { height: "60vh" } }}
     id={id}

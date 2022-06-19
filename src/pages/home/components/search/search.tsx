@@ -5,18 +5,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useCollection } from "firebase-common/hooks/use-collection";
-import { SearchProps } from "interfaces";
+import { Destination, SearchProps } from "interfaces";
 import { sortCollection } from "utils";
 import { DESTINATIONS } from "enums";
+import { collectDataFromCollection } from "utils/collect-data-from-collection";
 import { SelectDestination } from "./components/select-destination";
 import { StyledSection } from "./search-style";
 
 export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFrom, setWhere, where }) => {
-  const [collection] = useCollection("destinations");
+  const [collection, isLoading] = useCollection<Destination>("destinations");
 
-  const destinations = sortCollection(collection)?.map(({ arrayElementId, arrayElementName }) => (
-    <MenuItem key={arrayElementId} value={arrayElementName}>
-      {arrayElementName}
+  const destinations = sortCollection(collectDataFromCollection(collection), "name").map(({ id, name }) => (
+    <MenuItem key={id} value={name}>
+      {name}
     </MenuItem>
   ));
 
@@ -39,48 +40,54 @@ export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFro
           }}
           spacing={2}
         >
-          <Grid item xs={5}>
-            <FormControl fullWidth>
-              <InputLabel id={DESTINATIONS.SELECT_FROM}>Откуда</InputLabel>
-              <SelectDestination
-                id={DESTINATIONS.SELECT_FROM}
-                direction={from}
-                setDirection={setFrom}
-                values={destinations}
-                label="Откуда"
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={5}>
-            <FormControl fullWidth>
-              <InputLabel id={DESTINATIONS.SELECT_WHERE}>Куда</InputLabel>
-              <SelectDestination
-                id={DESTINATIONS.SELECT_WHERE}
-                direction={where}
-                setDirection={setWhere}
-                values={destinations}
-                label="Куда"
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={5}>
-            <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
-              <FormControl fullWidth>
-                <DatePicker
-                  label="Выберите дату"
-                  value={date}
-                  inputFormat="dd/MM/yyyy"
-                  onChange={setDatePickerValue}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </FormControl>
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={5}>
-            <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
-              Поиск
-            </Button>
-          </Grid>
+          {isLoading ? (
+            <Typography variant="h5">Loading...</Typography>
+          ) : (
+            <>
+              <Grid item xs={5}>
+                <FormControl fullWidth>
+                  <InputLabel id={DESTINATIONS.SELECT_FROM}>Откуда</InputLabel>
+                  <SelectDestination
+                    id={DESTINATIONS.SELECT_FROM}
+                    direction={from}
+                    setDirection={setFrom}
+                    values={destinations}
+                    label="Откуда"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={5}>
+                <FormControl fullWidth>
+                  <InputLabel id={DESTINATIONS.SELECT_WHERE}>Куда</InputLabel>
+                  <SelectDestination
+                    id={DESTINATIONS.SELECT_WHERE}
+                    direction={where}
+                    setDirection={setWhere}
+                    values={destinations}
+                    label="Куда"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={5}>
+                <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
+                  <FormControl fullWidth>
+                    <DatePicker
+                      label="Выберите дату"
+                      value={date}
+                      inputFormat="dd/MM/yyyy"
+                      onChange={setDatePickerValue}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </FormControl>
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={5}>
+                <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
+                  Поиск
+                </Button>
+              </Grid>
+            </>
+          )}
         </Grid>
       </Container>
     </StyledSection>

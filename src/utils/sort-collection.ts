@@ -1,15 +1,12 @@
-/*
- * In this function, the elements of the incoming collection are sorted in alphabetical order.
- */
-import { QuerySnapshot } from "firebase/firestore";
+import { Order } from "interfaces/order";
 
-export const sortCollection = <T>(collection?: QuerySnapshot<T>) => {
-  const unsortedArray = collection?.docs.map(({ id, data }) => ({
-    arrayElementId: id,
-    arrayElementName: data().name,
-  }));
+export const sortCollection = <T extends object>(collection: T[], field: keyof T, order: Order = "ASC") =>
+  collection.sort((prev, next) => {
+    const isAsc = order === "ASC";
 
-  return unsortedArray?.sort((prev: { arrayElementName: string }, next: { arrayElementName: string }) =>
-    prev.arrayElementName > next.arrayElementName ? 1 : -1
-  );
-};
+    if (isAsc) {
+      return prev[field] > next[field] ? 1 : -1;
+    }
+
+    return prev[field] > next[field] ? -1 : 1;
+  });
