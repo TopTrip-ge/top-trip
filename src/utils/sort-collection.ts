@@ -1,4 +1,4 @@
-import { Order } from "interfaces/order";
+import { Order } from "interfaces";
 
 export const sortCollection = <T extends object>(collection: T[], field: keyof T, order: Order = "ASC") =>
   collection.sort((prev, next) => {
