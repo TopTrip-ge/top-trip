@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
+import uniqid from "uniqid";
 import { PATHS } from "enums";
 import { StyledLink } from "components/styled-link";
 
@@ -8,13 +9,15 @@ const NAVBAR_ITEMS = [
   <StyledLink to={PATHS.POPULAR_DESTINATIONS}>Популярные направления</StyledLink>,
 ];
 
-// TODO(Pavel Sokolov): Fix console bug with 'value'
-export const Navbar: FC = () => (
-  <Box sx={{ padding: "12px 0" }}>
-    <Tabs component="nav" aria-label="nav tabs" sx={{ "[role='tablist']": { gap: 5 } }}>
-      {NAVBAR_ITEMS.map((label) => (
-        <Tab label={label} sx={{ p: 0, maxWidth: "100%" }} />
-      ))}
-    </Tabs>
-  </Box>
-);
+export const Navbar: FC = () => {
+  const [value] = useState(0);
+  return (
+    <Box sx={{ padding: "12px 0" }}>
+      <Tabs value={value} component="nav" aria-label="nav tabs" sx={{ "[role='tablist']": { gap: 5 } }}>
+        {NAVBAR_ITEMS.map((label, index) => (
+          <Tab value={value + index} key={uniqid()} label={label} sx={{ p: 0, maxWidth: "100%" }} />
+        ))}
+      </Tabs>
+    </Box>
+  );
+};

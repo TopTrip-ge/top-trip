@@ -68,7 +68,7 @@ export const Search: FC<SearchProps> = ({ date, from, setDatePickerValue, setFro
                 </FormControl>
               </Grid>
               <Grid item xs={5}>
-                <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
+                <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
                   <FormControl fullWidth>
                     <DatePicker
                       label="Выберите дату"
