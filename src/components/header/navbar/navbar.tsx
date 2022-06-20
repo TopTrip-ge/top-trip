@@ -10,12 +10,29 @@ const NAVBAR_ITEMS = [
 ];
 
 export const Navbar: FC = () => {
-  const [value] = useState(0);
+  const [value, setValue] = useState(0);
+
   return (
     <Box sx={{ padding: "12px 0" }}>
-      <Tabs value={value} component="nav" aria-label="nav tabs" sx={{ "[role='tablist']": { gap: 5 } }}>
+      <Tabs
+        TabIndicatorProps={{
+          style: {
+            display: "none",
+          },
+        }}
+        value={value}
+        component="nav"
+        aria-label="nav tabs"
+        sx={{ "[role='tablist']": { gap: 5 } }}
+      >
         {NAVBAR_ITEMS.map((label, index) => (
-          <Tab value={value + index} key={uniqid()} label={label} sx={{ p: 0, maxWidth: "100%" }} />
+          <Tab
+            onClick={() => setValue(index)}
+            value={index}
+            key={uniqid()}
+            label={label}
+            sx={{ p: 0, maxWidth: "100%" }}
+          />
         ))}
       </Tabs>
     </Box>
