@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box, Typography } from "@mui/material";
-import { StyledBox } from "./destination-card-style";
+import { StyledBox, StyledTypography } from "./destination-card-style";
 
 interface Props {
   destinationsName: string;
@@ -11,26 +11,24 @@ interface Props {
 
 export const DestinationCard: FC<Props> = ({ destinationsName, price, date, imageURL }) => {
   return (
-    <Box sx={{ position: "relative" }}>
-      <Typography
-        sx={{
-          position: "absolute",
-          color: "#fff",
-          backgroundColor: "#000",
-          padding: "4px",
-          borderRadius: "10px",
-          top: "20px",
-          left: "-20px",
-        }}
-      >{`$${price}`}</Typography>
+    <Box
+      sx={{
+        position: "relative",
+        cursor: "pointer",
+        zIndex: 0,
+        "&:hover": { transform: "scale(1.1)", zIndex: 1 },
+        transition: "all 0.2s ease-in-out",
+      }}
+    >
+      <StyledTypography>{`$${price}`}</StyledTypography>
       <StyledBox sx={{ backgroundImage: `url(${imageURL})` }}>
         <Box sx={{ padding: "30px" }}>
           <Typography
             variant="h6"
             component="h6"
             sx={{
-              backgroundColor: "#ADADAD",
-              padding: "0 5px",
+              backgroundColor: "custom.grey",
+              padding: "0 6px",
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
             }}
@@ -39,8 +37,8 @@ export const DestinationCard: FC<Props> = ({ destinationsName, price, date, imag
           </Typography>
           <Typography
             sx={{
-              backgroundColor: "#ADADAD",
-              padding: "0 5px",
+              backgroundColor: "custom.grey",
+              padding: "0 6px",
               borderBottomLeftRadius: "10px",
               borderBottomRightRadius: "10px",
             }}

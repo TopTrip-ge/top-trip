@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { makeFirebaseStoragePath } from "utils";
+import { Section } from "components/section";
 import { DestinationCard } from "./components";
 
 const POPULAR_DESTINATIONS = [
@@ -36,8 +37,8 @@ const POPULAR_DESTINATIONS = [
 
 export const PopularDestinations: FC = () => {
   return (
-    <section>
-      <Container sx={{ padding: "64px 0" }}>
+    <Section>
+      <Container>
         <Typography align="center" variant="h3" component="h3">
           Популярные направления
         </Typography>
@@ -45,9 +46,9 @@ export const PopularDestinations: FC = () => {
           sx={{
             display: "flex",
             flexDirection: "row",
-            gap: "40px",
-            marginTop: "64px",
-            justifyContent: "center",
+            mt: 8,
+            gap: 4,
+            justifyContent: "space-between",
           }}
         >
           {POPULAR_DESTINATIONS.map(({ id, destinationsName, price, date, imageURL }) => (
@@ -61,6 +62,6 @@ export const PopularDestinations: FC = () => {
           ))}
         </Box>
       </Container>
-    </section>
+    </Section>
   );
 };

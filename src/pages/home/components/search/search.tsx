@@ -29,7 +29,7 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
         <Grid
           container
           sx={{
-            backgroundColor: "common.white",
+            backgroundColor: "custom.white",
             padding: "16px",
             borderRadius: "16px",
             margin: "25vh auto 0 auto",

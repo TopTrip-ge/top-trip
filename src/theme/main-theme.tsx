@@ -9,12 +9,23 @@ import { orange } from "@mui/material/colors";
  * 2) Add this property to the MUI-theme to use it in MUI-components
  *  (https://mui.com/material-ui/customization/theming/)
  */
+
+declare module "@mui/material/styles" {
+  interface PaletteOptions {
+    custom: {
+      white: string;
+      grey: string;
+    };
+  }
+}
+
 export const createMainTheme = () => ({
   colors: {
     white: "#fff",
     black: "#000",
     primary: orange[400],
     primaryLight: orange[300],
+    grey: "#adadad",
   },
   fontFamilies: {
     OpenSans: "'Open Sans', sans-serif",
@@ -34,8 +45,9 @@ const muiTheme = createMUITheme({
       main: theme.colors.primary,
       light: theme.colors.primaryLight,
     },
-    common: {
+    custom: {
       white: theme.colors.white,
+      grey: theme.colors.grey,
     },
   },
   typography: {
