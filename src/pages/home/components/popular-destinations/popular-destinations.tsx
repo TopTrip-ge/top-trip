@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { makeFirebaseStoragePath } from "utils";
 import { Section } from "components/section";
@@ -42,25 +42,13 @@ export const PopularDestinations: FC = () => {
         <Typography align="center" variant="h3" component="h3">
           Популярные направления
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            mt: 8,
-            gap: 4,
-            justifyContent: "space-between",
-          }}
-        >
+        <Grid container spacing={2} sx={{ flexGrow: 1, mt: 8 }} direction="row" justifyContent="center">
           {POPULAR_DESTINATIONS.map(({ id, destinationsName, price, date, imageURL }) => (
-            <DestinationCard
-              key={id}
-              destinationsName={destinationsName}
-              price={price}
-              date={date}
-              imageURL={imageURL}
-            />
+            <Grid key={id} item xs={3}>
+              <DestinationCard destinationsName={destinationsName} price={price} date={date} imageURL={imageURL} />
+            </Grid>
           ))}
-        </Box>
+        </Grid>
       </Container>
     </Section>
   );

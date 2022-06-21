@@ -6,10 +6,7 @@ export const StyledBox = styled(Box)`
   flex-direction: column;
   justify-content: end;
   border-radius: 16px;
-  max-width: 400px;
-  max-height: 500px;
-  width: 24vw;
-  height: 32vw;
+  height: 24vh;
   background-size: cover;
   background-position: center;
   background-repeat: none;
