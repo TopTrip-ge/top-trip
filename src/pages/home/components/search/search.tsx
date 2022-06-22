@@ -8,8 +8,9 @@ import { useCollection } from "firebase-common";
 import { Destination, SearchProps } from "interfaces";
 import { sortCollection, collectDataFromCollection } from "utils";
 import { ANCHORS } from "enums";
+import { WithSkeleton } from "hocs";
+import { LABELS, DESTINATIONS, SKELETON_MIN_HEIGHT } from "./search-constants";
 import { StyledSection } from "./search-style";
-import { LABELS, DESTINATIONS } from "./search-constants";
 
 export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
   const [collection, isLoading] = useCollection<Destination>("destinations");
@@ -43,52 +44,54 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
           }}
           spacing={2}
         >
-          {isLoading ? (
-            <Typography variant="h5">Loading...</Typography>
-          ) : (
-            <>
-              <Grid item xs={5}>
-                <FormControl fullWidth>
-                  <Autocomplete
-                    disablePortal
-                    id={DESTINATIONS.SELECT_FROM}
-                    options={destinations}
-                    noOptionsText={LABELS.NO_OPTIONS_TEXT}
-                    renderInput={(params) => <TextField {...params} label={LABELS.SELECT_FROM} />}
+          <Grid item xs={5}>
+            <FormControl fullWidth>
+              <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+                <Autocomplete
+                  disablePortal
+                  id={DESTINATIONS.SELECT_FROM}
+                  options={destinations}
+                  noOptionsText={LABELS.NO_OPTIONS_TEXT}
+                  renderInput={(params) => <TextField {...params} label={LABELS.SELECT_FROM} />}
+                />
+              </WithSkeleton>
+            </FormControl>
+          </Grid>
+          <Grid item xs={5}>
+            <FormControl fullWidth>
+              <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+                <Autocomplete
+                  disablePortal
+                  id={DESTINATIONS.SELECT_WHERE}
+                  options={destinations}
+                  noOptionsText={LABELS.NO_OPTIONS_TEXT}
+                  renderInput={(params) => <TextField {...params} label={LABELS.SELECT_WHERE} />}
+                />
+              </WithSkeleton>
+            </FormControl>
+          </Grid>
+          <Grid item xs={5}>
+            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
+              <FormControl fullWidth>
+                <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+                  <DatePicker
+                    label={LABELS.SELECT_DATE}
+                    value={date}
+                    inputFormat="dd/MM/yyyy"
+                    onChange={setDatePickerValue}
+                    renderInput={(params) => <TextField {...params} />}
                   />
-                </FormControl>
-              </Grid>
-              <Grid item xs={5}>
-                <FormControl fullWidth>
-                  <Autocomplete
-                    disablePortal
-                    id={DESTINATIONS.SELECT_WHERE}
-                    options={destinations}
-                    noOptionsText={LABELS.NO_OPTIONS_TEXT}
-                    renderInput={(params) => <TextField {...params} label={LABELS.SELECT_WHERE} />}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item xs={5}>
-                <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
-                  <FormControl fullWidth>
-                    <DatePicker
-                      label={LABELS.SELECT_DATE}
-                      value={date}
-                      inputFormat="dd/MM/yyyy"
-                      onChange={setDatePickerValue}
-                      renderInput={(params) => <TextField {...params} />}
-                    />
-                  </FormControl>
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={5}>
-                <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
-                  Поиск
-                </Button>
-              </Grid>
-            </>
-          )}
+                </WithSkeleton>
+              </FormControl>
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={5}>
+            <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+              <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
+                Поиск
+              </Button>
+            </WithSkeleton>
+          </Grid>
         </Grid>
       </Container>
     </StyledSection>
