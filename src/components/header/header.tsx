@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { Box, Container } from "@mui/material";
+import { AppBar, Container } from "@mui/material";
 import { Navbar } from "./navbar";
 
 export const Header: FC = () => (
-  <Box component="header">
+  <AppBar position="sticky" sx={{ backgroundColor: "custom.white" }} component="header">
     <Container>
       <Navbar />
     </Container>
-  </Box>
+  </AppBar>
 );
