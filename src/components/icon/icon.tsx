@@ -8,6 +8,10 @@ import {
   Facebook,
   Twitter,
   Telegram,
+  Email,
+  LocalPhone,
+  Place,
+  SupportAgent,
 } from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
 
@@ -15,11 +19,15 @@ const ICONS = {
   SearchOutlined,
   SentimentSatisfiedAltOutlined,
   CheckOutlined,
-  Copyright,
   Instagram,
   Facebook,
   Twitter,
   Telegram,
+  Email,
+  Copyright,
+  LocalPhone,
+  Place,
+  SupportAgent,
 };
 
 export type IconTypes = keyof typeof ICONS;

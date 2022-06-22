@@ -1,18 +1,10 @@
 import { FC } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
-import EmailIcon from "@mui/icons-material/Email";
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import PlaceIcon from "@mui/icons-material/Place";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import { Icon as IconComponent, IconTypes } from "components/icon";
-
+import { Icon as IconComponent } from "components/icon";
+import { Icon } from "./footer-interfaces";
 import { Footer as StyledFooter } from "./footer-style";
-
-interface Icon {
-  icon: IconTypes;
-}
+import { Copyright } from "./components/copyright/copyright";
 
 const ICONS: Icon[] = [
   {
@@ -34,22 +26,22 @@ export const Footer: FC = () => {
     <StyledFooter>
       <Container>
         <Grid container direction="row" justifyContent="space-evenly" alignItems="center" sx={{ padding: "50px 0" }}>
-          <Grid item sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <Grid item sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Typography sx={{ display: "flex", alignItems: "center" }}>
-              <PlaceIcon sx={{ mr: 1 }} /> 12121 Тбилиси, Грузия, ул. Пушкина, 21
+              <IconComponent name="Place" sx={{ mr: 1 }} /> 12121 Тбилиси, Грузия, ул. Пушкина, 21
             </Typography>
             <Typography sx={{ display: "flex", alignItems: "center" }}>
-              <LocalPhoneIcon sx={{ mr: 1 }} />
+              <IconComponent name="LocalPhone" sx={{ mr: 1 }} />
               +1 223 4232 1
             </Typography>
             <Typography sx={{ display: "flex", alignItems: "center" }}>
-              <EmailIcon sx={{ mr: 1 }} />
+              <IconComponent name="Email" sx={{ mr: 1 }} />
               info@toptrip.ge
             </Typography>
           </Grid>
           <Grid item xs={3}>
             <Typography sx={{ display: "flex", alignItems: "center", textAlign: "left" }}>
-              <SupportAgentIcon sx={{ mr: 1 }} />
+              <IconComponent name="SupportAgent" sx={{ mr: 1 }} />
               +23232 2323
             </Typography>
             <Typography>Ежедневно с 9:00 до 20:00 </Typography>
@@ -64,18 +56,7 @@ export const Footer: FC = () => {
           </Grid>
         </Grid>
       </Container>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          padding: "10px 20px",
-          backgroundColor: "custom.orange",
-          color: "custom.black",
-        }}
-      >
-        <CopyrightIcon sx={{ mr: 2 }} />
-        {new Date().getFullYear()} TopTrip, Inc. Все права защищены
-      </Box>
+      <Copyright />
     </StyledFooter>
   );
 };
