@@ -21,7 +21,12 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
   return (
     <StyledSection>
       <Container>
-        <Typography sx={{ fontWeight: 400, textAlign: "center", color: "common.white" }} variant="h2" component="h2">
+        <Typography
+          id="search"
+          sx={{ fontWeight: 400, textAlign: "center", color: "common.white" }}
+          variant="h2"
+          component="h2"
+        >
           Трансферы и однодневные туры
           <br />
           по всей Грузии
