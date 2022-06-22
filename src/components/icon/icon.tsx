@@ -1,11 +1,33 @@
 import { FC } from "react";
-import { SearchOutlined, SentimentSatisfiedAltOutlined, CheckOutlined } from "@mui/icons-material";
+import {
+  SearchOutlined,
+  SentimentSatisfiedAltOutlined,
+  CheckOutlined,
+  Copyright,
+  Instagram,
+  Facebook,
+  Twitter,
+  Telegram,
+  Email,
+  LocalPhone,
+  Place,
+  SupportAgent,
+} from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
 
 const ICONS = {
   SearchOutlined,
   SentimentSatisfiedAltOutlined,
   CheckOutlined,
+  Instagram,
+  Facebook,
+  Twitter,
+  Telegram,
+  Email,
+  Copyright,
+  LocalPhone,
+  Place,
+  SupportAgent,
 };
 
 export type IconTypes = keyof typeof ICONS;
