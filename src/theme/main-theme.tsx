@@ -15,6 +15,8 @@ declare module "@mui/material/styles" {
     custom: {
       white: string;
       grey: string;
+      black: string;
+      orange: string;
     };
   }
 }
@@ -48,6 +50,8 @@ const muiTheme = createMUITheme({
     custom: {
       white: theme.colors.white,
       grey: theme.colors.grey,
+      black: theme.colors.black,
+      orange: theme.colors.primary,
     },
   },
   typography: {
