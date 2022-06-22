@@ -42,7 +42,7 @@ export const PopularDestinations: FC = () => {
         <Typography align="center" variant="h3" component="h3">
           Популярные направления
         </Typography>
-        <Grid container spacing={2} sx={{ flexGrow: 1, mt: 8 }} direction="row" justifyContent="center">
+        <Grid container spacing={2} sx={{ flexGrow: 1, mt: 8 }} direction="row" justifyContent="space-between">
           {POPULAR_DESTINATIONS.map(({ id, destinationsName, price, date, imageURL }) => (
             <Grid key={id} item xs={3}>
               <DestinationCard destinationsName={destinationsName} price={price} date={date} imageURL={imageURL} />
