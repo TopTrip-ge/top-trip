@@ -7,6 +7,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useCollection } from "firebase-common";
 import { Destination, SearchProps } from "interfaces";
 import { sortCollection, collectDataFromCollection } from "utils";
+import { ANCHORS } from "enums";
 import { StyledSection } from "./search-style";
 import { LABELS, DESTINATIONS } from "./search-constants";
 
@@ -21,7 +22,12 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
   return (
     <StyledSection>
       <Container>
-        <Typography sx={{ fontWeight: 400, textAlign: "center", color: "common.white" }} variant="h2" component="h2">
+        <Typography
+          id={ANCHORS.SEARCH}
+          sx={{ fontWeight: 400, textAlign: "center", color: "common.white" }}
+          variant="h2"
+          component="h2"
+        >
           Трансферы и однодневные туры
           <br />
           по всей Грузии

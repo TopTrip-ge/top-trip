@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { MainLayout } from "layouts/main";
 import { useHome } from "./hooks";
-import { PopularDestinations, Search, WhyUs } from "./components";
+import { PopularDestinations, Search, SearchAnchor, WhyUs } from "./components";
 
 export const Home: FC = () => {
   const { searchProps } = useHome();
@@ -11,6 +11,7 @@ export const Home: FC = () => {
       <Search {...searchProps} />
       <WhyUs />
       <PopularDestinations />
+      <SearchAnchor />
     </MainLayout>
   );
 };
