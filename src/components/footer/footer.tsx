@@ -3,8 +3,8 @@ import { Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { Icon as IconComponent } from "components/icon";
 import { Icon } from "./footer-interfaces";
+import { Copyright } from "./components";
 import { Footer as StyledFooter } from "./footer-style";
-import { Copyright } from "./components/copyright/copyright";
 
 const ICONS: Icon[] = [
   {
