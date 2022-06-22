@@ -16,8 +16,8 @@ export const DestinationCard: FC<Props> = ({ destinationsName, price, date, imag
         position: "relative",
         cursor: "pointer",
         zIndex: 0,
-        "&:hover": { transform: "scale(1.1)", zIndex: 1 },
         transition: "all 0.2s ease-in-out",
+        "&:hover": { transform: "scale(1.1)", zIndex: 1 },
       }}
     >
       <StyledTypography>{`$${price}`}</StyledTypography>
