@@ -1,8 +1,9 @@
 import { Link } from "react-scroll";
 import styled from "styled-components";
 import { makeFirebaseStoragePath } from "utils";
+import { Section } from "components/section";
 
-export const StyledSection = styled.section`
+export const StyledSection = styled(Section)`
   padding: 100px 0;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     ${() =>

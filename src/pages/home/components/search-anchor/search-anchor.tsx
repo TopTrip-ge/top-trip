@@ -1,5 +1,6 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { FC } from "react";
+import { ANCHORS } from "enums";
 import { StyledLink, StyledSection } from "./search-anchor-style";
 
 export const SearchAnchor: FC = () => {
@@ -11,7 +12,7 @@ export const SearchAnchor: FC = () => {
             Путешествуйте по Грузии
             <br />с TOPTRIP
           </Typography>
-          <StyledLink to="search" smooth offset={-60} duration={1000}>
+          <StyledLink to={ANCHORS.SEARCH} smooth offset={-60} duration={1000}>
             <Button size="large" sx={{ width: "100%", height: "100%" }}>
               Спланировать тур
             </Button>
