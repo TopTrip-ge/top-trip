@@ -25,7 +25,8 @@
       "firebase-common/*": ["firebase-common/*"],
       "constants/*": ["constants/*"],
       "utils/*": ["utils/*"],
-      "interfaces/*": ["interfaces/*"]
+      "interfaces/*": ["interfaces/*"],
+      "hocs/*": ["hocs/*"]
     }
   },
   "include": ["src"]
