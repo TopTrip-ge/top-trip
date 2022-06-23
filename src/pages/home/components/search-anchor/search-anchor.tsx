@@ -8,7 +8,11 @@ export const SearchAnchor: FC = () => {
     <StyledSection>
       <Container>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
-          <Typography variant="h3" component="h3" sx={{ textAlign: "center", color: "custom.white" }}>
+          <Typography
+            variant="h3"
+            component="h3"
+            sx={{ textAlign: "center", color: "custom.white", fontSize: { xs: "30px", md: "50px" } }}
+          >
             Путешествуйте по Грузии
             <br />с TOPTRIP
           </Typography>

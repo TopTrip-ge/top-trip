@@ -25,8 +25,21 @@ export const Footer: FC = () => {
   return (
     <StyledFooter>
       <Container>
-        <Grid container direction="row" justifyContent="space-evenly" alignItems="center" sx={{ padding: "50px 0" }}>
-          <Grid item sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Grid
+          container
+          alignItems="center"
+          sx={{
+            padding: "50px 0",
+            flexGrow: 1,
+            justifyContent: { md: "space-evenly", xs: "center" },
+            display: { sm: "flex" },
+            gap: 2,
+            alignItems: { sm: "center" },
+          }}
+          direction="row"
+          columns={{ xs: 3, sm: 12, md: 10 }}
+        >
+          <Grid item xs={3} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Typography sx={{ display: "flex", alignItems: "center" }}>
               <IconComponent name="Place" sx={{ mr: 1 }} /> 12121 Тбилиси, Грузия, ул. Пушкина, 21
             </Typography>
@@ -39,16 +52,24 @@ export const Footer: FC = () => {
               info@toptrip.ge
             </Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid
+            item
+            xs={3}
+            sx={{ display: "flex", flexDirection: "column", alignItems: { xs: "flex-start", md: "center" } }}
+          >
             <Typography sx={{ display: "flex", alignItems: "center", textAlign: "left" }}>
               <IconComponent name="SupportAgent" sx={{ mr: 1 }} />
               +23232 2323
             </Typography>
             <Typography>Ежедневно с 9:00 до 20:00 </Typography>
           </Grid>
-          <Grid item sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Grid
+            item
+            xs={3}
+            sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: { xs: "flex-start", md: "center" } }}
+          >
             {ICONS.map(({ icon }) => (
-              <Typography key={uniqid()} sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+              <Typography key={uniqid()} sx={{ display: "flex", cursor: "pointer" }}>
                 <IconComponent name={icon} sx={{ mr: 1 }} />
                 {icon}
               </Typography>

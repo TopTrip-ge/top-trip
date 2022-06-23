@@ -22,10 +22,16 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
 
   return (
     <StyledSection>
-      <Container>
+      <Container sx={{ display: "flex", flexDirection: "column" }}>
         <Typography
           id={ANCHORS.SEARCH}
-          sx={{ fontWeight: 400, textAlign: "center", color: "common.white" }}
+          sx={{
+            fontWeight: 400,
+            textAlign: "center",
+            color: "common.white",
+            fontSize: { xs: "30px", md: "50px" },
+            mb: { xs: 5, sm: 15 },
+          }}
           variant="h2"
           component="h2"
         >
@@ -36,13 +42,16 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
         <Grid
           container
           sx={{
+            flexGrow: 1,
+            justifyContent: { xs: "center" },
             backgroundColor: "custom.white",
-            padding: "16px",
+            gap: 2,
+            py: "16px",
             borderRadius: "16px",
-            margin: "25vh auto 0 auto",
-            justifyContent: "center",
+            px: { xs: 2 },
           }}
-          spacing={2}
+          direction="row"
+          columns={{ xs: 5, sm: 7, md: 11 }}
         >
           <Grid item xs={5}>
             <FormControl fullWidth>
