@@ -9,6 +9,7 @@ import { useNavbar } from "./hooks/use-navbar";
 const NAVBAR_ITEMS = [
   <StyledLink to={PATHS.HOME}>Подбор тура</StyledLink>,
   <StyledLink to={PATHS.POPULAR_DESTINATIONS}>Популярные направления</StyledLink>,
+  <StyledLink to={PATHS.ABOUT_US}>О нас</StyledLink>,
 ];
 
 export const Navbar: FC = () => {
