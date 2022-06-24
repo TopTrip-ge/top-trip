@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from "react";
-import { AppBar, Box, Container, MenuItem, Toolbar, Menu, Button, IconButton } from "@mui/material";
+import { Box, MenuItem, Toolbar, Menu, Button, IconButton } from "@mui/material";
 import uniqid from "uniqid";
 import { PATHS } from "enums";
 import { StyledLink } from "components/styled-link";
@@ -61,7 +60,7 @@ export const Navbar: FC = () => {
             onClick={handleCloseNavMenu}
             sx={{
               my: 2,
-              color: "white",
+              color: "custom.white",
               display: "block",
               backgroundColor: "custom.white",
               "&:hover": { backgroundColor: "custom.white" },

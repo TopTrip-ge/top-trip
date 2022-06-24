@@ -19,6 +19,13 @@ declare module "@mui/material/styles" {
       orange: string;
     };
   }
+  interface Theme {
+    theme: {
+      fontWeights: {
+        normal: number;
+      };
+    };
+  }
 }
 
 export const createMainTheme = () => ({
