@@ -29,7 +29,7 @@ export const Footer: FC = () => {
           container
           alignItems="center"
           sx={{
-            padding: "50px 0",
+            py: 4,
             flexGrow: 1,
             justifyContent: { md: "space-evenly", xs: "center" },
             display: { sm: "flex" },

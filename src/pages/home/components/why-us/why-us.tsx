@@ -26,7 +26,7 @@ const CARDS: CardInfo[] = [
 export const WhyUs: FC = () => (
   <Section>
     <Container>
-      <Typography sx={{ fontSize: { xs: "30px", md: "50px" }, mb: 5 }} variant="h3" align="center">
+      <Typography sx={{ fontSize: { xs: "28px", md: "50px" }, mb: 5 }} variant="h3" align="center">
         Почему именно мы?
       </Typography>
       <Grid

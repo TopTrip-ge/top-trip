@@ -46,8 +46,8 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
             justifyContent: { xs: "center" },
             backgroundColor: "custom.white",
             gap: 2,
-            py: "16px",
-            borderRadius: "16px",
+            py: 2,
+            borderRadius: 4,
             px: { xs: 2 },
           }}
           direction="row"

@@ -1,10 +1,10 @@
-import { FC, useState, MouseEvent } from "react";
-import { AppBar, Box, Container, MenuItem, Toolbar, Typography, Menu, Button } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import { FC } from "react";
+import { AppBar, Box, Container, MenuItem, Toolbar, Typography, Menu, Button, IconButton } from "@mui/material";
 import uniqid from "uniqid";
 import { PATHS } from "enums";
 import { StyledLink } from "components/styled-link";
+import { Icon } from "components/icon";
+import { useNavbar } from "./hooks/use-navbar";
 
 const NAVBAR_ITEMS = [
   <StyledLink to={PATHS.HOME}>Подбор тура</StyledLink>,
@@ -12,15 +12,7 @@ const NAVBAR_ITEMS = [
 ];
 
 export const Navbar: FC = () => {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const { anchorElNav, handleOpenNavMenu, handleCloseNavMenu } = useNavbar();
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "custom.white", boxShadow: "none" }}>
@@ -28,6 +20,7 @@ export const Navbar: FC = () => {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
+              name="IconButton"
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -35,7 +28,7 @@ export const Navbar: FC = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <Icon name="Menu" />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -72,7 +65,13 @@ export const Navbar: FC = () => {
               <Button
                 key={uniqid()}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block", backgroundColor: "custom.white" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  backgroundColor: "custom.white",
+                  "&:hover": { backgroundColor: "custom.white" },
+                }}
               >
                 {page}
               </Button>
@@ -83,29 +82,3 @@ export const Navbar: FC = () => {
     </AppBar>
   );
 };
-
-//     <Box sx={{ padding: "12px 0" }}>
-//       <Tabs
-//         TabIndicatorProps={{
-//           style: {
-//             display: "none",
-//           },
-//         }}
-//         value={value}
-//         component="nav"
-//         aria-label="nav tabs"
-//         sx={{ "[role='tablist']": { gap: 5 } }}
-//       >
-//         {NAVBAR_ITEMS.map((label, index) => (
-//           <Tab
-//             onClick={() => setValue(index)}
-//             value={index}
-//             key={uniqid()}
-//             label={label}
-//             sx={{ p: 0, maxWidth: "100%" }}
-//           />
-//         ))}
-//       </Tabs>
-//     </Box>
-//   );
-// };
