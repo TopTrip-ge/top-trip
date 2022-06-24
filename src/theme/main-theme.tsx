@@ -38,6 +38,10 @@ export const createMainTheme = () => ({
     medium: 500,
     bold: 700,
   },
+  devices: {
+    mobileL: "425px",
+    mobileM: "375px",
+  },
 });
 
 const theme = createMainTheme();

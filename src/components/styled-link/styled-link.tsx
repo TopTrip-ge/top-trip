@@ -15,4 +15,12 @@ export const StyledLink = styled(NavLink)`
   &.active {
     color: ${({ theme: { colors } }) => colors.primary};
   }
+
+  @media (max-width: ${({ theme: { devices } }) => devices.mobileL}) {
+    font-size: 18px;
+  }
+
+  @media (max-width: ${({ theme: { devices } }) => devices.mobileM}) {
+    font-size: 14px;
+  }
 `;
