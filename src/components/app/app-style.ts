@@ -5,6 +5,11 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: ${({ theme: { fontFamilies } }) => fontFamilies.OpenSans};
-    min-height: 100vh;
+
+    #root {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
