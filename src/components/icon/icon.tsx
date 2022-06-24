@@ -12,6 +12,7 @@ import {
   LocalPhone,
   Place,
   SupportAgent,
+  Menu,
 } from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
 
@@ -28,6 +29,7 @@ const ICONS = {
   LocalPhone,
   Place,
   SupportAgent,
+  Menu,
 };
 
 export type IconTypes = keyof typeof ICONS;

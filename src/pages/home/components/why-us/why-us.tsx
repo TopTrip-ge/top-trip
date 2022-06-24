@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Card, CardContent, Container, Typography } from "@mui/material";
+import { CardContent, Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { Icon } from "components/icon";
 import { Section } from "components/section";
@@ -26,12 +26,18 @@ const CARDS: CardInfo[] = [
 export const WhyUs: FC = () => (
   <Section>
     <Container>
-      <Typography variant="h3" align="center">
+      <Typography sx={{ fontSize: { xs: "28px", md: "50px" }, mb: 5 }} variant="h3" align="center">
         Почему именно мы?
       </Typography>
-      <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, mt: 4 }}>
+      <Grid
+        container
+        sx={{ flexGrow: 1, justifyContent: { md: "space-between", xs: "center" } }}
+        direction="row"
+        spacing={{ xs: 2, sm: 4, md: 10 }}
+        columns={{ xs: 4, sm: 9, md: 9 }}
+      >
         {CARDS.map(({ description, icon, title }) => (
-          <Card key={uniqid()} sx={{ maxWidth: "350px", boxShadow: "none" }}>
+          <Grid item key={uniqid()} sx={{ maxWidth: "350px", boxShadow: "none" }}>
             <CardContent sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 0 }}>
               <Icon name={icon} fontSize="large" />
               <Typography fontWeight="fontWeightBold" variant="h5" sx={{ mt: 1 }}>
@@ -41,9 +47,9 @@ export const WhyUs: FC = () => (
                 {description}
               </Typography>
             </CardContent>
-          </Card>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
     </Container>
   </Section>
 );

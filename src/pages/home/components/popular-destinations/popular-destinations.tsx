@@ -39,10 +39,16 @@ export const PopularDestinations: FC = () => {
   return (
     <Section>
       <Container>
-        <Typography align="center" variant="h3" component="h3">
+        <Typography sx={{ mb: 8, transform: { xs: "scale(0.8)" } }} align="center" variant="h3" component="h3">
           Популярные направления
         </Typography>
-        <Grid container spacing={2} sx={{ flexGrow: 1, mt: 8 }} direction="row" justifyContent="space-between">
+        <Grid
+          container
+          sx={{ flexGrow: 1, justifyContent: { md: "space-between", xs: "center" } }}
+          direction="row"
+          spacing={{ xs: 2, sm: 4, md: 10 }}
+          columns={{ xs: 4, sm: 9, md: 9 }}
+        >
           {POPULAR_DESTINATIONS.map(({ id, destinationsName, price, date, imageURL }) => (
             <Grid key={id} item xs={3}>
               <DestinationCard destinationsName={destinationsName} price={price} date={date} imageURL={imageURL} />

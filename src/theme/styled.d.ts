@@ -5,5 +5,6 @@ declare module "styled-components" {
     colors: Record<string, string>;
     fontFamilies: Record<string, string>;
     fontWeights: Record<string, number>;
+    devices: Record<string, string>;
   }
 }
