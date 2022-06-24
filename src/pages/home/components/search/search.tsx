@@ -26,7 +26,7 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
         <Typography
           id={ANCHORS.SEARCH}
           sx={{
-            fontWeight: ({ theme: { fontWeights } }) => fontWeights.normal,
+            fontWeight: "fontWeightRegular",
             textAlign: "center",
             color: "custom.white",
             fontSize: { xs: "30px", md: "50px" },
