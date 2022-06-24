@@ -89,6 +89,7 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
                     inputFormat="dd/MM/yyyy"
                     onChange={setDatePickerValue}
                     renderInput={(params) => <TextField {...params} />}
+                    disablePast
                   />
                 </WithSkeleton>
               </FormControl>
