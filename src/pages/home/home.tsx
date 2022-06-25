@@ -9,9 +9,9 @@ export const Home: FC = () => {
   return (
     <MainLayout>
       <Search {...searchProps} />
+      <PopularDestinations />
       <AboutUs />
       <WhyUs />
-      <PopularDestinations />
       <SearchAnchor />
     </MainLayout>
   );
