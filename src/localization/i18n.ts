@@ -17,10 +17,12 @@ i18next
       LOCALIZATION_NAMESPACES.HOME_SECTIONS,
       LOCALIZATION_NAMESPACES.NOT_FOUND_PAGE,
       LOCALIZATION_NAMESPACES.ERROR_PAGE,
+      LOCALIZATION_NAMESPACES.DESTINATIONS,
     ],
     interpolation: {
       escapeValue: false,
     },
+    returnObjects: true,
     debug: process.env.NODE_ENV === "development",
   });
 

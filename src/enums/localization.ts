@@ -9,4 +9,5 @@ export enum LOCALIZATION_NAMESPACES {
   HOME_SECTIONS = "home/sections",
   NOT_FOUND_PAGE = "not-found/page",
   ERROR_PAGE = "error/page",
+  DESTINATIONS = "destinations",
 }
