@@ -14,6 +14,7 @@ import {
   SupportAgent,
   Menu,
   Done,
+  ExpandMore,
 } from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
 
@@ -32,6 +33,7 @@ const ICONS = {
   SupportAgent,
   Menu,
   Done,
+  ExpandMore,
 };
 
 export type IconTypes = keyof typeof ICONS;

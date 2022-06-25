@@ -1,4 +1,4 @@
-import { IconTypes } from "components/icon";
+import { IconTypes } from "components";
 
 export interface Card {
   icon: IconTypes;

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
-import { Icon as IconComponent } from "components/icon";
+import { Icon as IconComponent } from "components";
 import { Icon } from "./footer-interfaces";
 import { Copyright } from "./components";
 import { Footer as StyledFooter } from "./footer-style";

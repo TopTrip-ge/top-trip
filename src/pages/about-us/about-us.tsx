@@ -2,7 +2,7 @@ import { FC } from "react";
 import uniqid from "uniqid";
 import { Box, Container, Typography } from "@mui/material";
 import { MainLayout } from "layouts/main";
-import { Section } from "components/section";
+import { Section } from "components";
 
 const PARAGRAPHS = [
   `Aliquip commodo fugiat occaecat mollit eu mollit veniam nisi non enim. Laboris nulla labore aliquip veniam

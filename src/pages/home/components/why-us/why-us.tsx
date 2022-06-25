@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { CardContent, Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
-import { Icon } from "components/icon";
-import { Section } from "components/section";
+import { Icon, Section } from "components";
 import { Card as CardInfo } from "./why-us-interfaces";
 
 const CARDS: CardInfo[] = [

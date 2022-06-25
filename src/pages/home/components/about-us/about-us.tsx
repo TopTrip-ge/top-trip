@@ -1,7 +1,7 @@
 import { FC } from "react";
 import uniqid from "uniqid";
 import { Container, Grid, Typography } from "@mui/material";
-import { Section } from "components/section";
+import { Section } from "components";
 import { CheckMark } from "./components";
 
 const REASONS = [
