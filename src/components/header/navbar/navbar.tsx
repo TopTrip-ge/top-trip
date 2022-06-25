@@ -6,11 +6,7 @@ import { StyledLink } from "components/styled-link";
 import { Icon } from "components/icon";
 import { useNavbar } from "./hooks/use-navbar";
 
-const NAVBAR_ITEMS = [
-  <StyledLink to={PATHS.HOME}>Подбор тура</StyledLink>,
-  <StyledLink to={PATHS.POPULAR_DESTINATIONS}>Популярные направления</StyledLink>,
-  <StyledLink to={PATHS.ABOUT_US}>О нас</StyledLink>,
-];
+const NAVBAR_ITEMS = [<StyledLink to={PATHS.HOME}>Подбор тура</StyledLink>];
 
 export const Navbar: FC = () => {
   const { anchorElNav, handleOpenNavMenu, handleCloseNavMenu } = useNavbar();
