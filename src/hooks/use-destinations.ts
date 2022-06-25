@@ -7,7 +7,7 @@ export const useDestinations = () => {
   const { t, i18n } = useTranslation([LOCALIZATION_NAMESPACES.DESTINATIONS]);
   const destinations = useMemo(() => t("destinations") as string[], [i18n.language]);
 
-  return destinations.map((name) => ({
+  return Object.values(destinations).map((name) => ({
     id: uniqid(),
     name,
   }));
