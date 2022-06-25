@@ -20,9 +20,19 @@ export const NotFound: FC = () => {
   return (
     <Box component="main" sx={{ display: "flex", minHeight: "100vh", alignItems: "center", justifyContent: "center" }}>
       <Container>
-        <Typography variant="h1">404</Typography>
-        <Typography variant="h2">{t("text", { ns: LOCALIZATION_NAMESPACES.NOT_FOUND_PAGE })}</Typography>
-        <Button variant="contained" sx={{ p: 0, mt: 3 }}>
+        <Typography
+          variant="h1"
+          sx={{ fontSize: { xs: "50px", sm: "60px", md: "100px" }, textAlign: { xs: "center", sm: "left" } }}
+        >
+          404
+        </Typography>
+        <Typography
+          variant="h2"
+          sx={{ textAlign: { xs: "center", sm: "left" }, fontSize: { xs: "40px", sm: "50px", md: "84px" } }}
+        >
+          {t("text", { ns: LOCALIZATION_NAMESPACES.NOT_FOUND_PAGE })}
+        </Typography>
+        <Button variant="contained" sx={{ p: 0, mt: 3, width: "100%" }}>
           <Link to={PATHS.HOME}>{t("button.go-to-home")}</Link>
         </Button>
       </Container>
