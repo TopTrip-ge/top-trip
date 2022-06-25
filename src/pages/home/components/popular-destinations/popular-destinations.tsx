@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { makeFirebaseStoragePath } from "utils";
-import { Section } from "components";
+import { Section } from "components/section";
 import { DestinationCard } from "./components";
 
 const POPULAR_DESTINATIONS = [

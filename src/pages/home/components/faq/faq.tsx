@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Container, Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
-import { Section, Icon } from "components";
+import { Section } from "components/section";
+import { Icon } from "components/icon";
 import { useFaq } from "./hooks/useFaq";
 
 const ACCORDIONS = [

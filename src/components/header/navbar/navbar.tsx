@@ -2,7 +2,8 @@ import { FC } from "react";
 import { Box, MenuItem, Toolbar, Menu, Button, IconButton } from "@mui/material";
 import uniqid from "uniqid";
 import { PATHS } from "enums";
-import { StyledLink, Icon } from "components";
+import { Icon } from "components/icon";
+import { StyledLink } from "components/styled-link";
 import { useNavbar } from "./hooks/use-navbar";
 
 const NAVBAR_ITEMS = [<StyledLink to={PATHS.HOME}>Подбор тура</StyledLink>];

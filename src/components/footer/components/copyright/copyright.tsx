@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box, Container } from "@mui/material";
 import dayjs from "dayjs";
-import { Icon } from "components";
+import { Icon } from "components/icon";
 
 export const Copyright: FC = () => (
   <Box sx={{ py: 1, backgroundColor: "custom.orange", color: "custom.white" }}>

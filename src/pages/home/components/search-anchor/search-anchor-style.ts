@@ -1,7 +1,7 @@
 import { Link } from "react-scroll";
 import styled from "styled-components";
 import { makeFirebaseStoragePath } from "utils";
-import { Section } from "components";
+import { Section } from "components/section";
 
 export const StyledSection = styled(Section)`
   padding: 100px 0;

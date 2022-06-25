@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Section } from "components";
+import { Section } from "components/section";
 import { makeFirebaseStoragePath } from "utils";
 
 export const StyledSection = styled(Section)`

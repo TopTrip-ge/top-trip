@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
-import { Icon } from "components";
+import { Icon } from "components/icon";
 
 interface Props {
   marginTop?: number | string;
