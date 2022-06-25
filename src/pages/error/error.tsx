@@ -24,8 +24,18 @@ export const ErrorPage: FC<Props> = ({ errorInfo, errorMessage }) => {
   return (
     <Box component="main" sx={{ display: "flex", minHeight: "100vh", alignItems: "center", justifyContent: "center" }}>
       <Container>
-        <Typography variant="h1">{t("text", { ns: LOCALIZATION_NAMESPACES.ERROR_PAGE })}</Typography>
-        <Button size="large" variant="contained" onClick={onClick} sx={{ mt: 3 }}>
+        <Typography
+          variant="h1"
+          sx={{ textAlign: "center", fontSize: { xs: "26px", sm: "60px", md: "90px", lg: "110px" } }}
+        >
+          {t("text", { ns: LOCALIZATION_NAMESPACES.ERROR_PAGE })}
+        </Typography>
+        <Button
+          size="large"
+          variant="contained"
+          onClick={onClick}
+          sx={{ mt: 3, width: "100%", height: { xs: "30px", md: "50px" } }}
+        >
           {t("button.reload")}
         </Button>
       </Container>
