@@ -1,7 +1,8 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import { LOG_EVENTS } from "enums";
-import { useAnalyticsLog } from "firebase-common";
 import { useEffect, FC, ErrorInfo } from "react";
+import { useTranslation } from "react-i18next";
+import { LOCALIZATION_NAMESPACES, LOG_EVENTS } from "enums";
+import { useAnalyticsLog } from "firebase-common";
 
 interface Props {
   errorInfo?: ErrorInfo;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const ErrorPage: FC<Props> = ({ errorInfo, errorMessage }) => {
+  const { t } = useTranslation();
   const logEvent = useAnalyticsLog();
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export const ErrorPage: FC<Props> = ({ errorInfo, errorMessage }) => {
   return (
     <Box component="main" sx={{ display: "flex", minHeight: "100vh", alignItems: "center", justifyContent: "center" }}>
       <Container>
-        <Typography variant="h1">Что-то пошло не так :(</Typography>
+        <Typography variant="h1">{t("text", { ns: LOCALIZATION_NAMESPACES.ERROR_PAGE })}</Typography>
         <Button size="large" variant="contained" onClick={onClick} sx={{ mt: 3 }}>
-          Перезагрузить
+          {t("button.reload")}
         </Button>
       </Container>
     </Box>

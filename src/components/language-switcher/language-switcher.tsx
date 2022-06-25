@@ -15,6 +15,9 @@ export const LanguageSwitcher: FC = () => {
     <FormControl>
       <InputLabel id={LANG_SWITCHER_LABEL_ID}>{t("label.lang")}</InputLabel>
       <Select
+        MenuProps={{
+          disableScrollLock: true,
+        }}
         id={LANG_SWITCHER_ID}
         labelId={LANG_SWITCHER_LABEL_ID}
         label={t("label.lang")}
