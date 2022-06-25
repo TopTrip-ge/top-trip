@@ -1,21 +1,23 @@
 import { FC } from "react";
 import { Button, FormControl, Grid, Typography, TextField, Container, Autocomplete } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useCollection } from "firebase-common";
-import { Destination, SearchProps } from "interfaces";
-import { sortCollection, collectDataFromCollection } from "utils";
-import { ANCHORS } from "enums";
+import { SearchProps } from "interfaces";
+import { sortCollection } from "utils";
+import { ANCHORS, LOCALIZATION_NAMESPACES } from "enums";
 import { WithSkeleton } from "hocs";
-import { LABELS, DESTINATIONS, SKELETON_MIN_HEIGHT } from "./search-constants";
+import { useDestinations } from "./search-hooks";
+import { DESTINATIONS, SKELETON_MIN_HEIGHT } from "./search-constants";
 import { StyledSection } from "./search-style";
 
 export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
-  const [collection, isLoading] = useCollection<Destination>("destinations");
+  const destinations = useDestinations();
+  const { t, i18n } = useTranslation();
 
-  const destinations = sortCollection(collectDataFromCollection(collection), "name").map(({ id, name }) => ({
+  const menuItems = sortCollection(destinations, "name").map(({ id, name }) => ({
     label: name,
     id,
   }));
@@ -35,9 +37,9 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
           variant="h2"
           component="h2"
         >
-          Трансферы и однодневные туры
+          {t("title.transfers", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
           <br />
-          по всей Грузии
+          {t("title.whole-georgia", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
         </Typography>
         <Grid
           container
@@ -55,26 +57,28 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
         >
           <Grid item xs={5}>
             <FormControl fullWidth>
-              <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+              <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                 <Autocomplete
+                  key={i18n.language}
                   disablePortal
                   id={DESTINATIONS.SELECT_FROM}
-                  options={destinations}
-                  noOptionsText={LABELS.NO_OPTIONS_TEXT}
-                  renderInput={(params) => <TextField {...params} label={LABELS.SELECT_FROM} />}
+                  options={menuItems}
+                  noOptionsText={t("label.no-options")}
+                  renderInput={(params) => <TextField {...params} label={t("label.from")} />}
                 />
               </WithSkeleton>
             </FormControl>
           </Grid>
           <Grid item xs={5}>
             <FormControl fullWidth>
-              <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+              <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                 <Autocomplete
+                  key={i18n.language}
                   disablePortal
                   id={DESTINATIONS.SELECT_WHERE}
-                  options={destinations}
-                  noOptionsText={LABELS.NO_OPTIONS_TEXT}
-                  renderInput={(params) => <TextField {...params} label={LABELS.SELECT_WHERE} />}
+                  options={menuItems}
+                  noOptionsText={t("label.no-options")}
+                  renderInput={(params) => <TextField {...params} label={t("label.where")} />}
                 />
               </WithSkeleton>
             </FormControl>
@@ -82,9 +86,9 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
           <Grid item xs={5}>
             <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
               <FormControl fullWidth>
-                <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+                <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                   <DatePicker
-                    label={LABELS.SELECT_DATE}
+                    label={t("label.select-date")}
                     value={date}
                     inputFormat="dd/MM/yyyy"
                     onChange={setDatePickerValue}
@@ -96,9 +100,9 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={5}>
-            <WithSkeleton animation="pulse" isLoading={isLoading} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+            <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
               <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
-                Поиск
+                {t("button.search")}
               </Button>
             </WithSkeleton>
           </Grid>

@@ -1,15 +1,19 @@
 import { FC } from "react";
 import { Box, MenuItem, Toolbar, Menu, Button, IconButton } from "@mui/material";
 import uniqid from "uniqid";
-import { PATHS } from "enums";
-import { Icon } from "components/icon";
+import { useTranslation } from "react-i18next";
+import { LOCALIZATION_NAMESPACES, PATHS } from "enums";
 import { StyledLink } from "components/styled-link";
-import { useNavbar } from "./hooks/use-navbar";
-
-const NAVBAR_ITEMS = [<StyledLink to={PATHS.HOME}>Подбор тура</StyledLink>];
+import { Icon } from "components/icon";
+import { useNavbar } from "./hooks";
 
 export const Navbar: FC = () => {
   const { anchorElNav, handleOpenNavMenu, handleCloseNavMenu } = useNavbar();
+  const { t } = useTranslation();
+
+  const NAVBAR_ITEMS = [
+    <StyledLink to={PATHS.HOME}>{t("navbar.tour-selection", { ns: LOCALIZATION_NAMESPACES.GLOSSARY })}</StyledLink>,
+  ];
 
   return (
     <Toolbar disableGutters>

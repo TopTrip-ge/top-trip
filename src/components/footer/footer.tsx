@@ -2,6 +2,8 @@ import { FC } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { Icon as IconComponent } from "components/icon";
+import { useTranslation } from "react-i18next";
+import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { Icon } from "./footer-interfaces";
 import { Copyright } from "./components";
 import { Footer as StyledFooter } from "./footer-style";
@@ -22,6 +24,8 @@ const ICONS: Icon[] = [
 ];
 
 export const Footer: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <StyledFooter>
       <Container>
@@ -41,7 +45,8 @@ export const Footer: FC = () => {
         >
           <Grid item xs={3} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Typography sx={{ display: "flex", alignItems: "center" }}>
-              <IconComponent name="Place" sx={{ mr: 1 }} /> 12121 Тбилиси, Грузия, ул. Пушкина, 21
+              <IconComponent name="Place" sx={{ mr: 1 }} />
+              {t("address", { ns: LOCALIZATION_NAMESPACES.GLOSSARY })}
             </Typography>
             <Typography sx={{ display: "flex", alignItems: "center" }}>
               <IconComponent name="LocalPhone" sx={{ mr: 1 }} />
@@ -61,7 +66,7 @@ export const Footer: FC = () => {
               <IconComponent name="SupportAgent" sx={{ mr: 1 }} />
               +23232 2323
             </Typography>
-            <Typography>Ежедневно с 9:00 до 20:00 </Typography>
+            <Typography>{t("support-time", { ns: LOCALIZATION_NAMESPACES.GLOSSARY })} </Typography>
           </Grid>
           <Grid item xs={3} sx={{ display: "flex", justifyContent: { xs: "flex-start", md: "center" } }}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>

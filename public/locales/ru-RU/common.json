@@ -1,0 +1,11 @@
+{
+  "button.search": "Поиск",
+  "button.plan-tour": "Спланировать тур",
+  "button.reload": "Перезагрузить",
+  "button.go-to-home": "Перейти на главную",
+  "label.where": "Куда",
+  "label.from": "Откуда",
+  "label.select-date": "Выберите дату",
+  "label.no-options": "Ничего не найдено",
+  "label.lang": "Язык"
+}

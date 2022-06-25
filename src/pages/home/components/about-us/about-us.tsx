@@ -1,7 +1,9 @@
 import { FC } from "react";
 import uniqid from "uniqid";
+import { useTranslation } from "react-i18next";
 import { Container, Grid, Typography } from "@mui/material";
 import { Section } from "components/section";
+import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { CheckMark } from "./components";
 
 const REASONS = [
@@ -44,6 +46,8 @@ const REASONS = [
 ];
 
 export const AboutUs: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Section>
       <Container>
@@ -52,7 +56,7 @@ export const AboutUs: FC = () => {
           variant="h3"
           sx={{ my: 4, textAlign: "center", fontSize: { xs: "40px", sm: "50px" } }}
         >
-          О нас
+          {t("title.about-us", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
         </Typography>
         <Grid container spacing={5} sx={{ justifyContent: "center" }}>
           {REASONS.map(({ reason, description }) => (

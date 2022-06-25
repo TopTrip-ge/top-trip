@@ -26,7 +26,8 @@
       "constants/*": ["constants/*"],
       "utils/*": ["utils/*"],
       "interfaces/*": ["interfaces/*"],
-      "hocs/*": ["hocs/*"]
+      "hocs/*": ["hocs/*"],
+      "localization/*": ["localization/*"]
     }
   },
   "include": ["src"]
