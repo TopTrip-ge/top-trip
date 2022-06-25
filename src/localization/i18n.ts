@@ -23,7 +23,6 @@ i18next
       escapeValue: false,
     },
     returnObjects: true,
-    debug: process.env.NODE_ENV === "development",
   });
 
 export default i18next;
