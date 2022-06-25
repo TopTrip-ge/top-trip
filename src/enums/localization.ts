@@ -1,6 +1,6 @@
 export enum LANGUAGES {
-  EN = "en-EN",
-  RU = "ru-RU",
+  EN = "en",
+  RU = "ru",
 }
 
 export enum LOCALIZATION_NAMESPACES {
