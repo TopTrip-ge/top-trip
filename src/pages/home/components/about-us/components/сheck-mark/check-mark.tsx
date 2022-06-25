@@ -4,12 +4,14 @@ import { Icon } from "components/icon";
 
 interface Props {
   marginTop?: number | string;
+  displayXs?: string;
+  displaySm?: string;
 }
 
-export const CheckMark: FC<Props> = ({ marginTop }) => (
+export const CheckMark: FC<Props> = ({ marginTop, displayXs, displaySm }) => (
   <Box
     sx={{
-      display: "flex",
+      display: { xs: displayXs, sm: displaySm },
       flexShrink: 0,
       alignItems: "center",
       justifyContent: "center",
