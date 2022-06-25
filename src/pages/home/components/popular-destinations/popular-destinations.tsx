@@ -3,6 +3,8 @@ import { Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { makeFirebaseStoragePath } from "utils";
 import { Section } from "components/section";
+import { useTranslation } from "react-i18next";
+import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { DestinationCard } from "./components";
 
 const POPULAR_DESTINATIONS = [
@@ -36,11 +38,13 @@ const POPULAR_DESTINATIONS = [
 ];
 
 export const PopularDestinations: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Section>
       <Container>
         <Typography sx={{ mb: 8, transform: { xs: "scale(0.8)" } }} align="center" variant="h3" component="h3">
-          Популярные направления
+          {t("title.popular-destinations", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
         </Typography>
         <Grid
           container

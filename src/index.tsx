@@ -1,12 +1,14 @@
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { PATHS } from "enums";
 import { ErrorBoundary } from "components/error-boundary";
 import { App } from "components/app";
 import { FirebaseProvider, firebaseInstances } from "firebase-common";
+import { FullPageSpinner } from "components/full-page-spinner";
+import { PATHS } from "enums";
 import { MainThemeProvider } from "theme";
 import reportWebVitals from "./reportWebVitals";
+import "localization/i18n";
 
 const rootElement = document.getElementById("root");
 
@@ -18,7 +20,9 @@ root.render(
       <FirebaseProvider firebaseInstances={firebaseInstances}>
         <MainThemeProvider>
           <ErrorBoundary>
-            <App />
+            <Suspense fallback={<FullPageSpinner />}>
+              <App />
+            </Suspense>
           </ErrorBoundary>
         </MainThemeProvider>
       </FirebaseProvider>
