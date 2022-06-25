@@ -4,5 +4,6 @@
   "label.where": "Куда",
   "label.from": "Откуда",
   "label.select-date": "Выберите дату",
-  "label.no-options": "Ничего не найдено"
+  "label.no-options": "Ничего не найдено",
+  "label.lang": "Язык"
 }
