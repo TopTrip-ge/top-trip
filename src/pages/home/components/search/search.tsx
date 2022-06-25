@@ -9,13 +9,13 @@ import { SearchProps } from "interfaces";
 import { sortCollection } from "utils";
 import { ANCHORS, LOCALIZATION_NAMESPACES } from "enums";
 import { WithSkeleton } from "hocs";
-import { useDestinations } from "hooks/use-destinations";
+import { useDestinations } from "./search-hooks";
 import { DESTINATIONS, SKELETON_MIN_HEIGHT } from "./search-constants";
 import { StyledSection } from "./search-style";
 
 export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
   const destinations = useDestinations();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const menuItems = sortCollection(destinations, "name").map(({ id, name }) => ({
     label: name,
@@ -59,6 +59,7 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
             <FormControl fullWidth>
               <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                 <Autocomplete
+                  key={i18n.language}
                   disablePortal
                   id={DESTINATIONS.SELECT_FROM}
                   options={menuItems}
@@ -72,6 +73,7 @@ export const Search: FC<SearchProps> = ({ date, setDatePickerValue }) => {
             <FormControl fullWidth>
               <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                 <Autocomplete
+                  key={i18n.language}
                   disablePortal
                   id={DESTINATIONS.SELECT_WHERE}
                   options={menuItems}
