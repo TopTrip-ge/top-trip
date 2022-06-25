@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { Icon as IconComponent } from "components/icon";
 import { Icon } from "./footer-interfaces";
@@ -63,17 +63,15 @@ export const Footer: FC = () => {
             </Typography>
             <Typography>Ежедневно с 9:00 до 20:00 </Typography>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: { xs: "flex-start", md: "center" } }}
-          >
-            {ICONS.map(({ icon }) => (
-              <Typography key={uniqid()} sx={{ display: "flex", cursor: "pointer" }}>
-                <IconComponent name={icon} sx={{ mr: 1 }} />
-                {icon}
-              </Typography>
-            ))}
+          <Grid item xs={3} sx={{ display: "flex", justifyContent: { xs: "flex-start", md: "center" } }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {ICONS.map(({ icon }) => (
+                <Typography key={uniqid()} sx={{ display: "flex", cursor: "pointer" }}>
+                  <IconComponent name={icon} sx={{ mr: 1 }} />
+                  {icon}
+                </Typography>
+              ))}
+            </Box>
           </Grid>
         </Grid>
       </Container>
