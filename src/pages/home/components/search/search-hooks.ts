@@ -21,9 +21,13 @@ export const useDestinations = () => {
 const useValidation = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
   const validationSchema = yup.object({
-    from: yup.string().required(t("required")),
-    where: yup.string().required(t("required")),
-    date: yup.string().required(t("required")),
+    [SEARCH_FIELD_NAMES.FROM]: yup.string().required(t("required")),
+    [SEARCH_FIELD_NAMES.WHERE]: yup.string().required(t("required")),
+    [SEARCH_FIELD_NAMES.DATE]: yup
+      .date()
+      .min(dayjs().add(-1, "day"), () => t("current-or-future-date", { min: dayjs().format("DD/MM/YYYY") }))
+      .required(t("required"))
+      .typeError(t("invalid-date")),
   });
 
   const formik = useFormik({
@@ -53,8 +57,23 @@ export const useSearch = () => {
 
   const handleChangeDate = (value: Date | null) => {
     setDatePickerValue(value);
-    formik.setFieldValue(SEARCH_FIELD_NAMES.DATE, dayjs(value).format("DD/MM/YYYY"));
+    formik.setFieldValue(SEARCH_FIELD_NAMES.DATE, value);
   };
 
-  return { date, handleChangeDestination, handleChangeDate, formik };
+  const hasFieldError = (field: SEARCH_FIELD_NAMES): boolean => !!formik.touched[field] && !!formik.errors[field];
+
+  const getHelperErrorText = (field: SEARCH_FIELD_NAMES) => {
+    if (hasFieldError(field)) {
+      return formik.errors[field];
+    }
+
+    return null;
+  };
+
+  const resetForm = () => {
+    formik.resetForm();
+    setDate(null);
+  };
+
+  return { date, resetForm, handleChangeDestination, handleChangeDate, hasFieldError, getHelperErrorText, formik };
 };

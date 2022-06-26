@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Button, FormControl, Grid, Typography, Container, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
+// TODO(Pavel Sokolov): Add enLocale for en
 import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { SearchProps } from "interfaces";
 import { sortCollection } from "utils";
 import { ANCHORS, LOCALIZATION_NAMESPACES } from "enums";
 import { WithSkeleton } from "hocs";
@@ -21,7 +20,10 @@ export const Search: FC = () => {
     date,
     handleChangeDate,
     handleChangeDestination,
-    formik: { handleSubmit, values },
+    hasFieldError,
+    getHelperErrorText,
+    resetForm,
+    formik: { handleSubmit },
   } = useSearch();
   const destinations = useDestinations();
   const { t, i18n } = useTranslation();
@@ -30,6 +32,10 @@ export const Search: FC = () => {
     label: name,
     id,
   }));
+
+  useEffect(() => {
+    resetForm();
+  }, [i18n.language]);
 
   return (
     <StyledSection>
@@ -57,7 +63,7 @@ export const Search: FC = () => {
               flexGrow: 1,
               justifyContent: { xs: "center" },
               backgroundColor: "custom.white",
-              gap: 2,
+              gap: 2.5,
               py: 2,
               borderRadius: 4,
               px: { xs: 2 },
@@ -69,7 +75,6 @@ export const Search: FC = () => {
               <FormControl fullWidth>
                 <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                   <Autocomplete
-                    key={i18n.language}
                     disablePortal
                     id={DESTINATIONS.SELECT_FROM}
                     options={menuItems}
@@ -78,7 +83,15 @@ export const Search: FC = () => {
                     onChange={(_, value) => {
                       handleChangeDestination(SEARCH_FIELD_NAMES.FROM, value);
                     }}
-                    renderInput={(params) => <TextField label={t("label.from")} {...params} />}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t("label.from")}
+                        name={SEARCH_FIELD_NAMES.FROM}
+                        error={hasFieldError(SEARCH_FIELD_NAMES.FROM)}
+                        helperText={getHelperErrorText(SEARCH_FIELD_NAMES.FROM)}
+                      />
+                    )}
                   />
                 </WithSkeleton>
               </FormControl>
@@ -87,7 +100,6 @@ export const Search: FC = () => {
               <FormControl fullWidth>
                 <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                   <Autocomplete
-                    key={i18n.language}
                     disablePortal
                     id={DESTINATIONS.SELECT_WHERE}
                     options={menuItems}
@@ -96,7 +108,15 @@ export const Search: FC = () => {
                     onChange={(_, value) => {
                       handleChangeDestination(SEARCH_FIELD_NAMES.WHERE, value);
                     }}
-                    renderInput={(params) => <TextField {...params} label={t("label.where")} />}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t("label.where")}
+                        name={SEARCH_FIELD_NAMES.WHERE}
+                        error={hasFieldError(SEARCH_FIELD_NAMES.WHERE)}
+                        helperText={getHelperErrorText(SEARCH_FIELD_NAMES.WHERE)}
+                      />
+                    )}
                   />
                 </WithSkeleton>
               </FormControl>
@@ -111,7 +131,12 @@ export const Search: FC = () => {
                       inputFormat="dd/MM/yyyy"
                       onChange={handleChangeDate}
                       renderInput={(params) => (
-                        <TextField {...params} name={SEARCH_FIELD_NAMES.DATE} id={SEARCH_FIELD_NAMES.DATE} />
+                        <TextField
+                          {...params}
+                          name={SEARCH_FIELD_NAMES.DATE}
+                          error={hasFieldError(SEARCH_FIELD_NAMES.DATE)}
+                          helperText={getHelperErrorText(SEARCH_FIELD_NAMES.DATE)}
+                        />
                       )}
                       disablePast
                     />
