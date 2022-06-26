@@ -1,0 +1,5 @@
+{
+  "required": "Required to fill out",
+  "invalid-date": "Invalid date",
+  "current-or-future-date": "Date must be later than {{min}}"
+}
