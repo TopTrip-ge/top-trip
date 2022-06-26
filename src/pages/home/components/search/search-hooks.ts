@@ -29,7 +29,6 @@ const useValidation = () => {
       .required(t("required"))
       .typeError(t("invalid-date")),
   });
-
   const formik = useFormik({
     initialValues: {
       [SEARCH_FIELD_NAMES.FROM]: "",
@@ -38,6 +37,7 @@ const useValidation = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      // eslint-disable-next-line no-alert
       alert(JSON.stringify(values));
     },
   });
