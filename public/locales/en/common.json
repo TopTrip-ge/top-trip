@@ -7,5 +7,6 @@
   "label.from": "From",
   "label.select-date": "Select date",
   "label.no-options": "Nothing found",
-  "label.lang": "Lang"
+  "label.lang": "Lang",
+  "label.currency": "Currency"
 }
