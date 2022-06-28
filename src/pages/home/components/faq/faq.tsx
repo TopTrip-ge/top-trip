@@ -2,31 +2,10 @@ import { FC } from "react";
 import { Container, Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import { Section } from "components/section";
 import { Icon } from "components/icon";
-import { useFaq } from "./hooks/useFaq";
-
-const ACCORDIONS = [
-  {
-    question: "Nulla id enim voluptate deserunt quis laborum occaecat cupidatat ut esse?",
-    panel: "panel1",
-    answer: `Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
-              dignissim quam.`,
-  },
-  {
-    question: "Nulla id enim voluptate deserunt quis laborum occaecat cupidatat ut esse?",
-    panel: "panel2",
-    answer: `Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
-              dignissim quam.`,
-  },
-  {
-    question: "Nulla id enim voluptate deserunt quis laborum occaecat cupidatat ut esse?",
-    panel: "panel3",
-    answer: `Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
-              dignissim quam.`,
-  },
-];
+import { useFaq } from "./faq-hooks";
 
 export const Faq: FC = () => {
-  const { expanded, handleChange } = useFaq();
+  const { expanded, accordionItems, handleChange } = useFaq();
 
   return (
     <Section>
@@ -38,7 +17,7 @@ export const Faq: FC = () => {
         >
           F.A.Q.
         </Typography>
-        {ACCORDIONS.map(({ question, panel, answer }) => (
+        {accordionItems.map(({ question, panel, answer }) => (
           <Accordion key={panel} expanded={expanded === panel} onChange={handleChange(panel)}>
             <AccordionSummary
               expandIcon={<Icon name="ExpandMore" />}
@@ -48,7 +27,7 @@ export const Faq: FC = () => {
               <Typography sx={{ flexShrink: 1 }}>{question}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{answer}</Typography>
+              <Typography sx={{ fontSize: "0.9rem" }}>{answer}</Typography>
             </AccordionDetails>
           </Accordion>
         ))}

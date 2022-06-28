@@ -5,5 +5,23 @@
   "title.with-toptrip": "with TOPTRIP",
   "title.about-us": "About us",
   "title.why-us": "Why us?",
-  "title.popular-destinations": "Popular destinations"
+  "title.popular-destinations": "Popular destinations",
+  "faq": [
+    {
+      "question": "How to order a transfer?",
+      "answer": "You just need to specify the place of departure, the place of arrival and the date of the tour/transfer. Choose a driver-guide and place an order."
+    },
+    {
+      "question": "How to pay?",
+      "answer": "Payment is made in cash, only after the end of the trip."
+    },
+    {
+      "question": "Can I book multi-day tours?",
+      "answer": "You can pre-book and plan as many trips as you need at the time of your arrival in Georgia."
+    },
+    {
+      "question": "What language to speak?",
+      "answer": "You can specify in advance the language in which you will communicate with the driver-guide."
+    }
+  ]
 }
