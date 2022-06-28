@@ -1,13 +1,8 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from "react";
-import { useRecoilState } from "recoil";
-import { useTranslation } from "react-i18next";
-import { Typography, SelectChangeEvent, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Typography, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { CURRENCIES } from "enums";
-import { currencyState, popularDestinations } from "recoil/atoms";
-import { convertCurrency } from "utils/convert-currency";
 import { CURRENCY_SWITCHER_LABEL_ID, CURRENCY_SWITCHER_ID } from "./currency-switcher-constants";
+import { useCurrencySwitcher } from "./hooks/use-currency-switcher";
 
 const CURRENCY_ITEM = [
   {
@@ -29,20 +24,7 @@ const CURRENCY_ITEM = [
 ];
 
 export const CurrencySwitcher: FC = () => {
-  const [currency, setCurrency] = useRecoilState(currencyState);
-  const [destinationPrices, setDestinationPrices] = useRecoilState(popularDestinations);
-  const { t } = useTranslation();
-
-  const handleChange = ({ target: { value } }: SelectChangeEvent<CURRENCIES>) => {
-    const convertedPricesPromises: Promise<number>[] = destinationPrices.map((price) =>
-      convertCurrency(price, currency, value)
-    );
-
-    Promise.all(convertedPricesPromises).then((convertedPrices) => {
-      setDestinationPrices(convertedPrices);
-      setCurrency(value as CURRENCIES);
-    });
-  };
+  const { t, handleChange, currency } = useCurrencySwitcher();
 
   return (
     <FormControl>
