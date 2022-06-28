@@ -34,14 +34,14 @@ export const CurrencySwitcher: FC = () => {
   const { t } = useTranslation();
 
   const handleChange = ({ target: { value } }: SelectChangeEvent<CURRENCIES>) => {
-    const convertedPrices: number[] = [];
-    destinationPrices.map((price) =>
-      convertCurrency(price, currency, value).then((data: number) => convertedPrices.push(Math.round(data)))
+    const convertedPricesPromises: Promise<number>[] = destinationPrices.map((price) =>
+      convertCurrency(price, currency, value)
     );
-    console.log(destinationPrices, convertedPrices.length);
-    // Как только массив начнёт нормально заполнятся, то просто убери консоль логи и раскомментируй нижнюю строку
-    // setDestinationPrices(convertedPrices)
-    setCurrency(value as CURRENCIES);
+
+    Promise.all(convertedPricesPromises).then((convertedPrices) => {
+      setDestinationPrices(convertedPrices);
+      setCurrency(value as CURRENCIES);
+    });
   };
 
   return (
