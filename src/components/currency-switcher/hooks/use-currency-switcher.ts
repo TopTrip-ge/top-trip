@@ -12,8 +12,10 @@ export const useCurrencySwitcher = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    setCurrency(JSON.parse(localStorage.getItem("currency")!));
-    setDestinationPrices(JSON.parse(localStorage.getItem("destinationPrices")!));
+    if (localStorage.getItem("currency") && localStorage.getItem("destinationPrices")) {
+      setCurrency(JSON.parse(localStorage.getItem("currency")!));
+      setDestinationPrices(JSON.parse(localStorage.getItem("destinationPrices")!));
+    }
   }, []);
 
   const handleChange = ({ target: { value } }: SelectChangeEvent<CURRENCIES>) => {
