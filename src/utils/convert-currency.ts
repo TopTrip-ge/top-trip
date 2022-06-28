@@ -1,4 +1,6 @@
-export const convertCurrency = async (price: any, currentCurrency: any, whereConvert: any) => {
+import { CURRENCIES } from "enums";
+
+export const convertCurrency = async (price: number, currentCurrency: CURRENCIES, whereConvert: string) => {
   try {
     const response = await fetch(
       `https://api.exchangerate.host/convert?amount=${price}&from=${currentCurrency}&to=${whereConvert}`

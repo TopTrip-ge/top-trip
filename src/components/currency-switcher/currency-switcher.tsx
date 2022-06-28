@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from "react";
 import { useRecoilState } from "recoil";
@@ -37,7 +38,7 @@ export const CurrencySwitcher: FC = () => {
     destinationPrices.map((price) =>
       convertCurrency(price, currency, value).then((data: number) => convertedPrices.push(Math.round(data)))
     );
-    console.log(destinationPrices, convertedPrices);
+    console.log(destinationPrices, convertedPrices.length);
     // Как только массив начнёт нормально заполнятся, то просто убери консоль логи и раскомментируй нижнюю строку
     // setDestinationPrices(convertedPrices)
     setCurrency(value as CURRENCIES);
