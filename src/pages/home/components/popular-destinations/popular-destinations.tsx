@@ -1,6 +1,9 @@
 import { FC } from "react";
+import { useRecoilValue } from "recoil";
+import { popularDestinationsSelector, currencyStateSelector } from "recoil/selectors";
 import { Container, Grid, Typography } from "@mui/material";
 import { Section } from "components/section";
+import { setCurrencySign } from "utils";
 import { useTranslation } from "react-i18next";
 import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { DestinationCard } from "./components";
@@ -9,6 +12,8 @@ import { usePopularDestinations } from "./popular-destinations-hooks";
 export const PopularDestinations: FC = () => {
   const { t } = useTranslation();
   const popularDestination = usePopularDestinations();
+  const prices = useRecoilValue(popularDestinationsSelector);
+  const currency = useRecoilValue(currencyStateSelector);
 
   return (
     <Section>
@@ -23,9 +28,14 @@ export const PopularDestinations: FC = () => {
           spacing={{ xs: 2, sm: 4, md: 10 }}
           columns={{ xs: 4, sm: 9, md: 9 }}
         >
-          {popularDestination.map(({ id, destinationsName, price, date, imageURL }) => (
+          {popularDestination.map(({ id, destinationsName, date, imageURL }, index) => (
             <Grid key={id} item xs={3}>
-              <DestinationCard destinationsName={destinationsName} price={price} date={date} imageURL={imageURL} />
+              <DestinationCard
+                destinationsName={destinationsName}
+                price={setCurrencySign(currency, prices[index])}
+                date={date}
+                imageURL={imageURL}
+              />
             </Grid>
           ))}
         </Grid>

@@ -1,6 +1,6 @@
 export enum CURRENCIES {
   GEL = "GEL",
   USD = "USD",
-  EURO = "EURO",
+  EUR = "EUR",
   RUB = "RUB",
 }

@@ -1,6 +1,7 @@
 import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import { ErrorBoundary } from "components/error-boundary";
 import { App } from "components/app";
 import { FirebaseProvider, firebaseInstances } from "firebase-common";
@@ -21,7 +22,9 @@ root.render(
         <MainThemeProvider>
           <ErrorBoundary>
             <Suspense fallback={<FullPageSpinner />}>
-              <App />
+              <RecoilRoot>
+                <App />
+              </RecoilRoot>
             </Suspense>
           </ErrorBoundary>
         </MainThemeProvider>
