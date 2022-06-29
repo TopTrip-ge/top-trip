@@ -8,26 +8,29 @@ import { convertCurrency } from "utils/convert-currency";
 
 export const useCurrencySwitcher = () => {
   const [currency, setCurrency] = useRecoilState(currencyState);
-  const [destinationPrices, setDestinationPrices] = useRecoilState(popularDestinations);
+  const [destinations, setDestinations] = useRecoilState(popularDestinations);
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (localStorage.getItem("currency") && localStorage.getItem("destinationPrices")) {
+    if (localStorage.getItem("currency") && localStorage.getItem("destinations")) {
       setCurrency(JSON.parse(localStorage.getItem("currency")!));
-      setDestinationPrices(JSON.parse(localStorage.getItem("destinationPrices")!));
+      setDestinations(JSON.parse(localStorage.getItem("destinations")!));
     }
   }, []);
 
   const handleChange = ({ target: { value } }: SelectChangeEvent<CURRENCIES>) => {
-    const convertedPricesPromises: Promise<number>[] = destinationPrices.map((price) =>
+    const convertedPricesPromises: Promise<number>[] = destinations.map(({ price }) =>
       convertCurrency(price, currency, value)
     );
 
     Promise.all(convertedPricesPromises).then((convertedPrices) => {
-      setDestinationPrices(convertedPrices);
+      const convertedDestinationPrices = convertedPrices.map((priceItem, index) => {
+        return { id: destinations[index].id, price: priceItem };
+      });
+      setDestinations(convertedDestinationPrices);
       setCurrency(value as CURRENCIES);
       localStorage.setItem("currency", JSON.stringify(value));
-      localStorage.setItem("destinationPrices", JSON.stringify(convertedPrices));
+      localStorage.setItem("destinations", JSON.stringify(convertedDestinationPrices));
     });
   };
 

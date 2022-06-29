@@ -1,9 +1,8 @@
-import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import uniqid from "uniqid";
 import { useRecoilValue } from "recoil";
 import { makeFirebaseStoragePath } from "utils";
+import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { popularDestinationsSelector, currencyStateSelector } from "recoil/selectors";
 
 export const usePopularDestinations = () => {
@@ -14,7 +13,7 @@ export const usePopularDestinations = () => {
   const destinations = useMemo(
     () => [
       {
-        id: uniqid(),
+        id: "810342d6",
         destinationsName: `${t("sighnaghi")} - ${t("bakhmaro")}`,
         date: "2022-06-01 - 2023-06-01",
         imageURL: makeFirebaseStoragePath(
@@ -22,7 +21,7 @@ export const usePopularDestinations = () => {
         ),
       },
       {
-        id: uniqid(),
+        id: "18381a41",
         destinationsName: `${t("mtskheta")} - ${t("samtavro-monastery")} - ${t("jvari")}`,
         date: "2022-06-01 - 2023-06-01",
         imageURL: makeFirebaseStoragePath(
@@ -30,7 +29,7 @@ export const usePopularDestinations = () => {
         ),
       },
       {
-        id: uniqid(),
+        id: "ea01a093",
         destinationsName: `${t("ananuri")} - ${t("gonio")}`,
         date: "2022-06-01 - 2023-06-01",
         imageURL: makeFirebaseStoragePath(
@@ -41,5 +40,5 @@ export const usePopularDestinations = () => {
     [i18n.language]
   );
 
-  return { t, destinations, prices, currency };
+  return { destinations, prices, currency };
 };
