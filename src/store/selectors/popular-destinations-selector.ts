@@ -1,6 +1,6 @@
 import { selector } from "recoil";
-import { popularDestinations } from "recoil/atoms";
-import { SELECTORS } from "recoil/recoil-enums";
+import { popularDestinations } from "store/atoms";
+import { SELECTORS } from "store/recoil-enums";
 
 export const popularDestinationsSelector = selector({
   key: SELECTORS.POPULAR_DESTINATIONS_SELECTOR,

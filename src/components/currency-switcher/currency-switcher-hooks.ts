@@ -1,24 +1,17 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { currencyState, popularDestinations } from "recoil/atoms";
 import { useTranslation } from "react-i18next";
-import { SelectChangeEvent } from "@mui/material";
+import { currencyState, popularDestinations } from "store/atoms";
 import { CURRENCIES } from "enums";
-import { convertCurrency } from "utils/convert-currency";
+import { convertCurrency } from "utils";
+import { LOCAL_STORAGE_NAMES } from "./currency-switcher-constants";
 
 export const useCurrencySwitcher = () => {
   const [currency, setCurrency] = useRecoilState(currencyState);
   const [destinations, setDestinations] = useRecoilState(popularDestinations);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (localStorage.getItem("currency") && localStorage.getItem("destinations")) {
-      setCurrency(JSON.parse(localStorage.getItem("currency")!));
-      setDestinations(JSON.parse(localStorage.getItem("destinations")!));
-    }
-  }, []);
-
-  const handleChange = ({ target: { value } }: SelectChangeEvent<CURRENCIES>) => {
+  const handleChange = (value: CURRENCIES) => {
     const convertedPricesPromises: Promise<number>[] = destinations.map(({ price }) =>
       convertCurrency(price, currency, value)
     );
@@ -29,10 +22,16 @@ export const useCurrencySwitcher = () => {
       });
       setDestinations(convertedDestinationPrices);
       setCurrency(value as CURRENCIES);
-      localStorage.setItem("currency", JSON.stringify(value));
-      localStorage.setItem("destinations", JSON.stringify(convertedDestinationPrices));
+      localStorage.setItem(LOCAL_STORAGE_NAMES.CURRENCY, JSON.stringify(value));
     });
   };
+
+  useEffect(() => {
+    const localCurrency = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAMES.CURRENCY)!);
+    if (localCurrency !== null) {
+      handleChange(localCurrency);
+    }
+  }, []);
 
   return { t, handleChange, currency };
 };

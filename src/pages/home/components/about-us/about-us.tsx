@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Container, Typography, Box } from "@mui/material";
+import uniqid from "uniqid";
 import { Section } from "components/section";
 import { LOCALIZATION_NAMESPACES } from "enums/localization";
 
@@ -19,7 +20,7 @@ export const AboutUs: FC = () => {
         </Typography>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {(t("about-us") as string[]).map((item) => (
-            <Typography component="p" sx={{ textIndent: "20px" }}>
+            <Typography key={uniqid()} component="p" sx={{ textIndent: "20px" }}>
               {item}
             </Typography>
           ))}

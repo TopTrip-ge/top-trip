@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Typography, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { CURRENCIES } from "enums";
 import { CURRENCY_SWITCHER_LABEL_ID, CURRENCY_SWITCHER_ID } from "./currency-switcher-constants";
-import { useCurrencySwitcher } from "./hooks/use-currency-switcher";
+import { useCurrencySwitcher } from "./currency-switcher-hooks";
 
 const CURRENCY_ITEM = [
   {
@@ -36,7 +36,7 @@ export const CurrencySwitcher: FC = () => {
         id={CURRENCY_SWITCHER_ID}
         labelId={CURRENCY_SWITCHER_LABEL_ID}
         label={t("label.currency")}
-        onChange={handleChange}
+        onChange={(event) => handleChange(event.target.value as CURRENCIES)}
         value={currency}
         sx={{
           [`#${CURRENCY_SWITCHER_ID}`]: {

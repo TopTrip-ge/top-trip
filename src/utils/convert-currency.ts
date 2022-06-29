@@ -7,7 +7,8 @@ export const convertCurrency = async (price: number, currentCurrency: CURRENCIES
     );
     const data = await response.json();
     return data.result;
-  } catch (e) {
-    return e;
+    // Todo: Add errorAlert
+  } catch {
+    return null;
   }
 };

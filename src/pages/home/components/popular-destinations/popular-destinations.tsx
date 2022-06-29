@@ -5,7 +5,7 @@ import { Section } from "components/section";
 import { setCurrencySign } from "utils";
 import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { DestinationCard } from "./components";
-import { usePopularDestinations } from "./hooks/use-popular-destinations";
+import { usePopularDestinations } from "./popular-destinations-hooks";
 
 export const PopularDestinations: FC = () => {
   const { t } = useTranslation();
