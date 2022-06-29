@@ -24,7 +24,7 @@ export const Faq: FC = () => {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-              <Typography sx={{ flexShrink: 1 }}>{question}</Typography>
+              <Typography sx={{ flexShrink: 1, fontWeight: "fontWeightBold" }}>{question}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography sx={{ fontSize: "0.9rem" }}>{answer}</Typography>
