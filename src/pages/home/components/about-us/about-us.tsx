@@ -1,52 +1,11 @@
 import { FC } from "react";
-import uniqid from "uniqid";
 import { useTranslation } from "react-i18next";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
 import { Section } from "components/section";
 import { LOCALIZATION_NAMESPACES } from "enums/localization";
-import { CheckMark } from "./components";
-
-const REASONS = [
-  {
-    reason: "Aute do id sint magna voluptate voluptate magna.",
-    description: `Aliquip commodo fugiat occaecat mollit eu mollit veniam nisi non enim. Laboris nulla 
-    labore aliquip veniam duis magna quis laborum voluptate elit eiusmod.
-    Proident deserunt ullamco anim incididunt fugiat.`,
-  },
-  {
-    reason: "Aute do id sint magna voluptate voluptate magna.",
-    description: `Aliquip commodo fugiat occaecat mollit eu mollit veniam nisi non enim. Laboris nulla 
-    labore aliquip veniam duis magna quis laborum voluptate elit eiusmod.
-    Proident deserunt ullamco anim incididunt fugiat.`,
-  },
-  {
-    reason: "Aute do id sint magna voluptate voluptate magna.",
-    description: `Aliquip commodo fugiat occaecat mollit eu mollit veniam nisi non enim. Laboris nulla 
-    labore aliquip veniam duis magna quis laborum voluptate elit eiusmod.
-    Proident deserunt ullamco anim incididunt fugiat.`,
-  },
-  {
-    reason: "Aute do id sint magna voluptate voluptate magna.",
-    description: `Aliquip commodo fugiat occaecat mollit eu mollit veniam nisi non enim. Laboris nulla 
-    labore aliquip veniam duis magna quis laborum voluptate elit eiusmod.
-    Proident deserunt ullamco anim incididunt fugiat.`,
-  },
-  {
-    reason: "Aute do id sint magna voluptate voluptate magna.",
-    description: `Aliquip commodo fugiat occaecat mollit eu mollit veniam nisi non enim. Laboris nulla 
-    labore aliquip veniam duis magna quis laborum voluptate elit eiusmod.
-    Proident deserunt ullamco anim incididunt fugiat.`,
-  },
-  {
-    reason: "Aute do id sint magna voluptate voluptate magna.",
-    description: `Aliquip commodo fugiat occaecat mollit eu mollit veniam nisi non enim. Laboris nulla 
-    labore aliquip veniam duis magna quis laborum voluptate elit eiusmod.
-    Proident deserunt ullamco anim incididunt fugiat.`,
-  },
-];
 
 export const AboutUs: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(LOCALIZATION_NAMESPACES.HOME_SECTIONS);
 
   return (
     <Section>
@@ -58,38 +17,13 @@ export const AboutUs: FC = () => {
         >
           {t("title.about-us", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
         </Typography>
-        <Grid container spacing={5} sx={{ justifyContent: "center" }}>
-          {REASONS.map(({ reason, description }) => (
-            <Grid
-              key={uniqid()}
-              item
-              xs={9}
-              sm={6}
-              md={4}
-              sx={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "center" }}
-            >
-              <CheckMark marginTop="7px" displayXs="flex" displaySm="none" />
-              <Typography
-                key={uniqid()}
-                component="h5"
-                variant="h5"
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: 2,
-                  alignItems: "top",
-                  fontSize: { xs: "16px", sm: "20px", md: "24px" },
-                }}
-              >
-                <CheckMark marginTop="7px" displayXs="none" displaySm="flex" />
-                {reason}
-              </Typography>
-              <Typography key={uniqid()} component="p" sx={{ fontSize: { xs: "10px", sm: "16px", md: "20px" } }}>
-                {description}
-              </Typography>
-            </Grid>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {(t("about-us") as string[]).map((item) => (
+            <Typography component="p" sx={{ textIndent: "20px" }}>
+              {item}
+            </Typography>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Section>
   );
