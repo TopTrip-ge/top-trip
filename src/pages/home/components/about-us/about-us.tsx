@@ -17,7 +17,7 @@ export const AboutUs: FC = () => {
         >
           {t("title.about-us", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
         </Typography>
-        <Box>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {(t("about-us") as string[]).map((item) => (
             <Typography component="p" sx={{ textIndent: "20px" }}>
               {item}
