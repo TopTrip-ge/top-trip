@@ -2,10 +2,14 @@ import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import uniqid from "uniqid";
+import { useRecoilValue } from "recoil";
 import { makeFirebaseStoragePath } from "utils";
+import { popularDestinationsSelector, currencyStateSelector } from "recoil/selectors";
 
 export const usePopularDestinations = () => {
   const { t, i18n } = useTranslation(LOCALIZATION_NAMESPACES.DESTINATIONS, { keyPrefix: "destinations" });
+  const prices = useRecoilValue(popularDestinationsSelector);
+  const currency = useRecoilValue(currencyStateSelector);
 
   const destinations = useMemo(
     () => [
@@ -37,5 +41,5 @@ export const usePopularDestinations = () => {
     [i18n.language]
   );
 
-  return destinations;
+  return { t, destinations, prices, currency };
 };
