@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useTranslation } from "react-i18next";
 import { currencyState, popularDestinations } from "store/atoms";
-import { CURRENCIES } from "enums";
+import { CURRENCIES, LOCAL_STORAGE_NAMES } from "enums";
 import { convertCurrency } from "utils";
-import { LOCAL_STORAGE_NAMES } from "./currency-switcher-constants";
 
 export const useCurrencySwitcher = () => {
   const [currency, setCurrency] = useRecoilState(currencyState);
