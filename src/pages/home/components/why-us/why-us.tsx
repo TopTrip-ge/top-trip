@@ -26,9 +26,18 @@ export const WhyUs: FC = () => {
             <Grid item xs={4} key={uniqid()}>
               <Typography
                 component="p"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "top", fontWeight: "fontWeightBold", gap: 1 }}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  fontWeight: "fontWeightBold",
+                  gap: 1,
+                }}
               >
-                <Icon name={findIcon(id)} />
+                <Icon
+                  name={findIcon(id)}
+                  sx={{ color: "custom.orange", width: { md: "40px", sm: "30px" }, height: { md: "40px", sm: "30px" } }}
+                />
                 {reason}
               </Typography>
             </Grid>
