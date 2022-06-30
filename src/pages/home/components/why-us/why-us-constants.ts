@@ -1,7 +1,7 @@
 import { REASONS } from "enums/reasons";
-import { IconNames } from "./why-us-interfaces";
+import { IconName } from "./why-us-interfaces";
 
-export const ICON_NAMES: IconNames[] = [
+export const ICON_NAMES: IconName[] = [
   {
     id: REASONS.REASON_1,
     icon: "AttachMoneyOutlined",

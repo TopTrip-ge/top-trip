@@ -6,7 +6,7 @@ import { ICON_NAMES } from "./why-us-constants";
 export const useWhyUs = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.HOME_SECTIONS);
 
-  const findIcon = (id: string): IconTypes => {
+  const getIcon = (id: string): IconTypes => {
     const iconWithId = ICON_NAMES.find((item) => item.id === id);
     if (!iconWithId) {
       throw new Error(`Не найдена иконка для причины выбора нас. ID=${id}`);
@@ -14,5 +14,5 @@ export const useWhyUs = () => {
     return iconWithId.icon;
   };
 
-  return { t, findIcon };
+  return { t, getIcon };
 };

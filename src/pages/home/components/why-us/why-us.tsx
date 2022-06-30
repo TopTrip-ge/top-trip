@@ -4,11 +4,11 @@ import uniqid from "uniqid";
 import { Icon } from "components/icon";
 import { Section } from "components/section";
 import { LOCALIZATION_NAMESPACES } from "enums";
-import { Reasons } from "./why-us-interfaces";
+import { Reason } from "./why-us-interfaces";
 import { useWhyUs } from "./why-us-hooks";
 
 export const WhyUs: FC = () => {
-  const { t, findIcon } = useWhyUs();
+  const { t, getIcon } = useWhyUs();
 
   return (
     <Section>
@@ -22,7 +22,7 @@ export const WhyUs: FC = () => {
           direction="row"
           columns={{ xs: 2, sm: 9, md: 12 }}
         >
-          {(t("why-us") as Reasons[]).map(({ id, reason }) => (
+          {(t("why-us") as Reason[]).map(({ id, reason }) => (
             <Grid item xs={4} key={uniqid()}>
               <Typography
                 component="p"
@@ -35,7 +35,7 @@ export const WhyUs: FC = () => {
                 }}
               >
                 <Icon
-                  name={findIcon(id)}
+                  name={getIcon(id)}
                   sx={{ color: "custom.orange", width: { md: "40px", sm: "30px" }, height: { md: "40px", sm: "30px" } }}
                 />
                 {reason}

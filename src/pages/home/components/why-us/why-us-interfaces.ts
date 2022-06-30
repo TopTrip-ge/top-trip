@@ -1,11 +1,12 @@
 import { IconTypes } from "components/icon";
+import { REASONS } from "enums/reasons";
 
-export interface Reasons {
-  id: string;
+export interface Reason {
+  id: REASONS;
   reason: string;
 }
 
-export interface IconNames {
+export interface IconName {
   id: string;
   icon: IconTypes;
 }
