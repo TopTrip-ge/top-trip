@@ -11,7 +11,7 @@ export const usePopularDestinations = () => {
   const currency = useRecoilValue(currencyStateSelector);
 
   const findPrice = (id: string): number => {
-    const destinationPrice = prices.find((item: { id: string; price: number }) => item.id === id);
+    const destinationPrice = prices.find((item) => item.id === id);
     if (!destinationPrice) {
       throw new Error(`Не найдена цена для популярного направления. ID=${id}`);
     }
