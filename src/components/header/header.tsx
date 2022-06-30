@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { AppBar, Container } from "@mui/material";
+import { AppBar, Container, Box } from "@mui/material";
 import { LanguageSwitcher } from "components/language-switcher";
 import { CenterBox } from "components/center-box";
+import { CurrencySwitcher } from "components/currency-switcher";
 import { Navbar } from "./navbar";
 
 export const Header: FC = () => (
@@ -9,7 +10,10 @@ export const Header: FC = () => (
     <Container>
       <CenterBox sx={{ justifyContent: "space-between" }}>
         <Navbar />
-        <LanguageSwitcher />
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <CurrencySwitcher />
+          <LanguageSwitcher />
+        </Box>
       </CenterBox>
     </Container>
   </AppBar>

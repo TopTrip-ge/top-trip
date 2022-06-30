@@ -27,7 +27,8 @@
       "utils/*": ["utils/*"],
       "interfaces/*": ["interfaces/*"],
       "hocs/*": ["hocs/*"],
-      "localization/*": ["localization/*"]
+      "localization/*": ["localization/*"],
+      "store/*": ["store/*"]
     }
   },
   "include": ["src"]

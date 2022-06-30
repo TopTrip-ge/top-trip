@@ -7,5 +7,6 @@
   "label.from": "Откуда",
   "label.select-date": "Выберите дату",
   "label.no-options": "Ничего не найдено",
-  "label.lang": "Язык"
+  "label.lang": "Язык",
+  "label.currency": "Валюта"
 }
