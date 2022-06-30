@@ -30,11 +30,29 @@
     "We receive in Georgian, we communicate in Georgian, we escort in Georgian."
   ],
   "why-us": [
-    "The lowest price guarantee.",
-    "Payment after the end of the tour or transfer.",
-    "Professional and loyal approach to the requirements of guests from educated, professional and friendly guides-drivers.",
-    "Guarantee of technically sound transport, maximum comfort and insurance during the trip.",
-    "Free, unlimited Internet (WiFi).",
-    "Stops and photo shoots are not limited in time."
+    {
+      "id": "REASON_1",
+      "reason": "The lowest price guarantee."
+    },
+    {
+      "id": "REASON_2",
+      "reason": "Payment after the end of the tour or transfer."
+    },
+    {
+      "id": "REASON_3",
+      "reason": "Professional and loyal approach to the requirements of guests from educated, professional and friendly guides-drivers."
+    },
+    {
+      "id": "REASON_4",
+      "reason": "Guarantee of technically sound transport, maximum comfort and insurance during the trip."
+    },
+    {
+      "id": "REASON_5",
+      "reason": "Free, unlimited Internet (WiFi)."
+    },
+    {
+      "id": "REASON_6",
+      "reason": "Stops and photo shoots are not limited in time."
+    }
   ]
 }

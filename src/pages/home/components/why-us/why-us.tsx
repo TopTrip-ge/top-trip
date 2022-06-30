@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { Container, Grid, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import uniqid from "uniqid";
 import { Icon } from "components/icon";
 import { Section } from "components/section";
 import { LOCALIZATION_NAMESPACES } from "enums";
-import { ICON_NAMES } from "./why-us-constants";
+import { Reasons } from "./why-us-interfaces";
+import { useWhyUs } from "./why-us-hooks";
 
 export const WhyUs: FC = () => {
-  const { t } = useTranslation(LOCALIZATION_NAMESPACES.HOME_SECTIONS);
+  const { t, findIcon } = useWhyUs();
 
   return (
     <Section>
@@ -22,14 +22,14 @@ export const WhyUs: FC = () => {
           direction="row"
           columns={{ xs: 2, sm: 9, md: 12 }}
         >
-          {(t("why-us") as string[]).map((item, index) => (
+          {(t("why-us") as Reasons[]).map(({ id, reason }) => (
             <Grid item xs={4} key={uniqid()}>
               <Typography
                 component="p"
                 sx={{ display: "flex", flexDirection: "row", alignItems: "top", fontWeight: "fontWeightBold", gap: 1 }}
               >
-                <Icon name={ICON_NAMES[index]} />
-                {item}
+                <Icon name={findIcon(id)} />
+                {reason}
               </Typography>
             </Grid>
           ))}
