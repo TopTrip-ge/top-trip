@@ -7,7 +7,7 @@ export const useWhyUs = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.HOME_SECTIONS);
 
   const getIcon = (id: string): IconTypes => {
-    const iconWithId = ICON_NAMES.find((item) => item.id === id);
+    const iconWithId = ICON_NAMES.find((item) => item.reasonId === id);
     if (!iconWithId) {
       throw new Error(`Не найдена иконка для причины выбора нас. ID=${id}`);
     }

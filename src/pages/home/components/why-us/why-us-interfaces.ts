@@ -2,11 +2,11 @@ import { IconTypes } from "components/icon";
 import { REASONS } from "enums/reasons";
 
 export interface Reason {
-  id: REASONS;
+  reasonId: REASONS;
   reason: string;
 }
 
 export interface IconName {
-  id: string;
+  reasonId: REASONS;
   icon: IconTypes;
 }

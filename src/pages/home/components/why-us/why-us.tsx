@@ -22,7 +22,7 @@ export const WhyUs: FC = () => {
           direction="row"
           columns={{ xs: 2, sm: 9, md: 12 }}
         >
-          {(t("why-us") as Reason[]).map(({ id, reason }) => (
+          {(t("why-us") as Reason[]).map(({ reasonId, reason }) => (
             <Grid item xs={4} key={uniqid()}>
               <Typography
                 component="p"
@@ -35,7 +35,7 @@ export const WhyUs: FC = () => {
                 }}
               >
                 <Icon
-                  name={getIcon(id)}
+                  name={getIcon(reasonId)}
                   sx={{ color: "custom.orange", width: { md: "40px", sm: "30px" }, height: { md: "40px", sm: "30px" } }}
                 />
                 {reason}
