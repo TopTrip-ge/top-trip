@@ -1,32 +1,14 @@
 import { FC } from "react";
-import { CardContent, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import uniqid from "uniqid";
 import { Icon } from "components/icon";
 import { Section } from "components/section";
-import { useTranslation } from "react-i18next";
-import { LOCALIZATION_NAMESPACES } from "enums/localization";
-import { Card as CardInfo } from "./why-us-interfaces";
-
-const CARDS: CardInfo[] = [
-  {
-    icon: "SearchOutlined",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis magna sodales, posuere.",
-  },
-  {
-    icon: "SentimentSatisfiedAltOutlined",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis magna sodales, posuere.",
-  },
-  {
-    icon: "CheckOutlined",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis magna sodales, posuere.",
-  },
-];
+import { LOCALIZATION_NAMESPACES } from "enums";
+import { Reason } from "./why-us-interfaces";
+import { useWhyUs } from "./why-us-hooks";
 
 export const WhyUs: FC = () => {
-  const { t } = useTranslation();
+  const { t, getIcon } = useWhyUs();
 
   return (
     <Section>
@@ -36,22 +18,28 @@ export const WhyUs: FC = () => {
         </Typography>
         <Grid
           container
-          sx={{ flexGrow: 1, justifyContent: { md: "space-between", xs: "center" } }}
+          sx={{ flexGrow: 1, justifyContent: { md: "space-evenly", xs: "left" }, gap: 3 }}
           direction="row"
-          spacing={{ xs: 2, sm: 4, md: 10 }}
-          columns={{ xs: 4, sm: 9, md: 9 }}
+          columns={{ xs: 2, sm: 9, md: 12 }}
         >
-          {CARDS.map(({ description, icon, title }) => (
-            <Grid item key={uniqid()} sx={{ maxWidth: "350px", boxShadow: "none" }}>
-              <CardContent sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 0 }}>
-                <Icon name={icon} fontSize="large" />
-                <Typography fontWeight="fontWeightBold" variant="h5" sx={{ mt: 1 }}>
-                  {title}
-                </Typography>
-                <Typography fontWeight="fontWeightMedium" variant="subtitle1" align="center" sx={{ mt: 2 }}>
-                  {description}
-                </Typography>
-              </CardContent>
+          {(t("why-us") as Reason[]).map(({ reasonId, reason }) => (
+            <Grid item xs={4} key={uniqid()}>
+              <Typography
+                component="p"
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  fontWeight: "fontWeightBold",
+                  gap: 1,
+                }}
+              >
+                <Icon
+                  name={getIcon(reasonId)}
+                  sx={{ color: "custom.orange", width: { md: "40px", sm: "30px" }, height: { md: "40px", sm: "30px" } }}
+                />
+                {reason}
+              </Typography>
             </Grid>
           ))}
         </Grid>
