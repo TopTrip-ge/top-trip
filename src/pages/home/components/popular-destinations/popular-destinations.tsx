@@ -9,7 +9,7 @@ import { usePopularDestinations } from "./popular-destinations-hooks";
 
 export const PopularDestinations: FC = () => {
   const { t } = useTranslation();
-  const { destinations, prices, currency } = usePopularDestinations();
+  const { destinations, findPrice, currency } = usePopularDestinations();
 
   return (
     <Section>
@@ -28,7 +28,7 @@ export const PopularDestinations: FC = () => {
             <Grid key={id} item xs={3}>
               <DestinationCard
                 destinationsName={destinationsName}
-                price={setCurrencySign(currency, prices.filter((item) => item.id === id)[0].price)}
+                price={setCurrencySign(currency, findPrice(id))}
                 date={date}
                 imageURL={imageURL}
               />

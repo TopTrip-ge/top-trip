@@ -22,14 +22,14 @@ export const useCurrencySwitcher = () => {
       });
       setDestinations(convertedDestinationPrices);
       setCurrency(value as CURRENCIES);
-      localStorage.setItem(LOCAL_STORAGE_NAMES.CURRENCY, JSON.stringify(value));
+      localStorage.setItem(LOCAL_STORAGE_NAMES.CURRENCY, value);
     });
   };
 
   useEffect(() => {
-    const localCurrency = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAMES.CURRENCY)!);
+    const localCurrency = localStorage.getItem(LOCAL_STORAGE_NAMES.CURRENCY);
     if (localCurrency !== null) {
-      handleChange(localCurrency);
+      handleChange(localCurrency as CURRENCIES);
     }
   }, []);
 

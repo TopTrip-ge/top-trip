@@ -10,6 +10,14 @@ export const usePopularDestinations = () => {
   const prices = useRecoilValue(popularDestinationsSelector);
   const currency = useRecoilValue(currencyStateSelector);
 
+  const findPrice = (id: string): number => {
+    const destinationPrice = prices.find((item: { id: string; price: number }) => item.id === id);
+    if (!destinationPrice) {
+      throw new Error(`Не найдена цена для популярного направления. ID=${id}`);
+    }
+    return destinationPrice.price;
+  };
+
   const destinations = useMemo(
     () => [
       {
@@ -40,5 +48,5 @@ export const usePopularDestinations = () => {
     [i18n.language]
   );
 
-  return { destinations, prices, currency };
+  return { destinations, findPrice, currency };
 };
