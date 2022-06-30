@@ -1,8 +1,5 @@
 import { FC } from "react";
 import {
-  SearchOutlined,
-  SentimentSatisfiedAltOutlined,
-  CheckOutlined,
   Copyright,
   Instagram,
   Facebook,
@@ -15,13 +12,16 @@ import {
   Menu,
   Done,
   ExpandMore,
+  AttachMoneyOutlined,
+  PaymentOutlined,
+  AccessibilityNewOutlined,
+  ChairOutlined,
+  NetworkWifiOutlined,
+  PhotoCameraOutlined,
 } from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
 
 const ICONS = {
-  SearchOutlined,
-  SentimentSatisfiedAltOutlined,
-  CheckOutlined,
   Instagram,
   Facebook,
   Twitter,
@@ -34,6 +34,12 @@ const ICONS = {
   Menu,
   Done,
   ExpandMore,
+  AttachMoneyOutlined,
+  PaymentOutlined,
+  AccessibilityNewOutlined,
+  ChairOutlined,
+  NetworkWifiOutlined,
+  PhotoCameraOutlined,
 };
 
 export type IconTypes = keyof typeof ICONS;

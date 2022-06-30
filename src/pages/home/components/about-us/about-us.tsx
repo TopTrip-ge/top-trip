@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Container, Typography, Box } from "@mui/material";
 import uniqid from "uniqid";
 import { Section } from "components/section";
-import { LOCALIZATION_NAMESPACES } from "enums/localization";
+import { LOCALIZATION_NAMESPACES } from "enums";
 
 export const AboutUs: FC = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.HOME_SECTIONS);
