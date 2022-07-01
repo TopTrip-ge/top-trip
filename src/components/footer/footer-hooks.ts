@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { useAnalyticsLog } from "firebase-common";
 import { useElementOnScreen } from "hooks";
 import { LOG_EVENTS_COMMON } from "enums";
-import { useEffect, useState } from "react";
 
 export const useFooter = () => {
   const [isScrolledDown, setIsScrolledDown] = useState(false);
