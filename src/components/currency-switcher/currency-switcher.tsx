@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Typography, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { CURRENCIES } from "enums";
+import { CURRENCIES, LOG_EVENTS_SELECTORS } from "enums";
+import { useAnalyticsLog } from "firebase-common";
 import { CURRENCY_SWITCHER_LABEL_ID, CURRENCY_SWITCHER_ID } from "./currency-switcher-constants";
 import { useCurrencySwitcher } from "./currency-switcher-hooks";
 
@@ -25,6 +26,11 @@ const CURRENCY_ITEM = [
 
 export const CurrencySwitcher: FC = () => {
   const { t, handleChange, currency } = useCurrencySwitcher();
+  const { logEvent } = useAnalyticsLog();
+
+  useEffect(() => {
+    logEvent(LOG_EVENTS_SELECTORS.SELECT_CURRENCY, { currency });
+  }, [currency, logEvent]);
 
   return (
     <FormControl>

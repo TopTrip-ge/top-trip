@@ -2,9 +2,10 @@ import { useTranslation } from "react-i18next";
 import { useMemo, useState } from "react";
 import * as yup from "yup";
 import uniqid from "uniqid";
-import { LOCALIZATION_NAMESPACES } from "enums";
 import { useFormik } from "formik";
 import dayjs from "dayjs";
+import { LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS } from "enums";
+import { useAnalyticsLog } from "firebase-common";
 import { SEARCH_FIELD_NAMES } from "./search-constants";
 import { SearchDestination } from "./search-interfaces";
 
@@ -20,6 +21,7 @@ export const useDestinations = () => {
 
 const useValidation = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
+  const { logEvent } = useAnalyticsLog();
   const validationSchema = yup.object({
     [SEARCH_FIELD_NAMES.FROM]: yup.string().required(t("required")),
     [SEARCH_FIELD_NAMES.WHERE]: yup.string().required(t("required")),
@@ -37,6 +39,7 @@ const useValidation = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      logEvent(LOG_EVENTS_BUTTONS.CLICK_SEARCH_BUTTON, values);
       // eslint-disable-next-line no-alert
       alert(JSON.stringify(values));
     },

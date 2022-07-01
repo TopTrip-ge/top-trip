@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, FC, ErrorInfo } from "react";
 import { useTranslation } from "react-i18next";
-import { LOCALIZATION_NAMESPACES, LOG_EVENTS } from "enums";
+import { LOCALIZATION_NAMESPACES, LOG_EVENTS_COMMON } from "enums";
 import { useAnalyticsLog } from "firebase-common";
 
 interface Props {
@@ -11,11 +11,11 @@ interface Props {
 
 export const ErrorPage: FC<Props> = ({ errorInfo, errorMessage }) => {
   const { t } = useTranslation();
-  const logEvent = useAnalyticsLog();
+  const { logEvent } = useAnalyticsLog();
 
   useEffect(() => {
-    logEvent(LOG_EVENTS.APP_CRASHED, { errorInfo, errorMessage });
-  }, []);
+    logEvent(LOG_EVENTS_COMMON.APP_CRASHED, { error_info: errorInfo, error_message: errorMessage });
+  }, [errorInfo, errorMessage, logEvent]);
 
   const onClick = () => {
     window.location.reload();

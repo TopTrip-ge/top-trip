@@ -2,10 +2,12 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { ANCHORS, LOCALIZATION_NAMESPACES } from "enums";
+import { useSearchAnchor } from "./search-anchor-hooks";
 import { StyledLink, StyledSection } from "./search-anchor-style";
 
 export const SearchAnchor: FC = () => {
   const { t } = useTranslation();
+  const { handleAnchorClick } = useSearchAnchor();
 
   return (
     <StyledSection>
@@ -19,7 +21,7 @@ export const SearchAnchor: FC = () => {
             {t("title.travel-around-georgia", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
             <br /> {t("title.with-toptrip", { ns: LOCALIZATION_NAMESPACES.HOME_SECTIONS })}
           </Typography>
-          <StyledLink to={ANCHORS.SEARCH} smooth offset={-60} duration={1000}>
+          <StyledLink to={ANCHORS.SEARCH} smooth offset={-60} duration={1000} onClick={handleAnchorClick}>
             <Button size="large" sx={{ width: "100%", height: "100%" }}>
               {t("button.plan-tour")}
             </Button>
