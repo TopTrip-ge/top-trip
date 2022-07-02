@@ -14,7 +14,7 @@ export const ErrorPage: FC<Props> = ({ errorInfo, errorMessage }) => {
   const { logEvent } = useAnalyticsLog();
 
   useEffect(() => {
-    logEvent(LOG_EVENTS_COMMON.APP_CRASHED, { error_info: errorInfo, error_message: errorMessage });
+    logEvent(LOG_EVENTS_COMMON.APP_CRASHED, { error_message: errorMessage });
   }, [errorInfo, errorMessage, logEvent]);
 
   const onClick = () => {
