@@ -8,7 +8,7 @@ export const useNotFound = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    logEvent(LOG_EVENTS_COMMON.PAGE_NOT_FOUND, { pathname });
+    logEvent(LOG_EVENTS_COMMON.PAGE_NOT_FOUND, { page_pathname: pathname });
   }, [logEvent]);
 
   const handleGoHomeClick = () => {
