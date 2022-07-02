@@ -4,6 +4,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import { LOCALIZATION_NAMESPACES, PATHS } from "enums";
 import { StyledLink } from "components/styled-link";
+import { useNotFound } from "./not-found-hooks";
 
 const Link = styled(StyledLink)`
   padding: 12px;
@@ -16,6 +17,7 @@ const Link = styled(StyledLink)`
 
 export const NotFound: FC = () => {
   const { t } = useTranslation();
+  const { handleGoHomeClick } = useNotFound();
 
   return (
     <Box component="main" sx={{ display: "flex", minHeight: "100vh", alignItems: "center", justifyContent: "center" }}>
@@ -32,7 +34,7 @@ export const NotFound: FC = () => {
         >
           {t("text", { ns: LOCALIZATION_NAMESPACES.NOT_FOUND_PAGE })}
         </Typography>
-        <Button variant="contained" sx={{ p: 0, mt: 3, width: "100%" }}>
+        <Button variant="contained" sx={{ p: 0, mt: 3, width: "100%" }} onClick={handleGoHomeClick}>
           <Link to={PATHS.HOME}>{t("button.go-to-home")}</Link>
         </Button>
       </Container>

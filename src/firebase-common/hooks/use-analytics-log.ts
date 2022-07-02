@@ -1,9 +1,11 @@
 import { useContext } from "react";
-import { logEvent } from "firebase/analytics";
+import { logEvent as logEventFirebase } from "firebase/analytics";
 import { FirebaseContext } from "firebase-common/context";
 
 export const useAnalyticsLog = () => {
   const { analytics } = useContext(FirebaseContext);
 
-  return (event: string, params?: Record<string, unknown>) => logEvent(analytics, event, params);
+  return {
+    logEvent: (event: string, params?: Record<string, unknown>) => logEventFirebase(analytics, event, params),
+  };
 };

@@ -7,6 +7,7 @@ import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { Icon } from "./footer-interfaces";
 import { Copyright } from "./components";
 import { Footer as StyledFooter } from "./footer-style";
+import { useFooter } from "./footer-hooks";
 
 const ICONS: Icon[] = [
   {
@@ -25,9 +26,10 @@ const ICONS: Icon[] = [
 
 export const Footer: FC = () => {
   const { t } = useTranslation();
+  const { endOfPageRef } = useFooter();
 
   return (
-    <StyledFooter>
+    <StyledFooter ref={endOfPageRef}>
       <Container>
         <Grid
           container
