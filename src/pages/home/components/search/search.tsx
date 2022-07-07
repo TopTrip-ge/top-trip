@@ -6,10 +6,10 @@ import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { ANCHORS, LOCALIZATION_NAMESPACES } from "enums";
+import { ANCHORS, LOCALIZATION_NAMESPACES, LANGUAGES } from "enums";
 import { WithSkeleton } from "hocs";
 import { TextField } from "components/text-field";
-import { ENdestinations, RUdestinations } from "destinations/destinations";
+import { ENdestinations, RUdestinations } from "mock-database/destinations";
 import { useSearch } from "./search-hooks";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "./search-constants";
 import { StyledSection } from "./search-style";
@@ -31,7 +31,7 @@ export const Search: FC = () => {
     resetForm();
   }, [i18n.language]);
 
-  const menuItems: SearchDestination[] = i18n.language === "ru" ? RUdestinations : ENdestinations;
+  const menuItems: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
 
   return (
     <StyledSection>

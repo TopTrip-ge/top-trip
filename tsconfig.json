@@ -29,7 +29,7 @@
       "hocs/*": ["hocs/*"],
       "localization/*": ["localization/*"],
       "store/*": ["store/*"],
-      "destinations/*": ["destinations/*"]
+      "mock-database/*": ["mock-database/*"]
     }
   },
   "include": ["src"]
