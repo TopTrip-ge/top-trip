@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import * as yup from "yup";
-import uniqid from "uniqid";
+
 import { useFormik } from "formik";
 import dayjs from "dayjs";
 import { LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS } from "enums";
@@ -9,15 +9,15 @@ import { useAnalyticsLog } from "firebase-common";
 import { SEARCH_FIELD_NAMES } from "./search-constants";
 import { SearchDestination } from "./search-interfaces";
 
-export const useDestinations = () => {
-  const { t, i18n } = useTranslation([LOCALIZATION_NAMESPACES.DESTINATIONS]);
-  const destinations = useMemo(() => t("destinations") as string[], [i18n.language]);
+// export const useDestinations = () => {
+//   const { t, i18n } = useTranslation([LOCALIZATION_NAMESPACES.DESTINATIONS]);
+//   const destinations = useMemo(() => t("destinations") as string[], [i18n.language]);
 
-  return Object.values(destinations).map((name) => ({
-    id: uniqid(),
-    name,
-  }));
-};
+//   return Object.values(destinations).map((name) => ({
+//     id: uniqid(),
+//     name,
+//   }));
+// };
 
 const useValidation = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);

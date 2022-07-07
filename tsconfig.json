@@ -28,7 +28,8 @@
       "interfaces/*": ["interfaces/*"],
       "hocs/*": ["hocs/*"],
       "localization/*": ["localization/*"],
-      "store/*": ["store/*"]
+      "store/*": ["store/*"],
+      "destinations/*": ["destinations/*"]
     }
   },
   "include": ["src"]
