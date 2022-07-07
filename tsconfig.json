@@ -28,7 +28,8 @@
       "interfaces/*": ["interfaces/*"],
       "hocs/*": ["hocs/*"],
       "localization/*": ["localization/*"],
-      "store/*": ["store/*"]
+      "store/*": ["store/*"],
+      "mock-database/*": ["mock-database/*"]
     }
   },
   "include": ["src"]
