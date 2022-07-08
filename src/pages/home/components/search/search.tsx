@@ -59,15 +59,15 @@ export const Search: FC = () => {
               flexGrow: 1,
               justifyContent: { xs: "center" },
               backgroundColor: "custom.white",
-              gap: 2.5,
+              gap: 3,
               py: 2,
               borderRadius: 4,
               px: { xs: 2 },
             }}
             direction="row"
-            columns={{ xs: 5, sm: 7, md: 11 }}
+            columns={{ xs: 5, sm: 8, md: 10 }}
           >
-            <Grid item xs={5}>
+            <Grid item xs={10}>
               <FormControl fullWidth>
                 <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                   <Autocomplete
@@ -92,7 +92,7 @@ export const Search: FC = () => {
                 </WithSkeleton>
               </FormControl>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={10}>
               <FormControl fullWidth>
                 <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                   <Autocomplete
@@ -117,7 +117,7 @@ export const Search: FC = () => {
                 </WithSkeleton>
               </FormControl>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={5} sm={8} md={4.87} lg={4.89}>
               <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
                 <FormControl fullWidth>
                   <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
@@ -140,7 +140,7 @@ export const Search: FC = () => {
                 </FormControl>
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={5} sm={8} md={4.87} lg={4.89}>
               <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                 <Button
                   type="submit"
