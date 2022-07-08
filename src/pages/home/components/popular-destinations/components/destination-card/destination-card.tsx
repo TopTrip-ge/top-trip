@@ -21,29 +21,11 @@ export const DestinationCard: FC<Props> = ({ destinationsName, price, date, imag
   >
     <StyledTypography>{price}</StyledTypography>
     <StyledBox sx={{ backgroundImage: `url(${imageURL})` }}>
-      <Box sx={{ padding: "30px" }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          sx={{
-            backgroundColor: "custom.grey",
-            padding: "0 6px",
-            borderTopLeftRadius: "10px",
-            borderTopRightRadius: "10px",
-          }}
-        >
+      <Box sx={{ m: "30px", backgroundColor: "custom.grey", borderRadius: "8px" }}>
+        <Typography variant="h6" component="h6" sx={{ padding: "0 6px" }}>
           {destinationsName}
         </Typography>
-        <Typography
-          sx={{
-            backgroundColor: "custom.grey",
-            padding: "0 6px",
-            borderBottomLeftRadius: "10px",
-            borderBottomRightRadius: "10px",
-          }}
-        >
-          {date}
-        </Typography>
+        <Typography sx={{ padding: "0 6px" }}>{date}</Typography>
       </Box>
     </StyledBox>
   </Box>
