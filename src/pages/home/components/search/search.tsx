@@ -59,9 +59,10 @@ export const Search: FC = () => {
               flexGrow: 1,
               justifyContent: { xs: "center" },
               backgroundColor: "custom.white",
-              py: 2,
+              mx: { xs: "auto" },
+              pr: 2,
+              pb: 2,
               borderRadius: 4,
-              px: { xs: 2 },
             }}
             spacing={2}
             xs={12}
