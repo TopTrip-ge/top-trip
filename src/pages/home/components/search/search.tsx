@@ -14,6 +14,7 @@ import { useSearch } from "./search-hooks";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "./search-constants";
 import { StyledSection } from "./search-style";
 import { SearchDestination } from "./search-interfaces";
+import { SelectWhereDestination } from "./components/select-where-destination/select-where-destination";
 
 export const Search: FC = () => {
   const {
@@ -92,30 +93,13 @@ export const Search: FC = () => {
                 </WithSkeleton>
               </FormControl>
             </Grid>
+            <SelectWhereDestination />
             <Grid item xs={12}>
-              <FormControl fullWidth>
-                <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
-                  <Autocomplete
-                    disablePortal
-                    id={DESTINATIONS.SELECT_WHERE}
-                    options={menuItems}
-                    noOptionsText={t("label.no-options")}
-                    isOptionEqualToValue={(option, value) => option.label === value.label}
-                    onChange={(_, value) => {
-                      handleChangeDestination(SEARCH_FIELD_NAMES.WHERE, value);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={t("label.where")}
-                        name={SEARCH_FIELD_NAMES.WHERE}
-                        error={hasFieldError(SEARCH_FIELD_NAMES.WHERE)}
-                        helperText={getHelperErrorText(SEARCH_FIELD_NAMES.WHERE)}
-                      />
-                    )}
-                  />
-                </WithSkeleton>
-              </FormControl>
+              <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+                <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
+                  добавить направление
+                </Button>
+              </WithSkeleton>
             </Grid>
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
