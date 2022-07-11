@@ -18,6 +18,8 @@ import {
   ChairOutlined,
   NetworkWifiOutlined,
   PhotoCameraOutlined,
+  Add,
+  Clear,
 } from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
 
@@ -40,6 +42,8 @@ const ICONS = {
   ChairOutlined,
   NetworkWifiOutlined,
   PhotoCameraOutlined,
+  Add,
+  Clear,
 };
 
 export type IconTypes = keyof typeof ICONS;

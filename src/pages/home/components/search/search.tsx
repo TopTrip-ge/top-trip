@@ -1,4 +1,6 @@
-import { FC, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { FC, useEffect, useState } from "react";
+import uniqid from "uniqid";
 import { Button, FormControl, Grid, Typography, Container, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
 // TODO(Pavel Sokolov): Add enLocale for en
@@ -9,6 +11,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ANCHORS, LOCALIZATION_NAMESPACES, LANGUAGES } from "enums";
 import { WithSkeleton } from "hocs";
 import { TextField } from "components/text-field";
+import { Icon } from "components/icon";
 import { ENdestinations, RUdestinations } from "mock-database/destinations";
 import { useSearch } from "./search-hooks";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "./search-constants";
@@ -17,10 +20,11 @@ import { SearchDestination } from "./search-interfaces";
 import { SelectWhereDestination } from "./components/select-where-destination/select-where-destination";
 
 export const Search: FC = () => {
+  const [whereDestinations, setWhereDestinations] = useState<any>([]);
   const {
     date,
     handleChangeDate,
-    handleChangeDestination,
+    handleChangeFrom,
     hasFieldError,
     getHelperErrorText,
     resetForm,
@@ -33,6 +37,10 @@ export const Search: FC = () => {
   }, [i18n.language]);
 
   const menuItems: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
+
+  const deleteDestination = (fieldId: string) => {
+    setWhereDestinations(whereDestinations.filter((destination: { id: string }) => destination.id !== fieldId));
+  };
 
   return (
     <StyledSection>
@@ -78,7 +86,7 @@ export const Search: FC = () => {
                     noOptionsText={t("label.no-options")}
                     isOptionEqualToValue={(option, value) => option.label === value.label}
                     onChange={(_, value) => {
-                      handleChangeDestination(SEARCH_FIELD_NAMES.FROM, value);
+                      handleChangeFrom(value);
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -94,10 +102,50 @@ export const Search: FC = () => {
               </FormControl>
             </Grid>
             <SelectWhereDestination />
+            {whereDestinations.map((element: { id: string }) => (
+              <Grid
+                item
+                key={uniqid()}
+                xs={12}
+                sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+              >
+                <SelectWhereDestination xs={11} />
+                <Button
+                  sx={{
+                    backgroundColor: "custom.white",
+                    color: "custom.grey",
+                    "&:hover": { backgroundColor: "custom.white" },
+                  }}
+                  onClick={() => deleteDestination(element.id)}
+                >
+                  <Icon name="Clear" />
+                </Button>
+              </Grid>
+            ))}
             <Grid item xs={12}>
               <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
-                <Button variant="contained" size="large" sx={{ width: "100%", height: "100%", boxShadow: "none" }}>
-                  добавить направление
+                <Button
+                  variant="contained"
+                  onClick={() => setWhereDestinations([...whereDestinations, { label: "", id: uniqid() }])}
+                  size="large"
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    boxShadow: "none",
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                    borderColor: "custom.grey",
+                    backgroundColor: "custom.white",
+                    color: "custom.grey",
+                    "&:hover": {
+                      backgroundColor: "custom.white",
+                      boxShadow: "none",
+                      color: "custom.black",
+                      borderColor: "custom.black",
+                    },
+                  }}
+                >
+                  <Icon name="Add" /> {t("button.add")}
                 </Button>
               </WithSkeleton>
             </Grid>
