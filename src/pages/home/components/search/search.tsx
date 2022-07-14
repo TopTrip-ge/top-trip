@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import uniqid from "uniqid";
 import { Button, FormControl, Grid, Typography, Container, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { FieldArray, FieldArrayRenderProps, FormikProvider } from "formik";
 // TODO(Pavel Sokolov): Add enLocale for en
 import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -20,27 +21,24 @@ import { SearchDestination } from "./search-interfaces";
 import { SelectWhereDestination } from "./components/select-where-destination/select-where-destination";
 
 export const Search: FC = () => {
-  const [whereDestinations, setWhereDestinations] = useState<any>([]);
   const {
     date,
     handleChangeDate,
     handleChangeFrom,
+    handleChangeWhere,
     hasFieldError,
     getHelperErrorText,
     resetForm,
-    formik: { handleSubmit },
+    formik,
   } = useSearch();
   const { t, i18n } = useTranslation();
+  const { handleSubmit, values } = formik;
 
   useEffect(() => {
     resetForm();
   }, [i18n.language]);
 
   const menuItems: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
-
-  const deleteDestination = (fieldId: string) => {
-    setWhereDestinations(whereDestinations.filter((destination: { id: string }) => destination.id !== fieldId));
-  };
 
   return (
     <StyledSection>
@@ -101,54 +99,55 @@ export const Search: FC = () => {
                 </WithSkeleton>
               </FormControl>
             </Grid>
-            <SelectWhereDestination />
-            {whereDestinations.map((element: { id: string }) => (
-              <Grid
-                item
-                key={uniqid()}
-                xs={12}
-                sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
-              >
-                <SelectWhereDestination xs={11} />
-                <Button
-                  sx={{
-                    backgroundColor: "custom.white",
-                    color: "custom.grey",
-                    "&:hover": { backgroundColor: "custom.white" },
-                  }}
-                  onClick={() => deleteDestination(element.id)}
-                >
-                  <Icon name="Clear" />
-                </Button>
-              </Grid>
-            ))}
-            <Grid item xs={12}>
-              <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
-                <Button
-                  variant="contained"
-                  onClick={() => setWhereDestinations([...whereDestinations, { label: "", id: uniqid() }])}
-                  size="large"
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    boxShadow: "none",
-                    borderWidth: "1px",
-                    borderStyle: "solid",
-                    borderColor: "custom.grey",
-                    backgroundColor: "custom.white",
-                    color: "custom.grey",
-                    "&:hover": {
-                      backgroundColor: "custom.white",
-                      boxShadow: "none",
-                      color: "custom.black",
-                      borderColor: "custom.black",
-                    },
-                  }}
-                >
-                  <Icon name="Add" /> {t("button.add")}
-                </Button>
-              </WithSkeleton>
-            </Grid>
+            <FormikProvider value={formik}>
+              <FieldArray
+                name={SEARCH_FIELD_NAMES.WHERE}
+                render={(arrayHelpers) => (
+                  <>
+                    {values.where.map((_, index) => (
+                      <SelectWhereDestination
+                        key={uniqid()}
+                        id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
+                        name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
+                        getHelperErrorText={getHelperErrorText}
+                        handleChangeWhere={(value: SearchDestination) => handleChangeWhere(arrayHelpers, index, value)}
+                        hasFieldError={hasFieldError}
+                        deleteDestination={() => arrayHelpers.remove(index)}
+                        menuItems={menuItems}
+                        isFirstWhereDestination={index === 0}
+                      />
+                    ))}
+                    <Grid item xs={12}>
+                      <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
+                        <Button
+                          variant="contained"
+                          onClick={() => arrayHelpers.push("")}
+                          size="large"
+                          sx={{
+                            width: "100%",
+                            height: "100%",
+                            boxShadow: "none",
+                            borderWidth: "1px",
+                            borderStyle: "solid",
+                            borderColor: "custom.grey",
+                            backgroundColor: "custom.white",
+                            color: "custom.grey",
+                            "&:hover": {
+                              backgroundColor: "custom.white",
+                              boxShadow: "none",
+                              color: "custom.black",
+                              borderColor: "custom.black",
+                            },
+                          }}
+                        >
+                          <Icon name="Add" /> {t("button.add")}
+                        </Button>
+                      </WithSkeleton>
+                    </Grid>
+                  </>
+                )}
+              />
+            </FormikProvider>
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
                 <FormControl fullWidth>

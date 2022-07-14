@@ -2,11 +2,12 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import i18next from "i18next";
 import * as yup from "yup";
-import { useFormik } from "formik";
+import { FieldArrayRenderProps, useFormik } from "formik";
 import dayjs from "dayjs";
 import { LANGUAGES, LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS } from "enums";
 import { useAnalyticsLog } from "firebase-common";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
+import { getErrorFromFieldArray, isFieldArray } from "utils";
 import { SEARCH_FIELD_NAMES } from "./search-constants";
 import { SearchDestination } from "./search-interfaces";
 
@@ -15,7 +16,7 @@ const useValidation = () => {
   const { logEvent } = useAnalyticsLog();
   const validationSchema = yup.object({
     [SEARCH_FIELD_NAMES.FROM]: yup.string().required(t("required")),
-    [SEARCH_FIELD_NAMES.WHERE]: yup.array().required(t("required")),
+    [SEARCH_FIELD_NAMES.WHERE]: yup.array().of(yup.string().required(t("required")).min(1)),
     [SEARCH_FIELD_NAMES.DATE]: yup
       .date()
       .min(dayjs().add(-1, "day"), () => t("current-or-future-date", { min: dayjs().format("DD/MM/YYYY") }))
@@ -25,7 +26,7 @@ const useValidation = () => {
   const formik = useFormik({
     initialValues: {
       [SEARCH_FIELD_NAMES.FROM]: "",
-      [SEARCH_FIELD_NAMES.WHERE]: [],
+      [SEARCH_FIELD_NAMES.WHERE]: [""],
       [SEARCH_FIELD_NAMES.DATE]: "",
     },
     validationSchema,
@@ -47,11 +48,12 @@ export const useSearch = () => {
   const setDatePickerValue = (newValue: Date | null) => setDate(newValue);
 
   const handleChangeFrom = (value: SearchDestination | null) => {
-    formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, value?.label ?? []);
+    formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, value?.label);
   };
 
-  const handleChangeWhere = (value: SearchDestination | null) => {
-    formik.setFieldValue(SEARCH_FIELD_NAMES.WHERE, [...formik.values[SEARCH_FIELD_NAMES.WHERE], value?.label]);
+  const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: SearchDestination | null) => {
+    arrayHelpers.replace(index, value?.label ?? "");
+    // formik.setFieldValue(SEARCH_FIELD_NAMES.WHERE, value?.label ?? "");
   };
 
   const handleChangeDate = (value: Date | null) => {
@@ -59,10 +61,24 @@ export const useSearch = () => {
     formik.setFieldValue(SEARCH_FIELD_NAMES.DATE, value);
   };
 
-  const hasFieldError = (field: SEARCH_FIELD_NAMES): boolean => !!formik.touched[field] && !!formik.errors[field];
+  const hasFieldError = (field: SEARCH_FIELD_NAMES): boolean => {
+    const fieldTouched = formik.touched[field];
+    const fieldErrors = formik.errors ?? [];
+
+    if (isFieldArray(field)) {
+      const error = getErrorFromFieldArray(field, fieldErrors);
+      return !!error;
+    }
+
+    return !!fieldTouched && !!fieldErrors[field];
+  };
 
   const getHelperErrorText = (field: SEARCH_FIELD_NAMES) => {
     if (hasFieldError(field)) {
+      if (isFieldArray(field)) {
+        return getErrorFromFieldArray(field, formik.errors) as string;
+      }
+
       return formik.errors[field];
     }
 
@@ -86,3 +102,5 @@ export const useSearch = () => {
     menuItems,
   };
 };
+
+export type UseSearch = ReturnType<typeof useSearch>;
