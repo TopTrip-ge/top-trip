@@ -105,7 +105,7 @@ export const Search: FC = () => {
                   <>
                     {values.where.map((_, index) => (
                       <SelectWhereDestination
-                        key={`${values.where[index]}${uniqid()}`}
+                        key={uniqid()}
                         id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                         name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                         getHelperErrorText={getHelperErrorText}
