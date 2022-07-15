@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useEffect } from "react";
 import uniqid from "uniqid";
 import { Button, FormControl, Grid, Typography, Container, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { FieldArray, FieldArrayRenderProps, FormikProvider } from "formik";
+import { FieldArray, FormikProvider } from "formik";
 // TODO(Pavel Sokolov): Add enLocale for en
 import ruLocale from "date-fns/locale/ru";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -106,7 +105,7 @@ export const Search: FC = () => {
                   <>
                     {values.where.map((_, index) => (
                       <SelectWhereDestination
-                        key={uniqid()}
+                        key={`${values.where[index]}${uniqid()}`}
                         id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                         name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                         getHelperErrorText={getHelperErrorText}
@@ -114,6 +113,7 @@ export const Search: FC = () => {
                         hasFieldError={hasFieldError}
                         deleteDestination={() => arrayHelpers.remove(index)}
                         menuItems={menuItems}
+                        label={values.where[index] as SearchDestination}
                         isFirstWhereDestination={index === 0}
                       />
                     ))}
@@ -121,7 +121,7 @@ export const Search: FC = () => {
                       <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                         <Button
                           variant="contained"
-                          onClick={() => arrayHelpers.push("")}
+                          onClick={() => arrayHelpers.push({ id: "", label: "" })}
                           size="large"
                           sx={{
                             width: "100%",

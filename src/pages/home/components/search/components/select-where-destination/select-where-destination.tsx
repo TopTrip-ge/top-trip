@@ -14,6 +14,7 @@ interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> 
   isFirstWhereDestination: boolean;
   deleteDestination: () => void;
   handleChangeWhere: any;
+  label: SearchDestination;
 }
 
 export const SelectWhereDestination: FC<Props> = ({
@@ -25,6 +26,7 @@ export const SelectWhereDestination: FC<Props> = ({
   hasFieldError,
   getHelperErrorText,
   deleteDestination,
+  label,
 }) => {
   const { t } = useTranslation();
 
@@ -35,6 +37,7 @@ export const SelectWhereDestination: FC<Props> = ({
           <Autocomplete
             disablePortal
             id={id}
+            value={label}
             options={menuItems}
             noOptionsText={t("label.no-options")}
             isOptionEqualToValue={(option, value) => option.label === value.label}
@@ -59,6 +62,7 @@ export const SelectWhereDestination: FC<Props> = ({
           <Autocomplete
             disablePortal
             id={id}
+            value={label}
             options={menuItems}
             noOptionsText={t("label.no-options")}
             isOptionEqualToValue={(option, value) => option.label === value.label}

@@ -1,5 +1,3 @@
-import { FormikErrors } from "formik";
-
 export const getFieldAndIndexFromFieldArray = <F extends string>(field: F): [F, number] => {
   const [currentField, index] = field.split(".") as [F, string];
   const numIndex = Number(index);
@@ -7,10 +5,8 @@ export const getFieldAndIndexFromFieldArray = <F extends string>(field: F): [F, 
   return [currentField, numIndex];
 };
 
-export const getErrorFromFieldArray = <F extends string, E extends Record<string, string | string[]>>(
-  field: F,
-  fieldErrors: FormikErrors<E>
-) => {
+// Todo fix any in fieldErrors
+export const getErrorFromFieldArray = <F extends string>(field: F, fieldErrors: any) => {
   const [currentField, index] = getFieldAndIndexFromFieldArray(field);
   const errorsByFieldArray = fieldErrors[currentField] ?? [];
   const error = errorsByFieldArray[index];

@@ -1,5 +1,8 @@
 {
   "required": "Required to fill out",
   "invalid-date": "Invalid date",
-  "current-or-future-date": "Date must be later than {{min}}"
+  "current-or-future-date": "Date must be later than {{min}}",
+  "where": "Fill in the intermediate point",
+  "from": "Fill in the sending point",
+  "date": "Select a day"
 }
