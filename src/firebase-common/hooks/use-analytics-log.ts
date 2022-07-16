@@ -6,6 +6,6 @@ export const useAnalyticsLog = () => {
   const { analytics } = useContext(FirebaseContext);
 
   return {
-    logEvent: (event: string, params?: Record<string, unknown>) => logEventFirebase(analytics, event, params),
+    logEvent: <P extends object>(event: string, params?: P) => logEventFirebase(analytics, event, params),
   };
 };

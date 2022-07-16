@@ -13,7 +13,6 @@ interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> 
   isFirstWhereDestination: boolean;
   deleteDestination: () => void;
   handleChangeWhere: any;
-  value: SearchDestination;
 }
 
 export const SelectWhereDestination: FC<Props> = ({
@@ -25,7 +24,6 @@ export const SelectWhereDestination: FC<Props> = ({
   hasFieldError,
   getHelperErrorText,
   deleteDestination,
-  value,
 }) => {
   return isFirstWhereDestination ? (
     <SelectDestination
@@ -35,7 +33,6 @@ export const SelectWhereDestination: FC<Props> = ({
       handleChangeWhere={handleChangeWhere}
       hasFieldError={hasFieldError}
       getHelperErrorText={getHelperErrorText}
-      value={value}
     />
   ) : (
     <SelectDestination
@@ -45,7 +42,6 @@ export const SelectWhereDestination: FC<Props> = ({
       handleChangeWhere={handleChangeWhere}
       hasFieldError={hasFieldError}
       getHelperErrorText={getHelperErrorText}
-      value={value}
       sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
     >
       <Button

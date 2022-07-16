@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import i18next from "i18next";
+import uniqid from "uniqid";
 import * as yup from "yup";
 import { FieldArrayRenderProps, useFormik } from "formik";
 import dayjs from "dayjs";
@@ -8,6 +9,7 @@ import { LANGUAGES, LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS } from "enums";
 import { useAnalyticsLog } from "firebase-common";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
 import { isFieldArray, getErrorFromFieldArray } from "utils";
+import { SearchForm } from "interfaces/search-form";
 import { SEARCH_FIELD_NAMES } from "./search-constants";
 import { SearchDestination } from "./search-interfaces";
 
@@ -29,10 +31,11 @@ const useValidation = () => {
       .required(t("required"))
       .typeError(t("invalid-date")),
   });
-  const formik = useFormik({
+
+  const formik = useFormik<SearchForm>({
     initialValues: {
       [SEARCH_FIELD_NAMES.FROM]: { id: "", label: "" },
-      [SEARCH_FIELD_NAMES.WHERE]: [{ id: "", label: "" }],
+      [SEARCH_FIELD_NAMES.WHERE]: [{ id: "", label: "", key: uniqid() }],
       [SEARCH_FIELD_NAMES.DATE]: "",
     },
     validationSchema,
@@ -58,8 +61,8 @@ export const useSearch = () => {
     formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, value);
   };
 
-  const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: SearchDestination | null) => {
-    arrayHelpers.replace(index, value);
+  const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: any | null) => {
+    arrayHelpers.replace(index, { key: arrayHelpers.form.values.where[index].key, id: value?.id, label: value?.label });
   };
 
   const handleChangeDate = (value: Date | null) => {

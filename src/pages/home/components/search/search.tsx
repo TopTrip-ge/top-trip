@@ -1,4 +1,5 @@
 import { FC, useEffect } from "react";
+import uniqid from "uniqid";
 import { Button, FormControl, Grid, Typography, Container, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FieldArray, FormikProvider } from "formik";
@@ -16,7 +17,7 @@ import { useSearch } from "./search-hooks";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "./search-constants";
 import { StyledSection } from "./search-style";
 import { SearchDestination } from "./search-interfaces";
-import { SelectWhereDestination } from "./components/select-where-destination/select-where-destination";
+import { SelectWhereDestination } from "./components/select-where-destination";
 
 export const Search: FC = () => {
   const {
@@ -62,6 +63,7 @@ export const Search: FC = () => {
             container
             sx={{
               flexGrow: 1,
+              width: "100%",
               justifyContent: { xs: "center" },
               backgroundColor: "custom.white",
               mx: { xs: "auto" },
@@ -70,7 +72,6 @@ export const Search: FC = () => {
               borderRadius: 4,
             }}
             spacing={2}
-            xs={12}
           >
             <Grid item xs={12}>
               <FormControl fullWidth>
@@ -80,7 +81,7 @@ export const Search: FC = () => {
                     id={DESTINATIONS.SELECT_FROM}
                     options={options}
                     noOptionsText={t("label.no-options")}
-                    isOptionEqualToValue={(option, value) => option.label === value.label && option.id === value.id}
+                    isOptionEqualToValue={(option, value) => option.label === value.label}
                     onChange={(_, value) => {
                       handleChangeFrom(value);
                     }}
@@ -104,8 +105,7 @@ export const Search: FC = () => {
                   <>
                     {values.where.map((_, index) => (
                       <SelectWhereDestination
-                        // eslint-disable-next-line react/no-array-index-key
-                        key={index}
+                        key={values.where[index].key}
                         id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                         name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                         getHelperErrorText={getHelperErrorText}
@@ -113,7 +113,6 @@ export const Search: FC = () => {
                         hasFieldError={hasFieldError}
                         deleteDestination={() => arrayHelpers.remove(index)}
                         options={options}
-                        value={values.where[index] as SearchDestination}
                         isFirstWhereDestination={index === 0}
                       />
                     ))}
@@ -121,7 +120,7 @@ export const Search: FC = () => {
                       <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                         <Button
                           variant="contained"
-                          onClick={() => arrayHelpers.push({ id: "", label: "" })}
+                          onClick={() => arrayHelpers.push({ id: "", label: "", key: uniqid() })}
                           disabled={values.where[values.where.length - 1].id.length < 3}
                           size="large"
                           sx={{
@@ -139,6 +138,7 @@ export const Search: FC = () => {
                               color: "custom.black",
                               borderColor: "custom.black",
                             },
+                            fontSize: { xs: "12px", sm: "16px" },
                           }}
                         >
                           <Icon name="Add" /> {t("button.add")}

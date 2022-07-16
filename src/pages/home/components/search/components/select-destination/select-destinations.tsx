@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Grid, FormControl, Autocomplete, TextField, SxProps, Theme } from "@mui/material";
 import { WithSkeleton } from "hocs/with-skeleton";
@@ -11,7 +11,6 @@ interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> 
   name: SEARCH_FIELD_NAMES;
   id: DESTINATIONS;
   handleChangeWhere: any;
-  value: SearchDestination;
   children?: ReactNode;
   sx?: SxProps<Theme>;
 }
@@ -23,11 +22,11 @@ export const SelectDestination: FC<Props> = ({
   handleChangeWhere,
   hasFieldError,
   getHelperErrorText,
-  value,
   children,
   sx,
 }) => {
   const { t } = useTranslation();
+  const [autocompleteValue, setAutocompleteValue] = useState<SearchDestination | null>(null);
   return (
     <Grid item xs={12} sx={sx}>
       <FormControl fullWidth>
@@ -35,15 +34,18 @@ export const SelectDestination: FC<Props> = ({
           <Autocomplete
             disablePortal
             id={id}
-            defaultValue={{ id: "", label: "" }}
-            value={value}
+            value={autocompleteValue}
             options={options}
             noOptionsText={t("label.no-options")}
-            isOptionEqualToValue={(option, elementValue) => option.id === elementValue.id}
-            onChange={(_, elementValue) => handleChangeWhere(elementValue)}
+            isOptionEqualToValue={(option, value) => option.label === value.label}
+            onChange={(_, elementValue) => {
+              setAutocompleteValue(elementValue);
+              handleChangeWhere(elementValue);
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
+                sx={{ backgroundColor: "custom.white" }}
                 label={t("label.where")}
                 name={name}
                 error={hasFieldError(name)}
