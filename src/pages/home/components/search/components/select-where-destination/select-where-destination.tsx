@@ -7,17 +7,17 @@ import { UseSearch } from "../../search-hooks";
 import { SelectDestination } from "../select-destination";
 
 interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> {
-  menuItems: SearchDestination[];
+  options: SearchDestination[];
   name: SEARCH_FIELD_NAMES;
   id: DESTINATIONS;
   isFirstWhereDestination: boolean;
   deleteDestination: () => void;
   handleChangeWhere: any;
-  label: SearchDestination;
+  value: SearchDestination;
 }
 
 export const SelectWhereDestination: FC<Props> = ({
-  menuItems,
+  options,
   name,
   id,
   isFirstWhereDestination,
@@ -25,27 +25,27 @@ export const SelectWhereDestination: FC<Props> = ({
   hasFieldError,
   getHelperErrorText,
   deleteDestination,
-  label,
+  value,
 }) => {
   return isFirstWhereDestination ? (
     <SelectDestination
-      menuItems={menuItems}
+      options={options}
       name={name}
       id={id}
       handleChangeWhere={handleChangeWhere}
       hasFieldError={hasFieldError}
       getHelperErrorText={getHelperErrorText}
-      label={label}
+      value={value}
     />
   ) : (
     <SelectDestination
-      menuItems={menuItems}
+      options={options}
       name={name}
       id={id}
       handleChangeWhere={handleChangeWhere}
       hasFieldError={hasFieldError}
       getHelperErrorText={getHelperErrorText}
-      label={label}
+      value={value}
       sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
     >
       <Button

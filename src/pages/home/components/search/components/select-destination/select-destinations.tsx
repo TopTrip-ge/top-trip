@@ -7,23 +7,23 @@ import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "../../sea
 import { UseSearch } from "../../search-hooks";
 
 interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> {
-  menuItems: SearchDestination[];
+  options: SearchDestination[];
   name: SEARCH_FIELD_NAMES;
   id: DESTINATIONS;
   handleChangeWhere: any;
-  label: SearchDestination;
+  value: SearchDestination;
   children?: ReactNode;
   sx?: SxProps<Theme>;
 }
 
 export const SelectDestination: FC<Props> = ({
-  menuItems,
+  options,
   name,
   id,
   handleChangeWhere,
   hasFieldError,
   getHelperErrorText,
-  label,
+  value,
   children,
   sx,
 }) => {
@@ -35,11 +35,12 @@ export const SelectDestination: FC<Props> = ({
           <Autocomplete
             disablePortal
             id={id}
-            value={label}
-            options={menuItems}
+            defaultValue={{ id: "", label: "" }}
+            value={value}
+            options={options}
             noOptionsText={t("label.no-options")}
-            isOptionEqualToValue={(option, value) => option.label === value.label}
-            onChange={(_, value) => handleChangeWhere(value)}
+            isOptionEqualToValue={(option, elementValue) => option.id === elementValue.id}
+            onChange={(_, elementValue) => handleChangeWhere(elementValue)}
             renderInput={(params) => (
               <TextField
                 {...params}

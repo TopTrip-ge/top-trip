@@ -1,5 +1,4 @@
 import { FC, useEffect } from "react";
-import uniqid from "uniqid";
 import { Button, FormControl, Grid, Typography, Container, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FieldArray, FormikProvider } from "formik";
@@ -37,7 +36,7 @@ export const Search: FC = () => {
     resetForm();
   }, [i18n.language]);
 
-  const menuItems: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
+  const options: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
 
   return (
     <StyledSection>
@@ -79,9 +78,9 @@ export const Search: FC = () => {
                   <Autocomplete
                     disablePortal
                     id={DESTINATIONS.SELECT_FROM}
-                    options={menuItems}
+                    options={options}
                     noOptionsText={t("label.no-options")}
-                    isOptionEqualToValue={(option, value) => option.label === value.label}
+                    isOptionEqualToValue={(option, value) => option.label === value.label && option.id === value.id}
                     onChange={(_, value) => {
                       handleChangeFrom(value);
                     }}
@@ -105,15 +104,16 @@ export const Search: FC = () => {
                   <>
                     {values.where.map((_, index) => (
                       <SelectWhereDestination
-                        key={uniqid()}
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={index}
                         id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                         name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                         getHelperErrorText={getHelperErrorText}
                         handleChangeWhere={(value: SearchDestination) => handleChangeWhere(arrayHelpers, index, value)}
                         hasFieldError={hasFieldError}
                         deleteDestination={() => arrayHelpers.remove(index)}
-                        menuItems={menuItems}
-                        label={values.where[index] as SearchDestination}
+                        options={options}
+                        value={values.where[index] as SearchDestination}
                         isFirstWhereDestination={index === 0}
                       />
                     ))}

@@ -48,18 +48,18 @@ const useValidation = () => {
 
 export const useSearch = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
-  const menuItems: SearchDestination[] = i18next.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
+  const options: SearchDestination[] = i18next.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
   const formik = useValidation();
   const [date, setDate] = useState<Date | null>(null);
 
   const setDatePickerValue = (newValue: Date | null) => setDate(newValue);
 
   const handleChangeFrom = (value: SearchDestination | null) => {
-    formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, { id: value?.id, label: value?.label });
+    formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, value);
   };
 
   const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: SearchDestination | null) => {
-    arrayHelpers.replace(index, { id: value?.id, label: value?.label });
+    arrayHelpers.replace(index, value);
   };
 
   const handleChangeDate = (value: Date | null) => {
@@ -111,7 +111,7 @@ export const useSearch = () => {
     hasFieldError,
     getHelperErrorText,
     formik,
-    menuItems,
+    options,
   };
 };
 
