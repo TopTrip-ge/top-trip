@@ -122,6 +122,7 @@ export const Search: FC = () => {
                         <Button
                           variant="contained"
                           onClick={() => arrayHelpers.push({ id: "", label: "" })}
+                          disabled={values.where[values.where.length - 1].id.length < 3}
                           size="large"
                           sx={{
                             width: "100%",

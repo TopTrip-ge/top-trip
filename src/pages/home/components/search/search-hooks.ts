@@ -55,13 +55,11 @@ export const useSearch = () => {
   const setDatePickerValue = (newValue: Date | null) => setDate(newValue);
 
   const handleChangeFrom = (value: SearchDestination | null) => {
-    const valueId = value?.id;
-    const valueLabel = value?.label;
-    formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, { id: valueId, label: valueLabel });
+    formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, { id: value?.id, label: value?.label });
   };
 
-  const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: any | null) => {
-    arrayHelpers.replace(index, { id: value.id, label: value.label });
+  const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: SearchDestination | null) => {
+    arrayHelpers.replace(index, { id: value?.id, label: value?.label });
   };
 
   const handleChangeDate = (value: Date | null) => {

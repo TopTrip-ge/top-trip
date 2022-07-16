@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { useTranslation } from "react-i18next";
-import { Grid, FormControl, Autocomplete, TextField, Button } from "@mui/material";
-import { WithSkeleton } from "hocs/with-skeleton";
+import { Button } from "@mui/material";
 import { Icon } from "components/icon";
-import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "../../search-constants";
+import { DESTINATIONS, SEARCH_FIELD_NAMES } from "../../search-constants";
 import { SearchDestination } from "../../search-interfaces";
 import { UseSearch } from "../../search-hooks";
+import { SelectDestination } from "../select-destination";
 
 interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> {
   menuItems: SearchDestination[];
@@ -28,67 +27,38 @@ export const SelectWhereDestination: FC<Props> = ({
   deleteDestination,
   label,
 }) => {
-  const { t } = useTranslation();
-
   return isFirstWhereDestination ? (
-    <Grid item xs={12}>
-      <FormControl fullWidth>
-        <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
-          <Autocomplete
-            disablePortal
-            id={id}
-            value={label}
-            options={menuItems}
-            noOptionsText={t("label.no-options")}
-            isOptionEqualToValue={(option, value) => option.label === value.label}
-            onChange={(_, value) => handleChangeWhere(value)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={t("label.where")}
-                name={name}
-                error={hasFieldError(name)}
-                helperText={getHelperErrorText(name)}
-              />
-            )}
-          />
-        </WithSkeleton>
-      </FormControl>
-    </Grid>
+    <SelectDestination
+      menuItems={menuItems}
+      name={name}
+      id={id}
+      handleChangeWhere={handleChangeWhere}
+      hasFieldError={hasFieldError}
+      getHelperErrorText={getHelperErrorText}
+      label={label}
+    />
   ) : (
-    <Grid item xs={12} sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-      <FormControl fullWidth>
-        <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
-          <Autocomplete
-            disablePortal
-            id={id}
-            value={label}
-            options={menuItems}
-            noOptionsText={t("label.no-options")}
-            isOptionEqualToValue={(option, value) => option.label === value.label}
-            onChange={(_, value) => handleChangeWhere(value)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={t("label.where")}
-                name={name}
-                error={hasFieldError(name)}
-                helperText={getHelperErrorText(name)}
-              />
-            )}
-          />
-        </WithSkeleton>
-      </FormControl>
+    <SelectDestination
+      menuItems={menuItems}
+      name={name}
+      id={id}
+      handleChangeWhere={handleChangeWhere}
+      hasFieldError={hasFieldError}
+      getHelperErrorText={getHelperErrorText}
+      label={label}
+      sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+    >
       <Button
         sx={{
           backgroundColor: "custom.white",
           color: "custom.grey",
           "&:hover": { backgroundColor: "custom.white" },
+          mb: getHelperErrorText(name) ? "20px" : 0,
         }}
         onClick={deleteDestination}
       >
         <Icon name="Clear" />
       </Button>
-    </Grid>
+    </SelectDestination>
   );
 };
