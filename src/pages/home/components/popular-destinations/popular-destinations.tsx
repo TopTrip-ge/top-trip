@@ -25,7 +25,7 @@ export const PopularDestinations: FC = () => {
           columns={{ xs: 4, sm: 9, md: 9 }}
         >
           {destinations.map(({ id, destinationsName, date, imageURL }) => (
-            <Grid key={id} item xs={3}>
+            <Grid item xs={3} key={id}>
               <DestinationCard
                 destinationsName={destinationsName}
                 price={setCurrencySign(currency, findPrice(id))}
