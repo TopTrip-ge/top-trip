@@ -85,6 +85,16 @@ const distances = [
   },
 ];
 
+const formatDistance = (lang: LANGUAGES, distance: number) => {
+  const MILE = 1.609;
+
+  if (lang === LANGUAGES.EN) {
+    return `Total tour distance: ${Math.floor(MILE * distance)} miles`;
+  }
+
+  return `Общее расстояние тура: ${distance} км`;
+};
+
 export const calcDistance = (lang: LANGUAGES, form: SearchForm) => {
   const destinationIds: string[] = [];
   const destinationDistances: number[] = [];
@@ -101,14 +111,8 @@ export const calcDistance = (lang: LANGUAGES, form: SearchForm) => {
     });
   }
 
-  if (lang === LANGUAGES.EN) {
-    return `Total tour distance: ${Math.floor(
-      1.6 * destinationDistances.reduce((prevDistance, nextDistance) => prevDistance + nextDistance, 0)
-    )} miles`;
-  }
-
-  return `Общее расстояние тура: ${destinationDistances.reduce(
-    (prevDistance, nextDistance) => prevDistance + nextDistance,
-    0
-  )} км`;
+  return formatDistance(
+    lang,
+    destinationDistances.reduce((prevDistance, nextDistance) => prevDistance + nextDistance, 0)
+  );
 };
