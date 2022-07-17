@@ -37,7 +37,7 @@ export const Search: FC = () => {
     resetForm();
   }, [i18n.language]);
 
-  const options: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
+  const menuItems: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
 
   return (
     <StyledSection>
@@ -79,7 +79,7 @@ export const Search: FC = () => {
                   <Autocomplete
                     disablePortal
                     id={DESTINATIONS.SELECT_FROM}
-                    options={options}
+                    options={menuItems}
                     noOptionsText={t("label.no-options")}
                     isOptionEqualToValue={(option, value) => option.label === value.label}
                     onChange={(_, value) => {
@@ -109,10 +109,10 @@ export const Search: FC = () => {
                         id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                         name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                         getHelperErrorText={getHelperErrorText}
-                        handleChangeWhere={(value: SearchDestination) => handleChangeWhere(arrayHelpers, index, value)}
+                        handleChangeWhere={(value) => handleChangeWhere(arrayHelpers, index, value)}
                         hasFieldError={hasFieldError}
                         deleteDestination={() => arrayHelpers.remove(index)}
-                        options={options}
+                        options={menuItems}
                         isFirstWhereDestination={index === 0}
                       />
                     ))}

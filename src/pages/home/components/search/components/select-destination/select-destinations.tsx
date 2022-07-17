@@ -10,7 +10,7 @@ interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> 
   options: SearchDestination[];
   name: SEARCH_FIELD_NAMES;
   id: DESTINATIONS;
-  handleChangeWhere: any;
+  handleChangeWhere: (value: SearchDestination | null) => void;
   children?: ReactNode;
   sx?: SxProps<Theme>;
 }

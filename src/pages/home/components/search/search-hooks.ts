@@ -61,7 +61,7 @@ export const useSearch = () => {
     formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, value);
   };
 
-  const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: any | null) => {
+  const handleChangeWhere = (arrayHelpers: FieldArrayRenderProps, index: number, value: SearchDestination | null) => {
     arrayHelpers.replace(index, { key: arrayHelpers.form.values.where[index].key, id: value?.id, label: value?.label });
   };
 

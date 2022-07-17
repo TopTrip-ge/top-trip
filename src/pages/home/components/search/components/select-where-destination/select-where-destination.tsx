@@ -12,7 +12,7 @@ interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> 
   id: DESTINATIONS;
   isFirstWhereDestination: boolean;
   deleteDestination: () => void;
-  handleChangeWhere: any;
+  handleChangeWhere: (value: SearchDestination | null) => void;
 }
 
 export const SelectWhereDestination: FC<Props> = ({
