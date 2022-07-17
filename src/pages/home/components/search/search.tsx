@@ -77,6 +77,7 @@ export const Search: FC = () => {
               <FormControl fullWidth>
                 <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                   <Autocomplete
+                    key={`from_${i18n.language}`}
                     disablePortal
                     id={DESTINATIONS.SELECT_FROM}
                     options={menuItems}
@@ -105,7 +106,7 @@ export const Search: FC = () => {
                   <>
                     {values.where.map((_, index) => (
                       <SelectWhereDestination
-                        key={values.where[index].key}
+                        key={`${values.where[index].key}${i18n.language}`}
                         id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                         name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                         getHelperErrorText={getHelperErrorText}

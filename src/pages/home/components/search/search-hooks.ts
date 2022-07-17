@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { LANGUAGES, LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS } from "enums";
 import { useAnalyticsLog } from "firebase-common";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
-import { isFieldArray, getErrorFromFieldArray } from "utils";
+import { isFieldArray, getErrorFromFieldArray, calcDistance } from "utils";
 import { SearchForm } from "interfaces/search-form";
 import { SEARCH_FIELD_NAMES } from "./search-constants";
 import { SearchDestination } from "./search-interfaces";
@@ -42,7 +42,7 @@ const useValidation = () => {
     onSubmit: (values) => {
       logEvent(LOG_EVENTS_BUTTONS.CLICK_SEARCH_BUTTON, values);
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values));
+      alert(calcDistance(i18next.language as LANGUAGES, values));
     },
   });
 

@@ -27,6 +27,7 @@ export const SelectDestination: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const [autocompleteValue, setAutocompleteValue] = useState<SearchDestination | null>(null);
+
   return (
     <Grid item xs={12} sx={sx}>
       <FormControl fullWidth>
