@@ -2,11 +2,14 @@ import { SearchForm } from "interfaces/search-form";
 import { LANGUAGES } from "enums/localization";
 import { distances } from "constants/distances";
 
-const formatDistance = (lang: LANGUAGES, distance: number) => {
+const convertToMiles = (distance: number) => {
   const MILE = 1.609;
+  return Math.floor(MILE * distance);
+};
 
+const formatDistance = (lang: LANGUAGES, distance: number) => {
   if (lang === LANGUAGES.EN) {
-    return `Total tour distance: ${Math.floor(MILE * distance)} miles`;
+    return `Total tour distance: ${convertToMiles(distance)} miles`;
   }
 
   return `Общее расстояние тура: ${distance} км`;
