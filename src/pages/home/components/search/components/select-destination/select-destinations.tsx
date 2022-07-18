@@ -2,7 +2,7 @@ import { FC, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Grid, FormControl, Autocomplete, TextField, SxProps, Theme } from "@mui/material";
 import { WithSkeleton } from "hocs/with-skeleton";
-import { SearchDestination } from "../../search-interfaces";
+import { SearchDestination } from "interfaces";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "../../search-constants";
 import { UseSearch } from "../../search-hooks";
 

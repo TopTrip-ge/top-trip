@@ -1,6 +1,6 @@
-import { SearchForm } from "interfaces/search-form";
 import { LANGUAGES } from "enums/localization";
 import { distances } from "constants/distances";
+import { SearchDestination, SearchDestinationWithKey } from "interfaces";
 
 const convertToMiles = (distance: number) => {
   const MILE = 1.609;
@@ -15,24 +15,21 @@ const formatDistance = (lang: LANGUAGES, distance: number) => {
   return `Общее расстояние тура: ${distance} км`;
 };
 
-export const calcDistance = (lang: LANGUAGES, form: SearchForm) => {
-  const destinationIds: string[] = [];
-  const destinationDistances: number[] = [];
-
-  destinationIds.push(form.from.id);
-  form.where.forEach(({ id }) => destinationIds.push(id));
-
-  for (let i = 0; i < destinationIds.length - 1; i += 1) {
-    distances.find((distance) => {
-      if (`${destinationIds[i]} - ${destinationIds[i + 1]}` === distance.id) {
-        destinationDistances.push(distance.distance);
-      }
+export const calcDistance = (lang: LANGUAGES, from: SearchDestination, where: SearchDestinationWithKey[]) => {
+  const destinationIds: string[] = [from.id, ...where.map(({ id }) => id)];
+  const destinationDistances: number[] = destinationIds.map((destinationId, index) => {
+    if (index === destinationIds.length - 1) {
       return 0;
-    });
-  }
+    }
+
+    const distanceId = `${destinationId} - ${destinationIds[index + 1]}`;
+    const { distance = 0 } = distances.find(({ id }) => id === distanceId) ?? {};
+
+    return distance;
+  });
 
   return formatDistance(
     lang,
-    destinationDistances.reduce((prevDistance, nextDistance) => prevDistance + nextDistance, 0)
+    destinationDistances.reduce((sum, nextDistance) => sum + nextDistance, 0)
   );
 };

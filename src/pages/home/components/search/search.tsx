@@ -13,10 +13,10 @@ import { WithSkeleton } from "hocs";
 import { TextField } from "components/text-field";
 import { Icon } from "components/icon";
 import { ENdestinations, RUdestinations } from "mock-database/destinations";
+import { SearchDestination } from "interfaces";
 import { useSearch } from "./search-hooks";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "./search-constants";
 import { StyledSection } from "./search-style";
-import { SearchDestination } from "./search-interfaces";
 import { SelectWhereDestination } from "./components/select-where-destination";
 
 export const Search: FC = () => {

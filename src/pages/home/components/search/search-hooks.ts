@@ -9,9 +9,8 @@ import { LANGUAGES, LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS } from "enums";
 import { useAnalyticsLog } from "firebase-common";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
 import { isFieldArray, getErrorFromFieldArray, calcDistance } from "utils";
-import { SearchForm } from "interfaces/search-form";
+import { SearchDestination, SearchForm } from "interfaces";
 import { SEARCH_FIELD_NAMES } from "./search-constants";
-import { SearchDestination } from "./search-interfaces";
 
 const useValidation = () => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
@@ -42,7 +41,7 @@ const useValidation = () => {
     onSubmit: (values) => {
       logEvent(LOG_EVENTS_BUTTONS.CLICK_SEARCH_BUTTON, values);
       // eslint-disable-next-line no-alert
-      alert(calcDistance(i18next.language as LANGUAGES, values));
+      alert(calcDistance(i18next.language as LANGUAGES, values.from, values.where));
     },
   });
 
