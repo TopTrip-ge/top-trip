@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Button } from "@mui/material";
 import { Icon } from "components/icon";
+import { SearchDestination } from "interfaces";
 import { DESTINATIONS, SEARCH_FIELD_NAMES } from "../../search-constants";
-import { SearchDestination } from "../../search-interfaces";
 import { UseSearch } from "../../search-hooks";
 import { SelectDestination } from "../select-destination";
 
