@@ -4,7 +4,8 @@
     "es2021": true
   },
   "globals": {
-    "JSX": true
+    "JSX": true,
+    "ymaps": true
   },
   "extends": ["plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
   "parser": "@typescript-eslint/parser",

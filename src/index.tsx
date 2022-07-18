@@ -8,6 +8,7 @@ import { FirebaseProvider, firebaseInstances } from "firebase-common";
 import { FullPageSpinner } from "components/full-page-spinner";
 import { PATHS } from "enums";
 import { MainThemeProvider } from "theme";
+import { Modules } from "modules";
 import reportWebVitals from "./reportWebVitals";
 import "localization/i18n";
 
@@ -21,11 +22,13 @@ root.render(
       <FirebaseProvider firebaseInstances={firebaseInstances}>
         <MainThemeProvider>
           <ErrorBoundary>
-            <Suspense fallback={<FullPageSpinner />}>
-              <RecoilRoot>
-                <App />
-              </RecoilRoot>
-            </Suspense>
+            <Modules>
+              <Suspense fallback={<FullPageSpinner />}>
+                <RecoilRoot>
+                  <App />
+                </RecoilRoot>
+              </Suspense>
+            </Modules>
           </ErrorBoundary>
         </MainThemeProvider>
       </FirebaseProvider>
