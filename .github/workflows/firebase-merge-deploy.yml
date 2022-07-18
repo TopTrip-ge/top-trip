@@ -63,6 +63,7 @@ jobs:
           echo REACT_APP_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_PROD_MESSAGING_SENDER_ID }} >> .env.production
           echo REACT_APP_APP_ID=${{ secrets.FIREBASE_PROD_APP_ID }} >> .env.production
           echo REACT_APP_MEASUREMENT_ID=${{ secrets.FIREBASE_PROD_MEASUREMENT_ID }} >> .env.production
+          echo REACT_APP_YANDEX_MAP_KEY=${{ secrets.YANDEX_MAP_API_KEY }} >> .env.production
           cat .env.production
 
       - name: Install NodeJS
