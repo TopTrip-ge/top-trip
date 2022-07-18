@@ -29,7 +29,8 @@
       "hocs/*": ["hocs/*"],
       "localization/*": ["localization/*"],
       "store/*": ["store/*"],
-      "mock-database/*": ["mock-database/*"]
+      "mock-database/*": ["mock-database/*"],
+      "modules/*": ["modules/*"]
     }
   },
   "include": ["src"]

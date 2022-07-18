@@ -5,6 +5,7 @@ import { useAnalyticsLog } from "firebase-common";
 import { currencyState, popularDestinations } from "store/atoms";
 import { CURRENCIES, LOCAL_STORAGE_NAMES, LOG_EVENTS_SELECTORS } from "enums";
 import { convertCurrency } from "utils";
+import { YMap } from "modules/yandex-map";
 
 export const useCurrencySwitcher = () => {
   const [currency, setCurrency] = useRecoilState(currencyState);
@@ -32,6 +33,16 @@ export const useCurrencySwitcher = () => {
     if (localCurrency !== null) {
       handleChange(localCurrency as CURRENCIES);
     }
+
+    (async () => {
+      const res1 = await YMap.getCoordinatesOfPlace("Агара, Грузия");
+      const res2 = await YMap.getCoordinatesOfPlace("Абастумани, Грузия");
+      const moscowCoords = res1.geoObjects.get(0).geometry.getCoordinates();
+      const newYorkCoords = res2.geoObjects.get(0).geometry.getCoordinates();
+
+      const distance = await YMap.getDistanceBetweenCoordinates(moscowCoords, newYorkCoords);
+      console.log(distance);
+    })();
   }, []);
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { ErrorBoundary } from "components/error-boundary";
 import { App } from "components/app";
 import { FirebaseProvider, firebaseInstances } from "firebase-common";
 import { FullPageSpinner } from "components/full-page-spinner";
+import { YandexMapScript } from "components/yandex-map-script";
 import { PATHS } from "enums";
 import { MainThemeProvider } from "theme";
 import reportWebVitals from "./reportWebVitals";
@@ -21,11 +22,13 @@ root.render(
       <FirebaseProvider firebaseInstances={firebaseInstances}>
         <MainThemeProvider>
           <ErrorBoundary>
-            <Suspense fallback={<FullPageSpinner />}>
-              <RecoilRoot>
-                <App />
-              </RecoilRoot>
-            </Suspense>
+            <YandexMapScript>
+              <Suspense fallback={<FullPageSpinner />}>
+                <RecoilRoot>
+                  <App />
+                </RecoilRoot>
+              </Suspense>
+            </YandexMapScript>
           </ErrorBoundary>
         </MainThemeProvider>
       </FirebaseProvider>
