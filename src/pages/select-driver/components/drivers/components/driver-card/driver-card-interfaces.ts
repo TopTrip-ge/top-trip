@@ -1,4 +1,7 @@
-export interface Drivers {
+type EnFuel = "Gasoline" | "Diesel";
+type RuFuel = "Бензин" | "Дизель";
+
+export interface Driver {
   id: string;
   carImage: string;
   name: {
@@ -13,8 +16,8 @@ export interface Drivers {
   passengerSeats: number;
   luggageAmount: number;
   fuel: {
-    ruFuel: "Бензин" | "Дизель";
-    enFuel: "Gasoline" | "Diesel";
+    ruFuel: RuFuel;
+    enFuel: EnFuel;
   };
   freeWiFi: boolean;
   animalsTransportation: boolean;

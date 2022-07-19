@@ -1,8 +1,8 @@
-import { DRIVER_IDS } from "enums/drivers";
+import { DRIVER_IDS } from "enums";
 import { makeFirebaseStoragePath } from "utils";
-import { Drivers } from "./driver-card-interfaces";
+import { Driver } from "./driver-card-interfaces";
 
-export const drivers: Drivers[] = [
+export const drivers: Driver[] = [
   {
     id: DRIVER_IDS.CAR_1,
     carImage: makeFirebaseStoragePath("carImages%2Fcar_1.png?alt=media&token=de8b8294-6199-462a-8b7a-1aa916935e43"),

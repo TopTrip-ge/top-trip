@@ -11,4 +11,5 @@ export enum LOCALIZATION_NAMESPACES {
   ERROR_PAGE = "error/page",
   DESTINATIONS = "destinations",
   VALIDATION = "validation",
+  ERROR = "error/errors",
 }
