@@ -20,6 +20,12 @@ import {
   PhotoCameraOutlined,
   Add,
   Clear,
+  AccountCircle,
+  DirectionsCar,
+  AirlineSeatReclineNormal,
+  Luggage,
+  LocalGasStation,
+  Pets,
 } from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
 
@@ -44,6 +50,12 @@ const ICONS = {
   PhotoCameraOutlined,
   Add,
   Clear,
+  AccountCircle,
+  DirectionsCar,
+  AirlineSeatReclineNormal,
+  Luggage,
+  LocalGasStation,
+  Pets,
 };
 
 export type IconTypes = keyof typeof ICONS;

@@ -4,10 +4,12 @@
   "button.plan-tour": "Спланировать тур",
   "button.reload": "Перезагрузить",
   "button.go-to-home": "Перейти на главную",
+  "button.reserve": "Забронировать",
   "label.where": "Куда",
   "label.from": "Откуда",
   "label.select-date": "Выберите дату",
   "label.no-options": "Ничего не найдено",
   "label.lang": "Язык",
-  "label.currency": "Валюта"
+  "label.currency": "Валюта",
+  "car-price": "Стоимость машины:"
 }

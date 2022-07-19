@@ -17,6 +17,8 @@ declare module "@mui/material/styles" {
       grey: string;
       black: string;
       orange: string;
+      lightGrey: string;
+      red: string;
     };
   }
 }
@@ -28,6 +30,8 @@ export const createMainTheme = () => ({
     primary: orange[400],
     primaryLight: orange[300],
     grey: "#adadad",
+    lightGrey: "#d0d0d0",
+    red: "#d90e0b",
   },
   fontFamilies: {
     OpenSans: "'Open Sans', sans-serif",
@@ -56,6 +60,8 @@ const muiTheme = createMUITheme({
       grey: theme.colors.grey,
       black: theme.colors.black,
       orange: theme.colors.primary,
+      lightGrey: theme.colors.lightGrey,
+      red: theme.colors.red,
     },
   },
   typography: {

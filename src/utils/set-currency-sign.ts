@@ -7,7 +7,7 @@ const formatCurrency = (format: string, selectedCurrency: CURRENCIES, value: num
     currency: selectedCurrency,
   }).format(value);
 
-export const setCurrencySign = (currentCurrency: CURRENCIES, value: number = 1) => {
+export const setCurrencySign = (currentCurrency: CURRENCIES, value: number): string => {
   switch (currentCurrency) {
     case CURRENCIES.EUR:
       return formatCurrency("de-DE", CURRENCIES.EUR, value);
@@ -18,6 +18,6 @@ export const setCurrencySign = (currentCurrency: CURRENCIES, value: number = 1) 
     case CURRENCIES.USD:
       return formatCurrency("en-EN", CURRENCIES.USD, value);
     default:
-      return value;
+      return String(value);
   }
 };

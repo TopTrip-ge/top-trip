@@ -3,4 +3,5 @@ export enum PATHS {
   POPULAR_DESTINATIONS = "/popular-destinations",
   ABOUT_US = "/about-us",
   NOT_FOUND = "*",
+  SELECT_DRIVER = "/select-driver",
 }
