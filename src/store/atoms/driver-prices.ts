@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { ATOMS } from "store/recoil-enums";
-import { DRIVER_IDS } from "enums/drivers";
+import { DRIVER_IDS } from "enums";
 
 export const driversState = atom({
   key: ATOMS.DRIVER_PRICES,
