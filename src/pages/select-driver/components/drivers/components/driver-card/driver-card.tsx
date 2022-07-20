@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Box, Typography, Button } from "@mui/material";
 import { LANGUAGES } from "enums";
@@ -7,13 +7,17 @@ import { CenterBox } from "components/center-box";
 import { Driver } from "./driver-card-interfaces";
 
 interface Props {
-  driver: Omit<Driver, "id">;
-  price: string;
+  driver: Omit<Driver, "id" & "price">;
+  price: Promise<string | null>;
 }
 
 export const DriverCard: FC<Props> = ({ driver, price }) => {
   const { t, i18n } = useTranslation();
+  const [convertedPrice, setConvertedPrice] = useState<string | null>(null);
   const lang = i18n.language;
+  useEffect(() => {
+    price.then((data) => setConvertedPrice(data));
+  }, [price]);
   return (
     <Box
       sx={{
@@ -73,7 +77,7 @@ export const DriverCard: FC<Props> = ({ driver, price }) => {
       <Box sx={{ height: "1px", width: "100%", backgroundColor: "custom.lightGrey" }} />
       <CenterBox sx={{ justifyContent: "left", flexDirection: "row", p: 1, gap: 1 }}>
         <Typography sx={{ fontSize: "14px" }}>{t("car-price")}</Typography>
-        <Typography sx={{ fontWeight: "fontWeightBold" }}>{price}</Typography>
+        <Typography sx={{ fontWeight: "fontWeightBold" }}>{convertedPrice}</Typography>
       </CenterBox>
       <Button sx={{ m: 1 }}>{t("button.reserve")}</Button>
     </Box>

@@ -2,14 +2,14 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Container, Grid, Typography } from "@mui/material";
 import { Section } from "components/section";
-import { setCurrencySign } from "utils";
+import { convertCurrency } from "utils";
 import { LOCALIZATION_NAMESPACES } from "enums/localization";
 import { DestinationCard } from "./components";
 import { usePopularDestinations } from "./popular-destinations-hooks";
 
 export const PopularDestinations: FC = () => {
   const { t } = useTranslation();
-  const { destinations, findPrice, currency } = usePopularDestinations();
+  const { destinations, currency } = usePopularDestinations();
 
   return (
     <Section>
@@ -24,11 +24,11 @@ export const PopularDestinations: FC = () => {
           spacing={{ xs: 2, sm: 4, md: 10 }}
           columns={{ xs: 4, sm: 9, md: 9 }}
         >
-          {destinations.map(({ id, destinationsName, date, imageURL }) => (
+          {destinations.map(({ id, destinationsName, date, imageURL, price }) => (
             <Grid item xs={3} key={id}>
               <DestinationCard
                 destinationsName={destinationsName}
-                price={setCurrencySign(currency, findPrice(id))}
+                price={convertCurrency(price, currency)}
                 date={date}
                 imageURL={imageURL}
               />
