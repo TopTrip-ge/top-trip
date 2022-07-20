@@ -23,6 +23,7 @@ export const drivers: Driver[] = [
     },
     freeWiFi: true,
     animalsTransportation: false,
+    price: 240,
   },
   {
     id: DRIVER_IDS.CAR_2,
@@ -44,6 +45,7 @@ export const drivers: Driver[] = [
     },
     freeWiFi: true,
     animalsTransportation: true,
+    price: 250,
   },
   {
     id: DRIVER_IDS.CAR_3,
@@ -65,5 +67,6 @@ export const drivers: Driver[] = [
     },
     freeWiFi: false,
     animalsTransportation: false,
+    price: 314,
   },
 ];

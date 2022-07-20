@@ -21,4 +21,5 @@ export interface Driver {
   };
   freeWiFi: boolean;
   animalsTransportation: boolean;
+  price: number;
 }
