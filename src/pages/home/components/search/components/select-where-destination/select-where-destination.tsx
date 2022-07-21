@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { Icon } from "components/icon";
 import { SearchDestination } from "interfaces";
 import { DESTINATIONS, SEARCH_FIELD_NAMES } from "../../search-constants";
-import { UseSearch } from "../../search-hooks";
+import { UseSearch } from "../search-component/search-component-hooks";
 import { SelectDestination } from "../select-destination";
 
 interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> {
@@ -13,6 +13,7 @@ interface Props extends Pick<UseSearch, "hasFieldError" | "getHelperErrorText"> 
   isFirstWhereDestination: boolean;
   deleteDestination: () => void;
   handleChangeWhere: (value: SearchDestination | null) => void;
+  index: number;
 }
 
 export const SelectWhereDestination: FC<Props> = ({
@@ -24,6 +25,7 @@ export const SelectWhereDestination: FC<Props> = ({
   hasFieldError,
   getHelperErrorText,
   deleteDestination,
+  index,
 }) => {
   return isFirstWhereDestination ? (
     <SelectDestination
@@ -33,6 +35,7 @@ export const SelectWhereDestination: FC<Props> = ({
       handleChangeWhere={handleChangeWhere}
       hasFieldError={hasFieldError}
       getHelperErrorText={getHelperErrorText}
+      index={index}
     />
   ) : (
     <SelectDestination
@@ -43,6 +46,7 @@ export const SelectWhereDestination: FC<Props> = ({
       hasFieldError={hasFieldError}
       getHelperErrorText={getHelperErrorText}
       sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+      index={index}
     >
       <Button
         sx={{

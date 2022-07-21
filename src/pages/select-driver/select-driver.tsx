@@ -8,45 +8,19 @@ import { searchValuesStateSelector } from "store/selectors";
 import { calcDistance } from "utils";
 import { LANGUAGES } from "enums";
 import { SearchComponent } from "pages/home/components/search/components/search-component";
-import { useSearch } from "pages/home/components/search/search-hooks";
-import { SearchDestination } from "interfaces/search";
-import { RUdestinations, ENdestinations } from "mock-database/destinations";
 import { Drivers } from "./components/drivers/drivers";
 
 export const SelectDriver: FC = () => {
-  const stateValues = useRecoilValue(searchValuesStateSelector);
-  const {
-    date,
-    handleChangeDate,
-    handleChangeFrom,
-    handleChangeWhere,
-    hasFieldError,
-    getHelperErrorText,
-    resetForm,
-    formik,
-  } = useSearch();
-  const { handleSubmit, values } = formik;
+  const { from = null, where = null } = useRecoilValue(searchValuesStateSelector) ?? {};
   const { i18n } = useTranslation();
-  const menuItems: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
+
   return (
     <MainLayout>
       <Section>
         <Container>
-          <SearchComponent
-            date={date}
-            handleChangeDate={handleChangeDate}
-            handleChangeFrom={handleChangeFrom}
-            handleChangeWhere={handleChangeWhere}
-            hasFieldError={hasFieldError}
-            getHelperErrorText={getHelperErrorText}
-            resetForm={resetForm}
-            handleSubmit={handleSubmit}
-            values={values}
-            options={menuItems}
-            formik={formik}
-          />
+          <SearchComponent lang={i18n.language} />
           <Typography sx={{ py: 6, fontSize: "24px", fontWeight: "fontWeightBold" }}>
-            {calcDistance(i18n.language as LANGUAGES, stateValues?.from, stateValues?.where)}
+            {calcDistance(i18n.language as LANGUAGES, from, where)}
           </Typography>
           <Drivers />
         </Container>

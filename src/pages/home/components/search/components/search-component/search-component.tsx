@@ -1,11 +1,11 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import uniqid from "uniqid";
+import ruLocale from "date-fns/locale/ru";
+import enUSLocale from "date-fns/locale/en-US";
 import { useRecoilValue } from "recoil";
 import { Button, FormControl, Grid, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { FieldArray, FieldArrayRenderProps, FormikContextType, FormikProvider } from "formik";
-import ruLocale from "date-fns/locale/ru";
-import enUSLocale from "date-fns/locale/en-US";
+import { FieldArray, FormikProvider } from "formik";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -14,50 +14,32 @@ import { searchValuesStateSelector } from "store/selectors";
 import { LANGUAGES } from "enums/localization";
 import { TextField } from "components/text-field";
 import { Icon } from "components/icon";
-import { SearchDestination, SearchForm } from "interfaces";
+import { SearchDestination } from "interfaces";
+import { RUdestinations, ENdestinations } from "mock-database/destinations";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "../../search-constants";
 import { SelectWhereDestination } from "../select-where-destination/select-where-destination";
+import { useSearch } from "./search-component-hooks";
 
 interface Props {
-  date: Date | null;
-  handleChangeDate: (value: Date | null) => void;
-  handleChangeFrom: (value: SearchDestination | null) => void;
-  handleChangeWhere: (arrayHelpers: FieldArrayRenderProps, index: number, value: SearchDestination | null) => void;
-  hasFieldError: (field: SEARCH_FIELD_NAMES) => boolean;
-  getHelperErrorText: (field: SEARCH_FIELD_NAMES) => string | null;
-  resetForm: () => void;
-  handleSubmit: () => void;
-  values: SearchForm;
-  options: SearchDestination[];
-  formik: FormikContextType<any>;
+  lang: LANGUAGES;
 }
 
-export const SearchComponent: FC<Props & JSX.IntrinsicAttributes> = ({
-  date,
-  handleChangeDate,
-  handleChangeFrom,
-  handleChangeWhere,
-  hasFieldError,
-  getHelperErrorText,
-  resetForm,
-  handleSubmit,
-  values,
-  options,
-  ...rest
-}) => {
-  const { t, i18n } = useTranslation();
+export const SearchComponent: FC<Props> = ({ lang }) => {
+  const { t } = useTranslation();
   const stateValues = useRecoilValue(searchValuesStateSelector);
-  useEffect(() => {
-    resetForm();
-  }, [i18n.language]);
+  const {
+    date,
+    handleChangeDate,
+    handleChangeFrom,
+    handleChangeWhere,
+    hasFieldError,
+    getHelperErrorText,
+    formik,
+    from,
+  } = useSearch(stateValues);
+  const { handleSubmit, values } = formik;
 
-  useEffect(() => {
-    if (stateValues) {
-      handleChangeFrom(stateValues.from);
-      handleChangeDate(stateValues.date as Date);
-    }
-  }, [stateValues]);
-
+  const menuItems: SearchDestination[] = lang === LANGUAGES.RU ? RUdestinations : ENdestinations;
   return (
     <form onSubmit={handleSubmit}>
       <Grid
@@ -79,15 +61,14 @@ export const SearchComponent: FC<Props & JSX.IntrinsicAttributes> = ({
           <FormControl fullWidth>
             <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
               <Autocomplete
-                key={`from_${i18n.language}`}
                 disablePortal
                 id={DESTINATIONS.SELECT_FROM}
-                options={options}
-                value={stateValues.from}
+                value={from || null}
+                options={menuItems}
                 noOptionsText={t("label.no-options")}
                 isOptionEqualToValue={(option, value) => option.label === value.label}
                 onChange={(_, value) => {
-                  handleChangeFrom(value);
+                  handleChangeFrom(value as SearchDestination);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -102,22 +83,23 @@ export const SearchComponent: FC<Props & JSX.IntrinsicAttributes> = ({
             </WithSkeleton>
           </FormControl>
         </Grid>
-        <FormikProvider value={rest.formik}>
+        <FormikProvider value={formik}>
           <FieldArray
             name={SEARCH_FIELD_NAMES.WHERE}
             render={(arrayHelpers) => (
               <>
                 {values.where.map((_, index) => (
                   <SelectWhereDestination
-                    key={`${values.where[index].key}${i18n.language}`}
+                    key={`${values.where[index].key}${lang}`}
                     id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                     name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                     getHelperErrorText={getHelperErrorText}
                     handleChangeWhere={(value) => handleChangeWhere(arrayHelpers, index, value)}
                     hasFieldError={hasFieldError}
                     deleteDestination={() => arrayHelpers.remove(index)}
-                    options={options}
+                    options={menuItems}
                     isFirstWhereDestination={index === 0}
+                    index={index}
                   />
                 ))}
                 <Grid item xs={12}>
@@ -156,13 +138,14 @@ export const SearchComponent: FC<Props & JSX.IntrinsicAttributes> = ({
         <Grid item xs={12} sm={6}>
           <LocalizationProvider
             dateAdapter={AdapterDateFns}
-            adapterLocale={i18n.language === LANGUAGES.RU ? ruLocale : enUSLocale}
+            adapterLocale={lang === LANGUAGES.RU ? ruLocale : enUSLocale}
           >
             <FormControl fullWidth>
               <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
                 <DatePicker
-                  label={t("label.select-date")}
+                  key={String(date)}
                   value={date}
+                  label={t("label.select-date")}
                   inputFormat="dd/MM/yyyy"
                   onChange={handleChangeDate}
                   renderInput={(params) => (

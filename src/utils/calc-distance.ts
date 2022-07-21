@@ -15,15 +15,20 @@ const formatDistance = (lang: LANGUAGES, distance: number) => {
   return `Общее расстояние тура: ${distance} км`;
 };
 
-export const calcDistance = (lang: LANGUAGES, from: SearchDestination, where: SearchDestinationWithKey[]) => {
-  const destinationIds: string[] = [from.id, ...where.map(({ id }) => id)];
+export const calcDistance = (
+  lang: LANGUAGES,
+  from: SearchDestination | null,
+  where: SearchDestinationWithKey[] | null = []
+) => {
+  const { id = "" } = from ?? {};
+  const destinationIds: string[] = [id, ...(where ?? []).map((element) => element.id)];
   const destinationDistances: number[] = destinationIds.map((destinationId, index) => {
     if (index === destinationIds.length - 1) {
       return 0;
     }
 
     const distanceId = `${destinationId} - ${destinationIds[index + 1]}`;
-    const { distance = 0 } = distances.find(({ id }) => id === distanceId) ?? {};
+    const { distance = 0 } = distances.find((element) => element.id === distanceId) ?? {};
 
     return distance;
   });
