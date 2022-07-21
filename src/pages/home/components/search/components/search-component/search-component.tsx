@@ -62,6 +62,7 @@ export const SearchComponent: FC<Props & JSX.IntrinsicAttributes> = ({
           pr: 2,
           pb: 2,
           borderRadius: 4,
+          boxShadow: "0px 0px 10px 5px rgba(0, 0, 0, 0.2)",
         }}
         spacing={2}
       >
