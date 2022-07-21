@@ -1,19 +1,24 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
 import uniqid from "uniqid";
 import * as yup from "yup";
 import { FieldArrayRenderProps, useFormik } from "formik";
 import dayjs from "dayjs";
-import { LANGUAGES, LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS } from "enums";
+import { LANGUAGES, LOCALIZATION_NAMESPACES, LOG_EVENTS_BUTTONS, PATHS } from "enums";
 import { useAnalyticsLog } from "firebase-common";
+import { searchValuesState } from "store/atoms";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
-import { isFieldArray, getErrorFromFieldArray, calcDistance } from "utils";
+import { isFieldArray, getErrorFromFieldArray } from "utils";
 import { SearchDestination, SearchForm } from "interfaces";
 import { SEARCH_FIELD_NAMES } from "./search-constants";
 
 const useValidation = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
+  const setSearchValues = useSetRecoilState(searchValuesState);
   const { logEvent } = useAnalyticsLog();
   const validationSchema = yup.object({
     [SEARCH_FIELD_NAMES.FROM]: yup
@@ -40,8 +45,8 @@ const useValidation = () => {
     validationSchema,
     onSubmit: (values) => {
       logEvent(LOG_EVENTS_BUTTONS.CLICK_SEARCH_BUTTON, values);
-      // eslint-disable-next-line no-alert
-      alert(calcDistance(i18next.language as LANGUAGES, values.from, values.where));
+      navigate(PATHS.SELECT_DRIVER);
+      setSearchValues(values);
     },
   });
 
