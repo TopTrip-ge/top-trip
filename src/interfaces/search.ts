@@ -10,5 +10,5 @@ export interface SearchDestinationWithKey extends SearchDestination {
 export interface SearchForm {
   from: SearchDestination;
   where: SearchDestinationWithKey[];
-  date: string;
+  date: Date | string;
 }

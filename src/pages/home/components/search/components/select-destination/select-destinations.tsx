@@ -38,10 +38,10 @@ export const SelectDestination: FC<Props> = ({
             value={autocompleteValue}
             options={options}
             noOptionsText={t("label.no-options")}
-            isOptionEqualToValue={(option, value) => option.label === value.label}
-            onChange={(_, elementValue) => {
-              setAutocompleteValue(elementValue);
-              handleChangeWhere(elementValue);
+            isOptionEqualToValue={(option, elementValue) => option.label === elementValue.label}
+            onChange={(_, itemValue) => {
+              setAutocompleteValue(itemValue);
+              handleChangeWhere(itemValue);
             }}
             renderInput={(params) => (
               <TextField

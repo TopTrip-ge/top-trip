@@ -1,5 +1,6 @@
-import { FC, useEffect, ReactElement } from "react";
+import { FC, useEffect } from "react";
 import uniqid from "uniqid";
+import { useRecoilValue } from "recoil";
 import { Button, FormControl, Grid, Autocomplete } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FieldArray, FieldArrayRenderProps, FormikContextType, FormikProvider } from "formik";
@@ -9,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { WithSkeleton } from "hocs";
+import { searchValuesStateSelector } from "store/selectors";
 import { LANGUAGES } from "enums/localization";
 import { TextField } from "components/text-field";
 import { Icon } from "components/icon";
@@ -42,12 +44,19 @@ export const SearchComponent: FC<Props & JSX.IntrinsicAttributes> = ({
   values,
   options,
   ...rest
-}): ReactElement => {
+}) => {
   const { t, i18n } = useTranslation();
-
+  const stateValues = useRecoilValue(searchValuesStateSelector);
   useEffect(() => {
     resetForm();
   }, [i18n.language]);
+
+  useEffect(() => {
+    if (stateValues) {
+      handleChangeFrom(stateValues.from);
+      handleChangeDate(stateValues.date as Date);
+    }
+  }, [stateValues]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -74,6 +83,7 @@ export const SearchComponent: FC<Props & JSX.IntrinsicAttributes> = ({
                 disablePortal
                 id={DESTINATIONS.SELECT_FROM}
                 options={options}
+                value={stateValues.from}
                 noOptionsText={t("label.no-options")}
                 isOptionEqualToValue={(option, value) => option.label === value.label}
                 onChange={(_, value) => {
