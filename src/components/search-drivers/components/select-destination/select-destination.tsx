@@ -14,7 +14,7 @@ interface Props extends Pick<UseSearchDriversFormik, "hasFieldError" | "getHelpe
   options: SearchDestination[];
   name: SEARCH_FIELD_NAMES;
   id: DESTINATIONS;
-  destinationValue: SearchDestination;
+  destinationValue: SearchDestination | null;
   handleChangeWhere: (value: SearchDestination | null) => void;
   children?: ReactNode;
   sx?: SxProps<Theme>;

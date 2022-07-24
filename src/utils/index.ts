@@ -5,3 +5,4 @@ export * from "./convert-currency";
 export * from "./set-currency-sign";
 export * from "./form";
 export * from "./calc-distance";
+export * from "./are-empty-fields-in-object";

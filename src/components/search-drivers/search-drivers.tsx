@@ -7,6 +7,7 @@ import { WithSkeleton } from "hocs/with-skeleton";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { Icon } from "components/icon";
+import { areEmptyFieldsInObject } from "utils/are-empty-fields-in-object";
 import { DESTINATIONS, SEARCH_FIELD_NAMES, SKELETON_MIN_HEIGHT } from "./search-drivers-constants";
 import { SelectWhere } from "./components";
 import { useSearchDrivers } from "./hooks";
@@ -47,7 +48,7 @@ export const SearchDrivers: FC = () => {
             <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
               <Autocomplete
                 disablePortal
-                value={values.from}
+                value={areEmptyFieldsInObject(values.from, ["id", "label"]) ? null : values.from}
                 id={DESTINATIONS.SELECT_FROM}
                 options={menuItems}
                 noOptionsText={t("label.no-options")}
@@ -76,7 +77,7 @@ export const SearchDrivers: FC = () => {
                 {values.where.map((destinationWhere, index) => (
                   <SelectWhere
                     key={`${values.where[index].key}${lang}`}
-                    value={destinationWhere}
+                    value={areEmptyFieldsInObject(destinationWhere, ["id", "label"]) ? null : destinationWhere}
                     id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                     name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                     getHelperErrorText={getHelperErrorText}

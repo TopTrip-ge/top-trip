@@ -11,7 +11,7 @@ interface Props extends Pick<UseSearchDriversFormik, "hasFieldError" | "getHelpe
   name: SEARCH_FIELD_NAMES;
   id: DESTINATIONS;
   isFirstWhereDestination: boolean;
-  value: SearchDestination;
+  value: SearchDestination | null;
   deleteDestination: () => void;
   handleChangeWhere: (value: SearchDestination | null) => void;
 }
