@@ -13,9 +13,9 @@ import { searchValuesState } from "store/atoms";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
 import { isFieldArray, getErrorFromFieldArray } from "utils";
 import { SearchDestination, SearchForm } from "interfaces";
-import { SEARCH_FIELD_NAMES } from "./search-constants";
+import { SEARCH_FIELD_NAMES } from "../search-drivers-constants";
 
-const useValidation = () => {
+const useValidation = (shouldRedirect?: boolean) => {
   const navigate = useNavigate();
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
   const setSearchValues = useSetRecoilState(searchValuesState);
@@ -27,7 +27,11 @@ const useValidation = () => {
       .required(),
     [SEARCH_FIELD_NAMES.WHERE]: yup
       .array()
-      .of(yup.object().shape({ id: yup.string().required().min(3), label: yup.string().required().min(3) }))
+      .of(
+        yup
+          .object()
+          .shape({ id: yup.string().required().min(3), label: yup.string().required().min(3), key: yup.string() })
+      )
       .required(),
     [SEARCH_FIELD_NAMES.DATE]: yup
       .date()
@@ -45,7 +49,9 @@ const useValidation = () => {
     validationSchema,
     onSubmit: (values) => {
       logEvent(LOG_EVENTS_BUTTONS.CLICK_SEARCH_BUTTON, values);
-      navigate(PATHS.SELECT_DRIVER);
+      if (shouldRedirect) {
+        navigate(PATHS.SELECT_DRIVER);
+      }
       setSearchValues(values);
     },
   });
@@ -53,13 +59,11 @@ const useValidation = () => {
   return formik;
 };
 
-export const useSearch = () => {
+export const useSearchDriversFormik = (shouldRedirect?: boolean) => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
   const options: SearchDestination[] = i18next.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
-  const formik = useValidation();
+  const formik = useValidation(shouldRedirect);
   const [date, setDate] = useState<Date | null>(null);
-
-  const setDatePickerValue = (newValue: Date | null) => setDate(newValue);
 
   const handleChangeFrom = (value: SearchDestination | null) => {
     formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, value);
@@ -70,20 +74,20 @@ export const useSearch = () => {
   };
 
   const handleChangeDate = (value: Date | null) => {
-    setDatePickerValue(value);
+    setDate(value);
     formik.setFieldValue(SEARCH_FIELD_NAMES.DATE, value);
   };
 
   const hasFieldError = (field: SEARCH_FIELD_NAMES): boolean => {
-    const fieldTouched = formik.touched[field];
     const fieldErrors = formik.errors ?? [];
+    const hasSubmission = !!formik.submitCount;
 
     if (isFieldArray(field)) {
       const error = getErrorFromFieldArray(field, fieldErrors);
-      return !!error;
+      return !!error && hasSubmission;
     }
 
-    return !!fieldTouched && !!fieldErrors[field];
+    return !!fieldErrors[field] && hasSubmission;
   };
 
   const getHelperErrorText = (field: SEARCH_FIELD_NAMES) => {
@@ -122,4 +126,4 @@ export const useSearch = () => {
   };
 };
 
-export type UseSearch = ReturnType<typeof useSearch>;
+export type UseSearchDriversFormik = ReturnType<typeof useSearchDriversFormik>;
