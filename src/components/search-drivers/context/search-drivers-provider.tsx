@@ -3,6 +3,8 @@ import { SearchDestination } from "interfaces/search";
 import { FC, ReactNode, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
+import { useLocation } from "react-router";
+import { PATHS } from "enums/paths";
 import { useSearchDriversFormik } from "../hooks";
 import { SearchDriversContext } from "./search-drivers-context";
 import { SearchDriverContext as SearchDriverContextInterface } from "../search-drivers-interfaces";
@@ -12,7 +14,9 @@ interface Props {
 }
 
 export const SearchDriversProvider: FC<Props> = ({ children }) => {
-  const searchDriversValues = useSearchDriversFormik();
+  const { pathname } = useLocation();
+  const shouldRedirectOnSubmit = pathname !== PATHS.SELECT_DRIVER;
+  const searchDriversValues = useSearchDriversFormik(shouldRedirectOnSubmit);
   const { i18n, t } = useTranslation();
   const menuItems: SearchDestination[] = i18n.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
 

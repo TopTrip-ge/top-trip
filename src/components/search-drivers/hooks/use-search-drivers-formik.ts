@@ -15,7 +15,7 @@ import { isFieldArray, getErrorFromFieldArray } from "utils";
 import { SearchDestination, SearchForm } from "interfaces";
 import { SEARCH_FIELD_NAMES } from "../search-drivers-constants";
 
-const useValidation = () => {
+const useValidation = (shouldRedirect?: boolean) => {
   const navigate = useNavigate();
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
   const setSearchValues = useSetRecoilState(searchValuesState);
@@ -49,7 +49,9 @@ const useValidation = () => {
     validationSchema,
     onSubmit: (values) => {
       logEvent(LOG_EVENTS_BUTTONS.CLICK_SEARCH_BUTTON, values);
-      navigate(PATHS.SELECT_DRIVER);
+      if (shouldRedirect) {
+        navigate(PATHS.SELECT_DRIVER);
+      }
       setSearchValues(values);
     },
   });
@@ -57,10 +59,10 @@ const useValidation = () => {
   return formik;
 };
 
-export const useSearchDriversFormik = () => {
+export const useSearchDriversFormik = (shouldRedirect?: boolean) => {
   const { t } = useTranslation(LOCALIZATION_NAMESPACES.VALIDATION);
   const options: SearchDestination[] = i18next.language === LANGUAGES.RU ? RUdestinations : ENdestinations;
-  const formik = useValidation();
+  const formik = useValidation(shouldRedirect);
   const [date, setDate] = useState<Date | null>(null);
 
   const handleChangeFrom = (value: SearchDestination | null) => {
