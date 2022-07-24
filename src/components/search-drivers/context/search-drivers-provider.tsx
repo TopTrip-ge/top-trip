@@ -1,9 +1,9 @@
+import { FC, ReactNode, useEffect, useMemo } from "react";
+import { useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "enums/localization";
 import { SearchDestination } from "interfaces/search";
-import { FC, ReactNode, useEffect, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { RUdestinations, ENdestinations } from "mock-database/destinations";
-import { useLocation } from "react-router";
 import { PATHS } from "enums/paths";
 import { useSearchDriversFormik } from "../hooks";
 import { SearchDriversContext } from "./search-drivers-context";
