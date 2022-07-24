@@ -27,7 +27,11 @@ const useValidation = () => {
       .required(),
     [SEARCH_FIELD_NAMES.WHERE]: yup
       .array()
-      .of(yup.object().shape({ id: yup.string().required().min(3), label: yup.string().required().min(3) }))
+      .of(
+        yup
+          .object()
+          .shape({ id: yup.string().required().min(3), label: yup.string().required().min(3), key: yup.string() })
+      )
       .required(),
     [SEARCH_FIELD_NAMES.DATE]: yup
       .date()
@@ -59,8 +63,6 @@ export const useSearchDriversFormik = () => {
   const formik = useValidation();
   const [date, setDate] = useState<Date | null>(null);
 
-  const setDatePickerValue = (newValue: Date | null) => setDate(newValue);
-
   const handleChangeFrom = (value: SearchDestination | null) => {
     formik.setFieldValue(SEARCH_FIELD_NAMES.FROM, value);
   };
@@ -70,20 +72,20 @@ export const useSearchDriversFormik = () => {
   };
 
   const handleChangeDate = (value: Date | null) => {
-    setDatePickerValue(value);
+    setDate(value);
     formik.setFieldValue(SEARCH_FIELD_NAMES.DATE, value);
   };
 
   const hasFieldError = (field: SEARCH_FIELD_NAMES): boolean => {
-    const fieldTouched = formik.touched[field];
     const fieldErrors = formik.errors ?? [];
+    const hasSubmission = !!formik.submitCount;
 
     if (isFieldArray(field)) {
       const error = getErrorFromFieldArray(field, fieldErrors);
-      return !!error;
+      return !!error && hasSubmission;
     }
 
-    return !!fieldTouched && !!fieldErrors[field];
+    return !!fieldErrors[field] && hasSubmission;
   };
 
   const getHelperErrorText = (field: SEARCH_FIELD_NAMES) => {

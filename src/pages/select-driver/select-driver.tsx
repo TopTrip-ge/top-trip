@@ -13,13 +13,16 @@ import { Drivers } from "./components/drivers/drivers";
 export const SelectDriver: FC = () => {
   const values = useRecoilValue(searchValuesStateSelector);
   const { i18n } = useTranslation();
+  const showDistanceValue = values?.from && values?.where.some(({ id }) => !!id);
 
   return (
     <MainLayout>
       <Section>
         <Container>
           <SearchDrivers />
-          <Typography sx={{ p: 3 }}>{calcDistance(i18n.language as LANGUAGES, values?.from, values?.where)}</Typography>
+          <Typography sx={{ p: 3 }}>
+            {showDistanceValue && calcDistance(i18n.language as LANGUAGES, values?.from, values?.where)}
+          </Typography>
           <Drivers />
         </Container>
       </Section>

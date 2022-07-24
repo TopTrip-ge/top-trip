@@ -49,7 +49,7 @@ export const SearchDrivers: FC = () => {
             <WithSkeleton animation="pulse" isLoading={false} sx={{ minHeight: SKELETON_MIN_HEIGHT }}>
               <Autocomplete
                 disablePortal
-                value={areEmptyFieldsInObject(values.from, ["id", "label"]) ? null : values.from}
+                value={areEmptyFieldsInObject(values.from ?? {}, ["id", "label"]) ? null : values.from}
                 id={DESTINATIONS.SELECT_FROM}
                 options={menuItems}
                 noOptionsText={t("label.no-options")}
@@ -78,7 +78,7 @@ export const SearchDrivers: FC = () => {
                 {values.where.map((destinationWhere, index) => (
                   <SelectWhere
                     key={`${values.where[index].key}${lang}`}
-                    value={areEmptyFieldsInObject(destinationWhere, ["id", "label"]) ? null : destinationWhere}
+                    value={areEmptyFieldsInObject(destinationWhere ?? {}, ["id", "label"]) ? null : destinationWhere}
                     id={`${DESTINATIONS.SELECT_WHERE}.${index}` as DESTINATIONS}
                     name={`${SEARCH_FIELD_NAMES.WHERE}.${index}` as SEARCH_FIELD_NAMES}
                     getHelperErrorText={getHelperErrorText}
@@ -94,7 +94,7 @@ export const SearchDrivers: FC = () => {
                     <Button
                       variant="contained"
                       onClick={() => arrayHelpers.push({ id: "", label: "", key: uniqid() })}
-                      disabled={values.where[values.where.length - 1].id.length < 3}
+                      disabled={values.where[values.where.length - 1].id?.length < 3}
                       size="large"
                       sx={{
                         width: "100%",
